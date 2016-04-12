@@ -141,9 +141,9 @@ public class UserDAO implements DAO<User> {
         return user;
     }
 
-    public void update(User user) throws SQLException{}
+    public boolean isUpdate(User user) throws SQLException{ return false;}
 
-    public void delete(Object login) throws SQLException{
+    public boolean isDelete(Object login) throws SQLException{
         Connection connection = null;
         PreparedStatement ps = null;
         String query = SQL_QUERY_DELETE_USER_BY_LOGIN;
@@ -153,7 +153,10 @@ public class UserDAO implements DAO<User> {
             ps = connection.prepareStatement(query);
             ps.setString(1, login.toString());
 
-            if(ps.executeUpdate() > 0){}
+            if(ps.executeUpdate() > 0){
+                return true;
+                //log
+            }
 
         }catch (PropertyVetoException e){
             e.printStackTrace();
@@ -163,6 +166,7 @@ public class UserDAO implements DAO<User> {
             ps.close();
             connection.close();
         }
+        return false;
     }
 
     public List<User> readAll() throws SQLException{

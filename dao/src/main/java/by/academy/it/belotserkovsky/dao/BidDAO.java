@@ -2,6 +2,7 @@ package by.academy.it.belotserkovsky.dao;
 
 import by.academy.it.belotserkovsky.entity.Bid;
 import by.academy.it.belotserkovsky.poolConnection.DataSource;
+import org.apache.log4j.Logger;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 public class BidDAO implements DAO<Bid> {
     private static BidDAO instance;
+    private static Logger log = Logger.getLogger(BidDAO.class);
 
     private final String COLUMN_NAME_ID = "b_id";
     private final String COLUMN_NAME_KIND_OF_WORKS = "kindOfworks";
@@ -55,7 +57,9 @@ public class BidDAO implements DAO<Bid> {
             ps.setString(3, bid.getDesiredRuntime());
             ps.setInt(4, bid.getUserId());
 
-            if (ps.executeUpdate() > 0){}
+            if (ps.executeUpdate() > 0){
+                log.info("Create:" + bid);
+            }
 
         } catch (PropertyVetoException e) {
             e.printStackTrace();
@@ -128,7 +132,7 @@ public class BidDAO implements DAO<Bid> {
         return allBids;
     }
 
-    public void update(Bid bid) throws SQLException{
+    public boolean isUpdate(Bid bid) throws SQLException{
         Connection connection = null;
         PreparedStatement ps = null;
         String query = SQL_QUERY_UPDATE_BID;
@@ -144,7 +148,9 @@ public class BidDAO implements DAO<Bid> {
             ps.setInt(5, bid.getBrigadeId());
             ps.setInt(6, bid.getId());
 
-            ps.executeUpdate();
+            if(ps.executeUpdate() > 0){
+                return true;
+            }
 
         }catch (PropertyVetoException e){
             e.printStackTrace();
@@ -154,7 +160,8 @@ public class BidDAO implements DAO<Bid> {
         ps.close();
         connection.close();
         }
+        return false;
     }
 
-    public void delete(Object key) throws SQLException{ }
+    public boolean isDelete(Object key) throws SQLException{ return false;}
 }

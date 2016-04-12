@@ -1,7 +1,6 @@
 package by.academy.it.belotserkovsky.dao;
 
 import by.academy.it.belotserkovsky.entity.Worker;
-import by.academy.it.belotserkovsky.managers.SQLManager;
 import by.academy.it.belotserkovsky.poolConnection.DataSource;
 
 import java.beans.PropertyVetoException;
@@ -66,7 +65,7 @@ public class WorkerDAO implements DAO<Worker> {
 
     public Worker read(Object key) throws SQLException { return null; }
 
-    public void update(Worker worker) throws SQLException{
+    public boolean isUpdate(Worker worker) throws SQLException{
         Connection connection = null;
         PreparedStatement ps = null;
         String query = SQL_QUERY_UPDATE_WORKER;
@@ -77,7 +76,10 @@ public class WorkerDAO implements DAO<Worker> {
             ps.setInt(1, worker.getBrigadeId());
             ps.setInt(2, worker.getId());
 
-            ps.executeUpdate();
+           if(ps.executeUpdate() > 0){
+               return true;
+               //log
+           }
 
         } catch (PropertyVetoException e) {
             e.printStackTrace();
@@ -87,9 +89,10 @@ public class WorkerDAO implements DAO<Worker> {
             ps.close();
             connection.close();
         }
+        return false;
     }
 
-    public void delete(Object workerId) throws SQLException{
+    public boolean isDelete(Object workerId) throws SQLException{
 
         Integer id = (Integer) workerId;
         Connection connection = null;
@@ -101,7 +104,9 @@ public class WorkerDAO implements DAO<Worker> {
 
             ps.setInt(1, id.intValue());
 
-            ps.executeUpdate();
+            if (ps.executeUpdate() > 0){
+                return true;
+            }
 
         } catch (PropertyVetoException e) {
             e.printStackTrace();
@@ -111,6 +116,7 @@ public class WorkerDAO implements DAO<Worker> {
            ps.close();
            connection.close();
         }
+        return false;
     }
 
     public List<Worker> readAll() throws SQLException{

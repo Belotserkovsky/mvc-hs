@@ -17,10 +17,6 @@
 </div></div>
 
 <div> <div class="content"></div>
-    <a href="/jsp/brigades.jsp">Link for add brigade.</a>
-</div></div>
-
-<div> <div class="content"></div>
     <a href="controller?command=workerslist"> Get list of workers.</a>
 </div></div>
 

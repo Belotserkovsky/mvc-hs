@@ -1,0 +1,5 @@
+##############
+jdbc.param.driver=com.mysql.jdbc.Driver
+jdbc.param.url=jdbc:mysql://localhost:3306/hsdb
+user.param.login=root
+user.param.password=kost
