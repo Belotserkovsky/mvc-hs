@@ -29,16 +29,16 @@ public class LoginCommand implements ActionCommand {
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 
         if (LoginLogic.getInstance().checkAdminLogin(login, pass)) {
-            request.setAttribute("admin", login);
             HttpSession session = request.getSession(true);
             session.setAttribute("userType", UserType.ADMIN);
+            session.setAttribute("user", login);
             page = ConfigurationManager.PATH_PAGE_ADMIN;
         } else if (LoginLogic.getInstance().checkUserLogin(login, pass)) {
             User user = UserDAOService.getInstance().getUserByLoginPass(login, pass);
-            request.setAttribute("user", login);
-            request.setAttribute("u_id", user.getId());
             HttpSession session = request.getSession(true);
             session.setAttribute("userType", UserType.USER);
+            session.setAttribute("user", login);
+            session.setAttribute("u_id", user.getId());
             Cookie c = new Cookie(UID, String.valueOf(user.getId()));
             c.setMaxAge(ONE_WEEK);
             response.addCookie(c);

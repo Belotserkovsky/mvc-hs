@@ -35,7 +35,7 @@ public class BidFormCommand implements ActionCommand {
 
         BidDAOService.getInstance().addBid(newBid);
 
-        return ConfigurationManager.PATH_PAGE_CHOICE_WORKER;
+        return page = ConfigurationManager.PATH_PAGE_CHOICE_WORKER;
     }
 
 }

@@ -13,22 +13,22 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class BrigadeAddCommand implements ActionCommand {
 
-    private Brigade brigade = null;
-
-    private static final String PARAM_NAME_NAME = "name";
+    private static final String PARAM_NAME_USER_ID = "u_id";
+    private static final String PARAM_NAME_WORKERS = "workers";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         String page = null;
-        String name = request.getParameter(PARAM_NAME_NAME);
+        String nameBrigade;
 
-        brigade = new Brigade();
+        String uid = request.getParameter(PARAM_NAME_USER_ID);
 
-        brigade.setName(name);
+        String[] selected = request.getParameterValues(PARAM_NAME_WORKERS);
 
-        BrigadeDAOService.getInstance().addBrigade(brigade);
+        nameBrigade = BrigadeDAOService.getInstance().addBrigade(selected);
 
-        page = ConfigurationManager.PATH_PAGE_ADMIN;
+        Brigade newBrigade = BrigadeDAOService.getInstance().getBrigadeByName(nameBrigade);
+
 
         return page;
     }

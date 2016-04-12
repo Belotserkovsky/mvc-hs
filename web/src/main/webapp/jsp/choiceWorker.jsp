@@ -12,7 +12,7 @@
 <br/>
 <div> <div class="content">
     <form name="addBid" method="POST" action="controller">
-        <input type="hidden" name="command" value="choiceWorkerCommand"/>
+        <input type="hidden" name="command" value="brigadeAddCommand"/>
 
         <br/>
         <div><div class="content">

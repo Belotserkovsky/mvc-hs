@@ -15,17 +15,16 @@
     <input type="text" name="login" value=""/>
     <br/>Password:<br/>
     <input type="password" name="password" value=""/>
-         <br/>
-    ${errorLoginPassMessage}
-        <br/>
-    ${wrongAction}
-        <br/>
-        ${nullPage}
-        <br/>
     <input type="submit" value="Log in"/>
 </form>
     </div></div></hr>
-
+<br/>
+${errorLoginPassMessage}
+<br/>
+${wrongAction}
+<br/>
+${nullPage}
+<br/>
 Links for guest...<br/>
 User status: $sessionScope
 

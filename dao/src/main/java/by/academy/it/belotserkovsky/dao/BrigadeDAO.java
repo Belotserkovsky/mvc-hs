@@ -1,7 +1,6 @@
 package by.academy.it.belotserkovsky.dao;
 
 import by.academy.it.belotserkovsky.entity.Brigade;
-import by.academy.it.belotserkovsky.managers.SQLManager;
 import by.academy.it.belotserkovsky.poolConnection.DataSource;
 
 import java.beans.PropertyVetoException;
@@ -24,6 +23,7 @@ public class BrigadeDAO implements DAO <Brigade> {
 
     private final String SQL_QUERY_CREATE_BRIGADE = "INSERT INTO brigades (name) VALUES (?)";
     private final String SQL_QUERY_DELETE_BRIGADE_BY_ID = "DELETE FROM brigades WHERE b_id = ?";
+    private final String SQL_QUERY_READ_BRIGADE_BY_NAME = "SELECT FROM brigades WHERE name = ?";
     private final String SQL_QUERY_READALL_BRIGADES = "SELECT * FROM brigades";
 
     private BrigadeDAO() {
@@ -59,11 +59,43 @@ public class BrigadeDAO implements DAO <Brigade> {
         }
     }
 
-    public void update (Brigade brigade) throws SQLException{ }
+    public boolean isUpdate (Brigade brigade) throws SQLException{ return false;}
 
-    public Brigade read(Object key) throws SQLException { return null; }
+    public Brigade read(Object key) throws SQLException {
 
-    public void delete(Object key) throws SQLException{
+        Brigade newBrigade = null;
+        String brigadeName = (String)key;
+
+        Connection connection = null;
+        PreparedStatement ps = null;
+        String query = SQL_QUERY_READ_BRIGADE_BY_NAME;
+
+        try {
+            connection = DataSource.getInstance().getConnection();
+            ps = connection.prepareStatement(query);
+
+            ps.setString(1, brigadeName);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                newBrigade = new Brigade ();
+                newBrigade.setId(rs.getInt(COLUMN_NAME_ID));
+                newBrigade.setName(rs.getString(COLUMN_NAME_NAME));
+            }
+            return newBrigade;
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            ps.close();
+            connection.close();
+        }
+        return newBrigade;
+    }
+
+    public boolean isDelete(Object key) throws SQLException{
         Connection connection = null;
         PreparedStatement ps = null;
         String query = SQL_QUERY_DELETE_BRIGADE_BY_ID;
@@ -76,6 +108,7 @@ public class BrigadeDAO implements DAO <Brigade> {
             ps.setInt(1, brigadeId.intValue());
 
             if(ps.executeUpdate() > 0){
+                return true;
                 //log
             }
 
@@ -87,6 +120,7 @@ public class BrigadeDAO implements DAO <Brigade> {
             ps.close();
             connection.close();
         }
+        return false;
     }
 
     public List<Brigade> readAll() throws SQLException{

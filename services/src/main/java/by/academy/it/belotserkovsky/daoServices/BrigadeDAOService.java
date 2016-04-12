@@ -27,6 +27,21 @@ public class BrigadeDAOService {
         brigadeDAO = BrigadeDAO.getInstance();
     }
 
+    public Brigade getBrigadeByName (String name){
+
+        Brigade brigade = null;
+
+       try {
+           if (name.length() != 0) {
+               brigade = BrigadeDAO.getInstance().read(name);
+               return brigade;
+           }
+       }catch (SQLException e){
+           //log;
+       }
+        return null;
+    }
+
     public void addBrigade (Brigade brigade) {
         try {
             brigadeDAO.create(brigade);
@@ -36,9 +51,10 @@ public class BrigadeDAOService {
     }
 
     public void deleteBrigade (Object key) {
+
         try {
-            if (key instanceof Integer) {
-                brigadeDAO.delete(key);
+                if (brigadeDAO.isDelete(key)){
+                //
             } else {
                 //log
             }
@@ -54,5 +70,25 @@ public class BrigadeDAOService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String addBrigade (String[] selected){
+
+        String nameBrigade = "";
+        Brigade newBrigade = null;
+
+        try{
+            if(selected.length != 0) {
+                for (int i = 0; i < selected.length; ++i) {
+                    nameBrigade += "/" + selected[i] + "/";
+                }
+            }
+            newBrigade = new Brigade (nameBrigade);
+            brigadeDAO.create(newBrigade);
+            //log
+        }catch (SQLException e){
+            //log
+        }
+        return nameBrigade;
     }
 }

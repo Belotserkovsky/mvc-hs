@@ -12,9 +12,9 @@ public interface DAO <T>{
 
     public T read(Object key) throws SQLException;
 
-    public void update(T t) throws SQLException;
+    public boolean isUpdate(T t) throws SQLException;
 
-    public void delete(Object key) throws SQLException;
+    public boolean isDelete(Object key) throws SQLException;
 
     public List<T> readAll() throws SQLException;
 }
