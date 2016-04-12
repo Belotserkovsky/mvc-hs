@@ -51,18 +51,18 @@
             <input type="text" name="password" value=""/> </div> </div>
         <br/>
 
-        ${errorLoginPassMessage}
-        <br/>
-        ${wrongAction}
-        <br/>
-        ${nullPage}
-        <br/>
-
         <div> <div class="content">
             <input type="submit" value="Send..."/> </div></div>
     </form></div></div>
-<hr/>
+    <br/>
+
+${errorLoginPassMessage}
 <br/>
+${wrongAction}
+<br/>
+${nullPage}
+<br/>
+<hr/>
 
 <div> <div class="content"> <c:import url="/jsp/fragment/footer.jsp"/></div></div>
 
