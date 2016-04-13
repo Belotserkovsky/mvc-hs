@@ -2,6 +2,7 @@ package by.academy.it.belotserkovsky.dao;
 
 import by.academy.it.belotserkovsky.entity.Brigade;
 import by.academy.it.belotserkovsky.poolConnection.DataSource;
+import org.apache.log4j.Logger;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 public class BrigadeDAO implements DAO <Brigade> {
     private static BrigadeDAO instance;
+    private static Logger log = Logger.getLogger(BrigadeDAO.class);
 
     private final String COLUMN_NAME_ID = "b_id";
     private final String COLUMN_NAME_NAME = "name";
@@ -48,11 +50,12 @@ public class BrigadeDAO implements DAO <Brigade> {
             ps.setString(1, brigade.getName());
 
             ps.executeUpdate();
+            log.info("Create: " + brigade);
 
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("IOException: " + e);
         } finally {
             ps.close();
             connection.close();
@@ -82,12 +85,13 @@ public class BrigadeDAO implements DAO <Brigade> {
                 newBrigade = new Brigade ();
                 newBrigade.setId(rs.getInt(COLUMN_NAME_ID));
                 newBrigade.setName(rs.getString(COLUMN_NAME_NAME));
+                log.info("Read: " + key);
+                return newBrigade;
             }
-            return newBrigade;
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("IOException: " + e);
         } finally {
             ps.close();
             connection.close();
@@ -108,14 +112,14 @@ public class BrigadeDAO implements DAO <Brigade> {
             ps.setInt(1, brigadeId.intValue());
 
             if(ps.executeUpdate() > 0){
+                log.info("Delete: " + key);
                 return true;
-                //log
             }
 
         }catch (PropertyVetoException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }catch (IOException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }finally {
             ps.close();
             connection.close();
@@ -141,13 +145,14 @@ public class BrigadeDAO implements DAO <Brigade> {
                 allBrigades.add(brigade);
             }
         }catch (PropertyVetoException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }catch (IOException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } finally {
             ps.close();
             connection.close();
         }
+        log.info("Read all: " + allBrigades);
         return allBrigades;
     }
 

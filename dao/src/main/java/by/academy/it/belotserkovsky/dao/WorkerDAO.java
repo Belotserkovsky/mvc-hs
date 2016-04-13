@@ -2,6 +2,7 @@ package by.academy.it.belotserkovsky.dao;
 
 import by.academy.it.belotserkovsky.entity.Worker;
 import by.academy.it.belotserkovsky.poolConnection.DataSource;
+import org.apache.log4j.Logger;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
@@ -18,6 +19,8 @@ import java.util.List;
  */
 public class WorkerDAO implements DAO<Worker> {
     private static WorkerDAO instance;
+    private static Logger log = Logger.getLogger(WorkerDAO.class);
+
 
     private final String COLUMN_NAME_ID = "w_id";
     private final String COLUMN_NAME_FULLNAME = "fullName";
@@ -51,14 +54,15 @@ public class WorkerDAO implements DAO<Worker> {
             ps.setString(1, worker.getFullName());
             ps.setString(2, worker.getProfession());
 
-            if (ps.executeUpdate() > 0){}
+            ps.executeUpdate();
+            log.info("Create: " + worker);
 
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } finally {
-            { ps.close(); }
+            ps.close();
             connection.close();
         }
     }
@@ -77,14 +81,13 @@ public class WorkerDAO implements DAO<Worker> {
             ps.setInt(2, worker.getId());
 
            if(ps.executeUpdate() > 0){
+               log.info("Update: " + worker);
                return true;
-               //log
            }
-
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } finally {
             ps.close();
             connection.close();
@@ -105,13 +108,14 @@ public class WorkerDAO implements DAO<Worker> {
             ps.setInt(1, id.intValue());
 
             if (ps.executeUpdate() > 0){
+                log.info("Delete: " + workerId);
                 return true;
             }
 
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } finally {
            ps.close();
            connection.close();
@@ -139,13 +143,14 @@ public class WorkerDAO implements DAO<Worker> {
                 allWorkers.add(worker);
             }
         }catch (PropertyVetoException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }catch (IOException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } finally {
             ps.close();
             connection.close();
         }
+        log.info("Readed all workers: " + allWorkers);
         return allWorkers;
     }
 }
