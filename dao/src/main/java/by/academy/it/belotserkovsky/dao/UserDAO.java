@@ -2,13 +2,11 @@ package by.academy.it.belotserkovsky.dao;
 
 import by.academy.it.belotserkovsky.entity.User;
 import by.academy.it.belotserkovsky.poolConnection.DataSource;
+import org.apache.log4j.Logger;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +15,8 @@ import java.util.List;
  * Created by Kostya on 06.04.2016.
  */
 public class UserDAO implements DAO<User> {
-
     private static UserDAO instance;
+    private static Logger log = Logger.getLogger(UserDAO.class);
 
     private final String COLUMN_NAME_ID = "u_id";
     private final String COLUMN_NAME_FULLNAME = "fullName";
@@ -67,12 +65,14 @@ public class UserDAO implements DAO<User> {
                 user.setEmail(rs.getString(COLUMN_NAME_EMAIL));
                 user.setLogin(rs.getString(COLUMN_NAME_LOGIN));
                 user.setPassword(rs.getString(COLUMN_NAME_PASSWORD));
+
+                log.info("Read: " + user);
+                return user;
             }
         } catch (PropertyVetoException e) {
-            connection.rollback();
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } finally {
             ps.close();
             connection.close();
@@ -86,7 +86,6 @@ public class UserDAO implements DAO<User> {
         String query = SQL_QUERY_CREATE_USER;
         try {
             connection = DataSource.getInstance().getConnection();
-            connection.setAutoCommit(true);
             ps = connection.prepareStatement(query);
 
             ps.setString(1, user.getFullName());
@@ -97,14 +96,12 @@ public class UserDAO implements DAO<User> {
             ps.setString(4, user.getPassword());
 
             ps.executeUpdate();
-
-            connection.commit();
+            log.info("Create: " + user);
 
         } catch (PropertyVetoException e) {
-            connection.rollback();
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } finally {
             ps.close();
             connection.close();
@@ -122,18 +119,21 @@ public class UserDAO implements DAO<User> {
             ps.setString(1, login.toString());
             ResultSet rs = ps.executeQuery();
 
-            while( rs.next()){
+            if (rs.next()){
                 user = new User();
                 user.setId(rs.getInt(COLUMN_NAME_ID));
                 user.setFullName(rs.getString(COLUMN_NAME_FULLNAME));
                 user.setAddress(rs.getString(COLUMN_NAME_ADDRESS));
                 user.setLogin(rs.getString(COLUMN_NAME_LOGIN));
                 user.setPassword(rs.getString(COLUMN_NAME_PASSWORD));
+
+                log.info("Read: " + user);
+                return user;
             }
         }catch (PropertyVetoException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }catch (IOException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }finally {
             ps.close();
             connection.close();
@@ -154,14 +154,14 @@ public class UserDAO implements DAO<User> {
             ps.setString(1, login.toString());
 
             if(ps.executeUpdate() > 0){
+                log.info("Delete: " + login);
                 return true;
-                //log
             }
 
         }catch (PropertyVetoException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }catch (IOException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }finally {
             ps.close();
             connection.close();
@@ -190,13 +190,14 @@ public class UserDAO implements DAO<User> {
                 allUsers.add(user);
             }
         }catch (PropertyVetoException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }catch (IOException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } finally {
             ps.close();
             connection.close();
         }
+        log.info("Read all users: " + allUsers);
         return allUsers;
     }
 }

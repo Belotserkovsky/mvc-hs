@@ -1,10 +1,14 @@
 package by.academy.it.belotserkovsky.dao;
 
 import by.academy.it.belotserkovsky.entity.Bid;
+import by.academy.it.belotserkovsky.poolConnection.DataSource;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,7 +21,6 @@ public class BidDAOTest {
 
     private BidDAO bidDAO;
 
-    @Before
     @Test
     public void create() throws Exception {
         Bid bid = new Bid();
@@ -35,24 +38,18 @@ public class BidDAOTest {
 
     }
 
-    @Test
-    public void read() throws Exception {
+    @After
+    public void deleteAll() throws Exception{
+    Connection connection = null;
+    Statement statement = null;
+    String query = "DELETE * FROM bids";
 
-    }
+    connection = DataSource.getInstance().getConnection();
+    statement = connection.createStatement();
 
-    @Test
-    public void readAll() throws Exception {
+    statement.execute(query);
 
-    }
-
-    @Test
-    public void isUpdate() throws Exception {
-
-    }
-
-    @Test
-    public void isDelete() throws Exception {
-
-    }
-
+    statement.close();
+    connection.close();
+}
 }
