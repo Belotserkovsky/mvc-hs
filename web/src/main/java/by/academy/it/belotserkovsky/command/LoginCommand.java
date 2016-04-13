@@ -51,5 +51,4 @@ public class LoginCommand implements ActionCommand {
         }
         return page;
     }
-
 }

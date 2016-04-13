@@ -10,27 +10,31 @@
     <c:import url="/jsp/fragment/header.jsp"/>
 </div></div>
     <hr/>
-<div> <div class="content">Please fill in the fields below to form a bid:</div></div>
 
+<br/>
 <div> <div class="content">
     <form name="addBid" method="POST" action="controller">
-        <input type="hidden" name="command" value="bidformcommand"/>
+        <input type="hidden" name="command" value="brigadeAddCommand"/>
+
         <br/>
-        User ID:
-        <input type="text" name="u_id" value=${u_id}/>
+        <div><div class="content">
+            <input type="CHECKBOX" name="workers" value="Plumber>Plumber"/></div></div>
         <br/>
-        Kind of works:
-        <input type="text" name="kindOfWorks" value=""/>
+        <div><div class="content">
+            <input type="CHECKBOX" name="workers" value="Welder>Welder"/></div></div>
         <br/>
-        Scope:
-        <input type="text" name="scope" value=""/>
+        <div><div class="content">
+            <input type="CHECKBOX" name="workers" value="Electrician>Electrician"/></div></div>
         <br/>
-        Desired runtime:
-        <input type="text" name="desiredRuntime" value=""/>
+        <div><div class="content">
+            <input type="CHECKBOX" name="workers" value="House painter>House painter"/></div></div>
         <br/>
-        <input type="submit" value="Form a bid."/>
+        <div> <div class="content"><input type="submit" value="Select"/></div></div>
     </form>
-    </div></div>
+</div></div>
+
+
+
 <br/>
 <hr/>
     <div> <div class="content"></div>
