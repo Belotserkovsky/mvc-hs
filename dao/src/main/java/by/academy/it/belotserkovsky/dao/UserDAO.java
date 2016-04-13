@@ -86,7 +86,7 @@ public class UserDAO implements DAO<User> {
         String query = SQL_QUERY_CREATE_USER;
         try {
             connection = DataSource.getInstance().getConnection();
-            connection.setAutoCommit(false);
+            connection.setAutoCommit(true);
             ps = connection.prepareStatement(query);
 
             ps.setString(1, user.getFullName());
