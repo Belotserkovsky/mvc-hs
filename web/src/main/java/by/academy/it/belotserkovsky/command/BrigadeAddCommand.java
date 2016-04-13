@@ -29,7 +29,7 @@ public class BrigadeAddCommand implements ActionCommand {
 
         Brigade newBrigade = BrigadeDAOService.getInstance().getBrigadeByName(nameBrigade);
 
-
-        return page;
+        request.setAttribute("brigadeId", newBrigade.getId());
+        return ConfigurationManager.PATH_PAGE_FORM_BID;
     }
 }

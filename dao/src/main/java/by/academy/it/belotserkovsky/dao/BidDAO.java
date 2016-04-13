@@ -8,6 +8,7 @@ import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,7 +32,8 @@ public class BidDAO implements DAO<Bid> {
     private final String SQL_QUERY_CREATE_BID = "INSERT INTO bids (kindOfWorks,scope,desiredRuntime,client_id) VALUES (?,?,?,?)";
     private final String SQL_QUERY_READALL_BIDS = "SELECT * FROM bids";
     private final String SQL_QUERY_READ_BID_BY_LOGIN = "SELECT * FROM bids INNER JOIN WHERE (bids.users_id=users.id) AND (users.login=?)";
-    private final String SQL_QUERY_UPDATE_BID ="UPDATE bids SET kindOfworks = ?, scope = ?, desiredRuntime = ?, users_u_id = ?, brigades_b_id = ? WHERE b_id = ?";
+    private final String SQL_QUERY_UPDATE_BID = "UPDATE bids SET kindOfworks = ?, scope = ?, desiredRuntime = ?, users_u_id = ?, brigades_b_id = ? WHERE b_id = ?";
+    private final String SQL_QUERY_DELETE_ALL = "DELETE * FROM bids";
 
     private BidDAO() {
         super();
@@ -57,14 +59,13 @@ public class BidDAO implements DAO<Bid> {
             ps.setString(3, bid.getDesiredRuntime());
             ps.setInt(4, bid.getUserId());
 
-            if (ps.executeUpdate() > 0){
-                log.info("Create:" + bid);
-            }
+            ps.executeUpdate();
+            log.info("Create:" + bid);
 
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } finally {
             ps.close();
             connection.close();
@@ -89,11 +90,14 @@ public class BidDAO implements DAO<Bid> {
                 bid.setScope(rs.getString(COLUMN_NAME_SCOPE));
                 bid.setDesiredRuntime(rs.getString(COLUMN_NAME_DESIRED_RUNTIME));
                 bid.setUserId(rs.getInt(COLUMN_NAME_USER_ID));
+
+                log.info("Read:" + bid);
+                return bid;
             }
         }catch (PropertyVetoException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }catch (IOException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }finally {
             ps.close();
             connection.close();
@@ -122,13 +126,14 @@ public class BidDAO implements DAO<Bid> {
                 allBids.add(bid);
             }
         }catch (PropertyVetoException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }catch (IOException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } finally {
             ps.close();
             connection.close();
         }
+        log.info("Read all bids:" + allBids);
         return allBids;
     }
 
@@ -149,19 +154,20 @@ public class BidDAO implements DAO<Bid> {
             ps.setInt(6, bid.getId());
 
             if(ps.executeUpdate() > 0){
+                log.info("Update:" + bid);
                 return true;
             }
 
         }catch (PropertyVetoException e){
-            e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         }catch (IOException e){
-        e.printStackTrace();
+            log.error("c3p0 exception: " + e);
         } finally {
-        ps.close();
-        connection.close();
+            ps.close();
+            connection.close();
         }
         return false;
     }
 
-    public boolean isDelete(Object key) throws SQLException{ return false;}
+    public boolean isDelete(Object key) throws SQLException{ return false; }
 }
