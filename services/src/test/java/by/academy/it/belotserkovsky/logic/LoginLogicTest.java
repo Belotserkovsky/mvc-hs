@@ -59,7 +59,7 @@ public class LoginLogicTest {
     }
 
     @After
-    public void afterTest(){
+    public static void afterTest(){
             UserDAOService.getInstance().deleteUser(login);
     }
 
