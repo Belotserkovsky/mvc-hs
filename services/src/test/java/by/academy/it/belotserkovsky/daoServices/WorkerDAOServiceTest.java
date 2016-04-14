@@ -12,11 +12,11 @@ import static org.junit.Assert.*;
  */
 public class WorkerDAOServiceTest {
 
-    @Test
-    public void getWorkersList() throws Exception {
-        List<Worker> actual = WorkerDAOService.getInstance().getWorkersList();
-
-        assertNotNull(actual);
-    }
+//    @Test
+//    public void getWorkersList() throws Exception {
+//        List<Worker> actual = WorkerDAOService.getInstance().getWorkersList();
+//
+//        assertNotNull(actual);
+//    }
 
 }
