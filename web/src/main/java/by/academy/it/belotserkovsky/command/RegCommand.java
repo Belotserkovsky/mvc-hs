@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 public class RegCommand implements ActionCommand {
 
     private User user = null;
+    private String page = null;
 
     private static final String UID = "u_id";
     private static final String PARAM_NAME_FULLNAME = "fullName";
@@ -32,7 +33,6 @@ public class RegCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        String page = null;
         String fullName = request.getParameter(PARAM_NAME_FULLNAME);
         String address = request.getParameter(PARAM_NAME_ADDRESS);
         String phone = request.getParameter(PARAM_NAME_PHONE);
@@ -40,20 +40,21 @@ public class RegCommand implements ActionCommand {
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 
-        if(LoginLogic.getInstance().checkUserLogin(login, pass) == true){
+        if(LoginLogic.getInstance().checkUserLogin(login, pass)){
             request.setAttribute("errorLoginPassMessage", MessageManager.MESSAGE_LOGIN_PASS_EXISTS);
             request.getSession().setAttribute("userType", UserType.GUEST);
             page = ConfigurationManager.PATH_PAGE_REGISTRATION;
+            return page;
 
         }else {
 
             user = new User();
-            user.setFullName(request.getParameter(fullName));
-            user.setAddress(request.getParameter(address));
-            user.setPhone(request.getParameter(phone));
-            user.setEmail(request.getParameter(email));
-            user.setLogin(request.getParameter(login));
-            user.setPassword(request.getParameter(pass));
+            user.setFullName(fullName);
+            user.setAddress(address);
+            user.setPhone(phone);
+            user.setEmail(email);
+            user.setLogin(login);
+            user.setPassword(pass);
 
             UserDAOService.getInstance().addUser(user);
 
@@ -63,10 +64,12 @@ public class RegCommand implements ActionCommand {
                 request.setAttribute("user", login);
                 HttpSession session = request.getSession(true);
                 session.setAttribute("userType", UserType.USER);
+                session.setAttribute("u_id", user.getId());
                 Cookie c = new Cookie(UID, String.valueOf(user.getId()));
                 c.setMaxAge(ONE_WEEK);
                 response.addCookie(c);
                 page = ConfigurationManager.PATH_PAGE_USER;
+                return page;
             }
         }
         return page;

@@ -10,57 +10,37 @@
 <body>
 <div> <div class="content"><h2>REGISTRATION PAGE</h2></div> </div>
 <hr/>
-<div> <div class="content">
-    <c:import url="/jsp/fragment/header.jsp" />
-</div> </div>
 <hr/>
 <div> <div class="content">Please fill in the fields below:</div> </div>
 <br/>
 <div> <div class="content">
-    <form name="regForm" method="POST" action="controller">
+    <form name="regForm" method="POST" action="/controller">
         <input type="hidden" name="command" value="registration"/>
-
         <br/>
-        <div><div class="content"> Full Name:</div></div> <br/>
-        <div><div class="content">
-            <input type="text" name="fullName" value=""/></div></div>
+        Full Name:
         <br/>
-
-        <div><div class="content"> Address: </div> </div> <br/>
-        <div><div class="content">
-            <input type="text" name="address" value=""/> </div> </div>
+            <input type="text" name="fullName" value=""/>
         <br/>
+        Address:
+        <br/><input type="text" name="address" value=""/><br/>
+        Phone:
+        <br/><input type="text" name="phone" value=""/><br/>
+        E-mail:
+        <br/><input type="text" name="email" value=""/><br/>
+        Login:
+        <br/><input type="text" name="login" value=""/><br/>
+        Password:
+        <br/><input type="text" name="password" value=""/><br/>
 
-        <div><div class="content"> Phone: </div> </div> <br/>
-        <div><div class="content">
-            <input type="text" name="phone" value=""/> </div> </div>
-        <br/>
+        <input type="submit" value="Send..."/>
+    </form>
+</div></div>
 
-        <div><div class="content"> E-mail: </div> </div>
-        <div><div class="content">
-            <input type="text" name="email" value=""/> </div> </div>
-        <br/>
-
-        <div><div class="content"> Login: </div> </div> <br/>
-        <div><div class="content">
-            <input type="text" name="login" value=""/> </div> </div>
-        <br/>
-
-        <div><div class="content"> Password: </div> </div> <br/>
-        <div><div class="content">
-            <input type="text" name="password" value=""/> </div> </div>
-        <br/>
-
-        <div> <div class="content">
-            <input type="submit" value="Send..."/> </div></div>
-    </form></div></div>
-    <br/>
-
-${errorLoginPassMessage}
+<div> <div class="content">${errorLoginPassMessage}</div></div>
 <br/>
-${wrongAction}
+<div> <div class="content">${wrongAction}</div></div>
 <br/>
-${nullPage}
+<div> <div class="content">${nullPage}</div></div>
 <br/>
 <hr/>
 

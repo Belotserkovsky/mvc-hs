@@ -25,7 +25,7 @@ public class WorkersListCommand implements ActionCommand {
 
         request.setAttribute("workersList", workersList);
 
-        return ConfigurationManager.PATH_PAGE_WORKERSLIST;
+        return page = ConfigurationManager.PATH_PAGE_WORKERSLIST;
     }
 }
 

@@ -1,6 +1,5 @@
 package by.academy.it.belotserkovsky.poolConnection;
 
-import by.academy.it.belotserkovsky.managers.DataBaseManager;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
@@ -19,10 +18,10 @@ public class DataSource {
 
     private DataSource() throws IOException, SQLException, PropertyVetoException {
         cpds = new ComboPooledDataSource();
-        cpds.setDriverClass(DataBaseManager.getProperty("jdbc.param.driver")); //loads the jdbc driver
-        cpds.setJdbcUrl(DataBaseManager.getProperty("jdbc.param.url"));
-        cpds.setUser(DataBaseManager.getProperty("user.param.login"));
-        cpds.setPassword(DataBaseManager.getProperty("user.param.password"));
+        cpds.setDriverClass("com.mysql.jdbc.Driver"); //loads the jdbc driver
+        cpds.setJdbcUrl("jdbc:mysql://localhost:3306/hsdb");
+        cpds.setUser("root");
+        cpds.setPassword("kost");
 
         // the settings below are optional -- c3p0 can work with defaults
         cpds.setMinPoolSize(5);

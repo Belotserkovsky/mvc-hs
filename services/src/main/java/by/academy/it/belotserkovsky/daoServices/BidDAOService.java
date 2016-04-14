@@ -2,6 +2,7 @@ package by.academy.it.belotserkovsky.daoServices;
 
 import by.academy.it.belotserkovsky.dao.BidDAO;
 import by.academy.it.belotserkovsky.entity.Bid;
+import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by Kostya on 08.04.2016.
  */
 public class BidDAOService {
+    private static Logger log = Logger.getLogger(BidDAOService.class);
 
     private static BidDAOService instance;
 
@@ -31,15 +33,15 @@ public class BidDAOService {
         try {
             bidDAO.create(bid);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("SQL exception: " + e);
         }
     }
 
-    public Bid getBidByUserLogin(String login) {
+    public Bid getBidByUserID(Integer key) {
         try {
-            return bidDAO.read(login);
+            return bidDAO.read(key);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("SQL exception: " + e);;
             return null;
         }
     }
@@ -48,16 +50,16 @@ public class BidDAOService {
         try {
             return bidDAO.readAll();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("SQL exception: " + e);
             return null;
         }
     }
 
     public void updateBid (Bid bid) {
         try {
-            bidDAO.update(bid);
+            bidDAO.isUpdate(bid);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("SQL exception: " + e);
         }
     }
 }

@@ -26,9 +26,9 @@ public class UserDAO implements DAO<User> {
     private final String COLUMN_NAME_LOGIN = "login";
     private final String COLUMN_NAME_PASSWORD = "password";
 
-    private final String SQL_QUERY_CHECK_LOGIN_PASS = "SELECT FROM users WHERE login = ? AND password = ?";
+    private final String SQL_QUERY_CHECK_LOGIN_PASS = "SELECT * FROM users WHERE login = ? AND password = ?";
     private final String SQL_QUERY_CREATE_USER = "INSERT INTO users (fullName, address, phone, email, login, password) VALUES (?,?,?,?,?,?)";
-    private final String SQL_QUERY_READ_USER_BY_LOGIN = "SELECT FROM users WHERE login = ?";
+    private final String SQL_QUERY_READ_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?";
     private final String SQL_QUERY_READALL_USERS = "SELECT * FROM users";
     private final String SQL_QUERY_DELETE_USER_BY_LOGIN = "DELETE FROM users WHERE login = ?";
 
@@ -92,8 +92,8 @@ public class UserDAO implements DAO<User> {
             ps.setString(2, user.getAddress());
             ps.setString(3, user.getPhone());
             ps.setString(4, user.getEmail());
-            ps.setString(3, user.getLogin());
-            ps.setString(4, user.getPassword());
+            ps.setString(5, user.getLogin());
+            ps.setString(6, user.getPassword());
 
             ps.executeUpdate();
             log.info("Create: " + user);
@@ -116,7 +116,7 @@ public class UserDAO implements DAO<User> {
         try{
             connection = DataSource.getInstance().getConnection();
             ps = connection.prepareStatement(query);
-            ps.setString(1, login.toString());
+            ps.setString(1, (String)login);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()){

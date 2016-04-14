@@ -3,43 +3,31 @@
 <head>
     <title>User page</title>
     <style>
-        .content { text-align: center}
+        .content { text-align: left}
+        .content2 {text-align: center}
     </style>
 </head>
-<div> <div class="content">
+<div> <div class="content2">
     <c:import url="/jsp/fragment/header.jsp"/>
 </div></div>
     <hr/>
-
 <br/>
 <div> <div class="content">
-    <form name="addBid" method="POST" action="controller">
-        <input type="hidden" name="command" value="brigadeAddCommand"/>
-
-        <br/>
-        <div><div class="content">
-            <input type="CHECKBOX" name="workers" value="Plumber>Plumber"/></div></div>
-        <br/>
-        <div><div class="content">
-            <input type="CHECKBOX" name="workers" value="Welder>Welder"/></div></div>
-        <br/>
-        <div><div class="content">
-            <input type="CHECKBOX" name="workers" value="Electrician>Electrician"/></div></div>
-        <br/>
-        <div><div class="content">
-            <input type="CHECKBOX" name="workers" value="House painter>House painter"/></div></div>
-        <br/>
-        <div> <div class="content"><input type="submit" value="Select"/></div></div>
+    <form name="addBid" method="POST" action="/controller">
+        <input type="hidden" name="command" value="brigadeAdd">
+        <p><b>Select the required specialist:</b></p>
+        <p><input type="CHECKBOX" name="workers" value="Plumber">Plumber<Br>
+            <input type="CHECKBOX" name="workers" value="Welder">Welder<Br>
+            <input type="CHECKBOX" name="workers" value="Electrician">Electrician<Br>
+            <input type="CHECKBOX" name="workers" value="House painter">House painter<Br></p>
+            <p><input type="submit" value="Select"></p>
     </form>
 </div></div>
-
-
-
 <br/>
+<div> <div class="content2">${success}</div></div>
+<br/>
+<div> <div class="content2"><a href="/controller?command=biddisplay">Displaying yours bid</a></div></div>
 <hr/>
-    <div> <div class="content"></div>
-        <c:import url="/jsp/fragment/footer.jsp"/>
-    </div></div>
-<br/>
+    <div> <div class="content2"> <c:import url="/jsp/fragment/footer.jsp"/> </div></div>
 </body>
 </html>

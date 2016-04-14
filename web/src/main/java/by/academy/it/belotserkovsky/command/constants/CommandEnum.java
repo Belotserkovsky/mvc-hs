@@ -3,6 +3,7 @@ package by.academy.it.belotserkovsky.command.constants;
 import by.academy.it.belotserkovsky.command.*;
 
 /**
+ * constants to define commands
  * Created by Kostya on 09.04.2016.
  */
 public enum CommandEnum {
@@ -42,9 +43,24 @@ public enum CommandEnum {
             this.command = new BrigadeAddCommand();
         }
     },
-    BRIGADESLIST{
+    BRIGADESLIST {
         {
-         this.command = new BrigadesListCommand();
+            this.command = new BrigadesListCommand();
+        }
+    },
+    BIDFORM{
+        {
+            this.command = new BidFormCommand();
+        }
+    },
+    BRIGADEADD{
+        {
+            this.command = new BrigadeAddCommand();
+        }
+    },
+    BIDDISPLAY{
+        {
+            this.command = new BidDisplayCommand();
         }
     };
 

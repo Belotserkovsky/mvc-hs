@@ -27,7 +27,7 @@ public class WorkerDAO implements DAO<Worker> {
     private final String COLUMN_NAME_PROFESSION = "profession";
     private final String COLUMN_NAME_BRIGADE_ID = "brigades_b_id";
 
-    private final String SQL_QUERY_CREATE_WORKER = "INSERT INTO workers (fullName,profession) VALUES (?,?)";
+    private final String SQL_QUERY_CREATE_WORKER = "INSERT INTO workers (fullName,profession, brigades_b_id) VALUES (?,?,?)";
     private final String SQL_QUERY_DELETE_WORKER_BY_ID = "DELETE FROM workers WHERE w_id = ?";
     private final String SQL_QUERY_UPDATE_WORKER = "UPDATE workers SET brigades_b_id = ? WHERE w_id = ?";
     private final String SQL_QUERY_READALL_WORKERS = "SELECT * FROM workers";
@@ -53,6 +53,7 @@ public class WorkerDAO implements DAO<Worker> {
 
             ps.setString(1, worker.getFullName());
             ps.setString(2, worker.getProfession());
+            ps.setInt(3, worker.getBrigadeId());
 
             ps.executeUpdate();
             log.info("Create: " + worker);

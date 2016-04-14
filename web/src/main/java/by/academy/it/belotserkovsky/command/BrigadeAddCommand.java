@@ -3,12 +3,13 @@ package by.academy.it.belotserkovsky.command;
 import by.academy.it.belotserkovsky.daoServices.BrigadeDAOService;
 import by.academy.it.belotserkovsky.entity.Brigade;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * add brigade
+ * Command to add brigade
  * Created by Kostya on 11.04.2016.
  */
 public class BrigadeAddCommand implements ActionCommand {
@@ -18,8 +19,8 @@ public class BrigadeAddCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        String page = null;
-        String nameBrigade;
+        String page = "";
+        String nameBrigade = "";
 
         String uid = request.getParameter(PARAM_NAME_USER_ID);
 
@@ -29,7 +30,8 @@ public class BrigadeAddCommand implements ActionCommand {
 
         Brigade newBrigade = BrigadeDAOService.getInstance().getBrigadeByName(nameBrigade);
 
-        request.setAttribute("brigadeId", newBrigade.getId());
-        return ConfigurationManager.PATH_PAGE_FORM_BID;
+        request.setAttribute("brigade_id", newBrigade.getId());
+
+        return page = ConfigurationManager.PATH_PAGE_FORM_BID;
     }
 }

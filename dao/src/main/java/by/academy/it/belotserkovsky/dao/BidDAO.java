@@ -29,11 +29,11 @@ public class BidDAO implements DAO<Bid> {
     private final String COLUMN_NAME_USER_ID = "users_u_id";
     private final String COLUMN_NAME_BRIGADE_ID = "brigades_b_id";
 
-    private final String SQL_QUERY_CREATE_BID = "INSERT INTO bids (kindOfWorks,scope,desiredRuntime,client_id) VALUES (?,?,?,?)";
-    private final String SQL_QUERY_READALL_BIDS = "SELECT * FROM bids";
-    private final String SQL_QUERY_READ_BID_BY_LOGIN = "SELECT * FROM bids INNER JOIN WHERE (bids.users_id=users.id) AND (users.login=?)";
+    private final String SQL_QUERY_CREATE_BID = "INSERT INTO bids (kindOfWorks, scope, desiredRuntime, users_u_id, brigades_b_id) VALUES (?,?,?,?,?)";
+    private final String SQL_QUERY_READ_BID_BY_USER_ID = "SELECT * FROM bids WHERE users_u_id = ?";
     private final String SQL_QUERY_UPDATE_BID = "UPDATE bids SET kindOfworks = ?, scope = ?, desiredRuntime = ?, users_u_id = ?, brigades_b_id = ? WHERE b_id = ?";
-    private final String SQL_QUERY_DELETE_ALL = "DELETE * FROM bids";
+    private final String SQL_QUERY_READALL_BIDS = "SELECT * FROM bids";
+    private final String SQL_QUERY_DELETE_ALL = "DELETE FROM bids";
 
     private BidDAO() {
         super();
@@ -58,6 +58,7 @@ public class BidDAO implements DAO<Bid> {
             ps.setString(2, bid.getScope());
             ps.setString(3, bid.getDesiredRuntime());
             ps.setInt(4, bid.getUserId());
+            ps.setInt(5, bid.getBrigadeId());
 
             ps.executeUpdate();
             log.info("Create:" + bid);
@@ -72,26 +73,28 @@ public class BidDAO implements DAO<Bid> {
         }
     }
 
-    public Bid read(Object login) throws SQLException{
+    public Bid read(Object key) throws SQLException{
         Connection connection = null;
         PreparedStatement ps = null;
         Bid bid = null;
-        String query = SQL_QUERY_READ_BID_BY_LOGIN;
+        Integer userID = (Integer)key;
+        String query = SQL_QUERY_READ_BID_BY_USER_ID;
         try{
             connection = DataSource.getInstance().getConnection();
-            ps.setString(1, login.toString());
+            ps.setInt(1, userID.intValue());
             ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
-            while( rs.next()){
+            if (rs.next()){
                 bid = new Bid();
                 bid.setId(rs.getInt(COLUMN_NAME_ID));
                 bid.setKindOfWorks(rs.getString(COLUMN_NAME_KIND_OF_WORKS));
                 bid.setScope(rs.getString(COLUMN_NAME_SCOPE));
                 bid.setDesiredRuntime(rs.getString(COLUMN_NAME_DESIRED_RUNTIME));
                 bid.setUserId(rs.getInt(COLUMN_NAME_USER_ID));
+                bid.setBrigadeId(rs.getInt(COLUMN_NAME_BRIGADE_ID));
 
-                log.info("Read:" + bid);
+                log.info("Read user's bid:" + bid);
                 return bid;
             }
         }catch (PropertyVetoException e){
@@ -124,6 +127,7 @@ public class BidDAO implements DAO<Bid> {
                 bid.setDesiredRuntime(rs.getString(COLUMN_NAME_DESIRED_RUNTIME));
                 bid.setUserId(rs.getInt(COLUMN_NAME_USER_ID));
                 allBids.add(bid);
+                log.info("Read user's bid and add to list:" + bid);
             }
         }catch (PropertyVetoException e){
             log.error("c3p0 exception: " + e);

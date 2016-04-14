@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LogoutCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = ConfigurationManager.PATH_PAGE_INDEX;
+        String page = ConfigurationManager.PATH_PAGE_LOGOUT;
         request.getSession().invalidate();
         return page;
     }

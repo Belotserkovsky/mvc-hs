@@ -32,21 +32,8 @@ public class SecurityFilter implements Filter{
             RequestDispatcher dispatcher = request.getServletContext()
                     .getRequestDispatcher("/index.jsp");
             dispatcher.forward(req, resp);
-        }else if (type == UserType.ADMIN){
-            RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/jsp/admin.jsp");
-            dispatcher.forward(req, resp);
-        }else if (type == UserType.USER){
-            RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/jsp/user.jsp");
-            dispatcher.forward(req, resp);
         }
-        else{
-            RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/jsp/login.jsp");
-            dispatcher.forward(req, resp);
-        }
-
+        chain.doFilter(request, response);
     }
     public void init(FilterConfig fConfig) throws ServletException {
     }

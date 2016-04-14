@@ -25,7 +25,7 @@ public class BrigadeDAO implements DAO <Brigade> {
 
     private final String SQL_QUERY_CREATE_BRIGADE = "INSERT INTO brigades (name) VALUES (?)";
     private final String SQL_QUERY_DELETE_BRIGADE_BY_ID = "DELETE FROM brigades WHERE b_id = ?";
-    private final String SQL_QUERY_READ_BRIGADE_BY_NAME = "SELECT FROM brigades WHERE name = ?";
+    private final String SQL_QUERY_READ_BRIGADE_BY_NAME = "SELECT * FROM brigades WHERE name = ?";
     private final String SQL_QUERY_READALL_BRIGADES = "SELECT * FROM brigades";
 
     private BrigadeDAO() {
@@ -85,7 +85,7 @@ public class BrigadeDAO implements DAO <Brigade> {
                 newBrigade = new Brigade ();
                 newBrigade.setId(rs.getInt(COLUMN_NAME_ID));
                 newBrigade.setName(rs.getString(COLUMN_NAME_NAME));
-                log.info("Read: " + key);
+                log.info("Read brigade by name: " + key);
                 return newBrigade;
             }
         } catch (PropertyVetoException e) {
