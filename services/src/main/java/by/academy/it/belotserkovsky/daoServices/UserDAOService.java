@@ -2,6 +2,7 @@ package by.academy.it.belotserkovsky.daoServices;
 
 import by.academy.it.belotserkovsky.dao.UserDAO;
 import by.academy.it.belotserkovsky.entity.User;
+import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by Kostya on 07.04.2016.
  */
 public class UserDAOService {
+    private static Logger log = Logger.getLogger(UserDAOService.class);
     private UserDAO userDAO;
 
     private static UserDAOService instance;
@@ -32,7 +34,7 @@ public class UserDAOService {
                 userDAO.create(user);
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            log.error("SQLException: " + e);
         }
     }
 
@@ -40,16 +42,21 @@ public class UserDAOService {
         try {
             return userDAO.read(login, pass);
         }catch (SQLException e){
-            e.printStackTrace();
+            log.error("SQLException: " + e);
             return null;
         }
     }
 
     public void deleteUser(Object login){
         try {
-            userDAO.isDelete(login);
+            if (userDAO.isDelete(login)){
+                log.info("Success delete user by login: " + login);
+            }
+            else{
+                log.info("Failure delete user by login: " + login);
+            };
         }catch (SQLException e){
-            e.printStackTrace();;
+            log.error("SQLException: " + e);
         }
     }
 
@@ -57,7 +64,7 @@ public class UserDAOService {
         try{
             return userDAO.readAll();
         }catch (SQLException e){
-            e.printStackTrace();
+            log.error("SQLException: " + e);
         }
         return null;
     }
