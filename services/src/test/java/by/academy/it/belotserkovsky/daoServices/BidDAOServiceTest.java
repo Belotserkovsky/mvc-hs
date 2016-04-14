@@ -22,7 +22,7 @@ public class BidDAOServiceTest {
         Bid actual = new Bid();
 
         actual = BidDAOService.getInstance().getBidByUserID(key);
-        assertNotEquals(actual, null);
+        assertNotNull(actual);
 
     }
 

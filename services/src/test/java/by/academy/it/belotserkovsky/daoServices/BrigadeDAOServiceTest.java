@@ -18,7 +18,7 @@ public class BrigadeDAOServiceTest {
     public void getBrigadesList() throws Exception {
 
         List<Brigade> actual = BrigadeDAOService.getInstance().getBrigadesList();
-        assertNull(actual);
+        assertNotNull(actual);
     }
 
 }
