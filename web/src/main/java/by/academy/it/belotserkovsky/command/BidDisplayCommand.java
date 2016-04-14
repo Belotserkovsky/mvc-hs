@@ -32,6 +32,6 @@ public class BidDisplayCommand implements ActionCommand{
 
         request.setAttribute("bid", bid);
 
-        return page = ConfigurationManager.PATH_PAGE_BIDDISPLAY;
+        return page;
     }
 }

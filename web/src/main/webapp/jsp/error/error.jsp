@@ -11,6 +11,6 @@ Status code: ${pageContext.errorData.statusCode}
 Exception: ${pageContext.errorData.throwable}
 <br/>
 <div> <div class="content"></div>
-    <c:import url="jsp/fragment/footer.jsp"/>
+    <c:import url="/jsp/fragment/footer.jsp"/>
 </div></div>
 </body></html>

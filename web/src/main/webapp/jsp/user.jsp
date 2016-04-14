@@ -26,7 +26,6 @@
 <br/>
 <div> <div class="content2">${success}</div></div>
 <br/>
-<div> <div class="content2"><a href="/controller?command=biddisplay">Displaying yours bid</a></div></div>
 <hr/>
     <div> <div class="content2"> <c:import url="/jsp/fragment/footer.jsp"/> </div></div>
 </body>
