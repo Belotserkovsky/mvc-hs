@@ -47,7 +47,7 @@ public class UserDAOTest {
     }
 
     @After
-    public static void after(){
+    public void after(){
         try {
         if(UserDAO.getInstance().isDelete(login)){
             log.info("Test user was delete: " + login);
