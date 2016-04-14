@@ -1,0 +1,8 @@
+<application>
+  <component name="FileTypeManager" version="17">
+    <extensionMap>
+      <mapping pattern="mysql" type="Properties" />
+      <mapping pattern="log4j" type="Properties" />
+    </extensionMap>
+  </component>
+</application>
