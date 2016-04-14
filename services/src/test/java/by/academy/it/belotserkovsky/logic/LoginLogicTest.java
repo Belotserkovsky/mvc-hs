@@ -60,7 +60,7 @@ public class LoginLogicTest {
 
     @After
     public void afterTest(){
-            UserDAOService.getInstance().deleteUser("login");
+            UserDAOService.getInstance().deleteUser(login);
     }
 
 }
