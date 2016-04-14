@@ -127,7 +127,7 @@ public class BidDAO implements DAO<Bid> {
                 bid.setDesiredRuntime(rs.getString(COLUMN_NAME_DESIRED_RUNTIME));
                 bid.setUserId(rs.getInt(COLUMN_NAME_USER_ID));
                 bid.setBrigadeId(rs.getInt(COLUMN_NAME_BRIGADE_ID));
-                
+
                 allBids.add(bid);
                 log.info("Read user's bid and add to list:" + bid);
             }
