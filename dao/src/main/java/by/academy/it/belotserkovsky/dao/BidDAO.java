@@ -102,8 +102,12 @@ public class BidDAO implements DAO<Bid> {
         }catch (IOException e){
             log.error("c3p0 exception: " + e);
         }finally {
-            ps.close();
-            connection.close();
+            if(ps != null) {
+                ps.close();
+            }
+            if(connection != null) {
+                connection.close();
+            }
         }
         return bid;
     }

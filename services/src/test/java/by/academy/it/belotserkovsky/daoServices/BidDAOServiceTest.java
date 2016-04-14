@@ -15,16 +15,16 @@ import static org.junit.Assert.*;
  */
 public class BidDAOServiceTest {
 
-    @Test
-    public void getBidByUserID() throws Exception {
-        Integer key = new Integer(1);
-
-        Bid actual = new Bid();
-
-        actual = BidDAOService.getInstance().getBidByUserID(key);
-        assertNotNull(actual);
-
-    }
+//    @Test
+//    public void getBidByUserID() throws Exception {
+//        Integer key = new Integer(1);
+//
+//        Bid actual = new Bid();
+//
+//        actual = BidDAOService.getInstance().getBidByUserID(key);
+//        assertNotNull(actual);
+//
+//    }
 
     @Test
     public void getBidsList() throws Exception {
