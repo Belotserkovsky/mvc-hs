@@ -12,23 +12,16 @@
     <c:import url="/jsp/fragment/header.jsp" />
 </div> </div>
 <br/>
-<div> <div class="content"></div>
-    <a href="/jsp/workers.jsp">Link for add or update workers.</a>
-</div></div>
-
-<div> <div class="content"></div>
-    <a href="controller?command=workerslist"> Get list of workers.</a>
-</div></div>
 
 <div> <div class="content">
-    <form name="workersList" method="POST" action="controller">
-        <input type="hidden" name="command" value="workerslist"/>
-        <input type="submit" value="Get list of workers"/>
+    <form name="workersList" method="POST" action="/controller">
+        <input type="hidden" name="command" value="bidslist"/>
+        <input type="submit" value="Get list of bids"/>
 </form>
 </div></div>
 
 <div> <div class="content">
-    <form name="brigadesList" method="POST" action="controller">
+    <form name="brigadesList" method="POST" action="/controller">
         <input type="hidden" name="command" value="brigadeslist"/>
         <input type="submit" value="Get list of brigades"/>
     </form>

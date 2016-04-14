@@ -16,17 +16,24 @@
     <table>
     <c:forEach var="worker" items="${workersList}" varStatus="status">
         <tr>
-            <td><c:out value="${ worker.getId() }" /></td>
-            <td><c:out value="${ worker.getFullName() }" /></td>
-            <td><c:out value="${ worker.getProfession() }" /></td>
-            <td><c:out value="${ worker.getBrigadeId() }" /></td>
+            <td><c:out value="${ worker.id }" /></td>
+            <td><c:out value="${ worker.FullName }" /></td>
+            <td><c:out value="${ worker.Profession }" /></td>
+            <td><c:out value="${ worker.BrigadeId }" /></td>
         </tr>
     </c:forEach>
 </table>
 </div> </div>
-
+<hr/>
+<br/>
+${errorLoginPassMessage}
+<br/>
+${wrongAction}
+<br/>
+${nullPage}
+<br/>
 <div> <div class="content">
-    <a href="/jsp/brigades.jsp">Return to brigade page...</a>
+    <a href="/jsp/admin.jsp">Return to admin page...</a>
 </div> </div>
 </body>
 </html>

@@ -16,15 +16,25 @@
     <table>
         <c:forEach var="brigade" items="${brigadesList}" varStatus="status">
             <tr>
-                <td><c:out value="${ briade.getId() }" /></td>
-                <td><c:out value="${ brigade.getName() }" /></td>
+                <td><c:out value="${ brigade.id }" /></td>
+                <td><c:out value="${ brigade.name }" /></td>
             </tr>
         </c:forEach>
     </table>
 </div> </div>
-
+<hr/>
+<br/>
+${errorLoginPassMessage}
+<br/>
+${wrongAction}
+<br/>
+${nullPage}
+<br/>
 <div> <div class="content">
-    <a href="/jsp/workers.jsp">Return to worker page...</a>
+    <a href="/jsp/admin.jsp">Return to admin...</a>
 </div> </div>
+<hr/>
+<div> <div class="content">
+    <c:import url="/jsp/fragment/footer.jsp"/>
 </body>
 </html>
