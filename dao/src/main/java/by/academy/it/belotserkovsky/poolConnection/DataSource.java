@@ -15,13 +15,18 @@ public class DataSource {
     private static DataSource datasource;
     private ComboPooledDataSource cpds;
 
+    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/hsdb";
+    private static final String JDBC_USER_NAME = "root";
+    private static final String JDBC_USER_PASS = "kost";
+
 
     private DataSource() throws IOException, SQLException, PropertyVetoException {
         cpds = new ComboPooledDataSource();
-        cpds.setDriverClass("com.mysql.jdbc.Driver"); //loads the jdbc driver
-        cpds.setJdbcUrl("jdbc:mysql://localhost:3306/hsdb");
-        cpds.setUser("root");
-        cpds.setPassword("kost");
+        cpds.setDriverClass(JDBC_DRIVER); //loads the jdbc driver
+        cpds.setJdbcUrl(JDBC_URL);
+        cpds.setUser(JDBC_USER_NAME);
+        cpds.setPassword(JDBC_USER_PASS);
 
         // the settings below are optional -- c3p0 can work with defaults
         cpds.setMinPoolSize(5);

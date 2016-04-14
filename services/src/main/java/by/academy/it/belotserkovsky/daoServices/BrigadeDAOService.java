@@ -49,7 +49,7 @@ public class BrigadeDAOService {
         try {
             brigadeDAO.create(brigade);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("SQL exception: " + e);
         }
     }
 
@@ -57,9 +57,9 @@ public class BrigadeDAOService {
 
         try {
                 if (brigadeDAO.isDelete(key)){
-                //
+                log.info("Deleted: " + key);
             } else {
-                //log
+                log.info("Not delete: " + key);
             }
         }catch (SQLException e){
             log.error("SQL exception: " + e);
@@ -75,6 +75,10 @@ public class BrigadeDAOService {
         }
     }
 
+    /**
+     *
+     *parse date input through checkbox
+     */
     public String addBrigade (String[] selected){
 
         String nameBrigade = "";
