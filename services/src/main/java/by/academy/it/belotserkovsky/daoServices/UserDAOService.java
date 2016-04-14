@@ -47,7 +47,7 @@ public class UserDAOService {
 
     public void deleteUser(Object login){
         try {
-            userDAO.delete(login);
+            userDAO.isDelete(login);
         }catch (SQLException e){
             e.printStackTrace();;
         }

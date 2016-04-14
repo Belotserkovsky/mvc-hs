@@ -23,12 +23,13 @@ public class Bid {
         this.brigadeId = brigadeId;
     }
 
-    public Bid(String kindOfWorks, String scope, String desiredRuntime, int userId) {
+    public Bid(String kindOfWorks, String scope, String desiredRuntime, int userId, int brigadeId) {
         super();
         this.kindOfWorks = kindOfWorks;
         this.scope = scope;
         this.desiredRuntime = desiredRuntime;
         this.userId = userId;
+        this.brigadeId = brigadeId;
     }
 
     public int getId() {

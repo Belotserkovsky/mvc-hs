@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author Kostya 
- * 1) извлечение имени команды из запроса
- * 2) получение объекта, соответствующего команде
+ * @author Kostya
+ * 1) extracting from the request command name
+ * 2) receiving the object corresponding to command
  */
 public class ActionFactory {
 	public ActionCommand defineCommand(HttpServletRequest request, HttpServletResponse response) {

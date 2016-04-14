@@ -2,6 +2,7 @@ package by.academy.it.belotserkovsky.daoServices;
 
 import by.academy.it.belotserkovsky.dao.BrigadeDAO;
 import by.academy.it.belotserkovsky.entity.Brigade;
+import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
  */
 
 public class BrigadeDAOService {
+    private static Logger log = Logger.getLogger(BrigadeDAOService.class);
+
     private static BrigadeDAOService instance;
 
     public static BrigadeDAOService getInstance() {
@@ -37,7 +40,7 @@ public class BrigadeDAOService {
                return brigade;
            }
        }catch (SQLException e){
-           //log;
+           log.error("SQL exception: " + e);
        }
         return null;
     }
@@ -59,7 +62,7 @@ public class BrigadeDAOService {
                 //log
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            log.error("SQL exception: " + e);
         }
     }
 
@@ -67,7 +70,7 @@ public class BrigadeDAOService {
         try {
             return brigadeDAO.readAll();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("SQL exception: " + e);
             return null;
         }
     }
@@ -85,9 +88,8 @@ public class BrigadeDAOService {
             }
             newBrigade = new Brigade (nameBrigade);
             brigadeDAO.create(newBrigade);
-            //log
         }catch (SQLException e){
-            //log
+            log.error("SQL exception: " + e);
         }
         return nameBrigade;
     }

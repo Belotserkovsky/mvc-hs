@@ -32,7 +32,7 @@ public class WorkerDAOService {
 
     public void updateWorker (Worker worker) {
         try{
-            workerDAO.update(worker);
+            workerDAO.isUpdate(worker);
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -40,7 +40,7 @@ public class WorkerDAOService {
 
     public void deleteWorker (Object profession) {
         try {
-            workerDAO.delete(profession);
+            workerDAO.isDelete(profession);
         } catch (SQLException e) {
             e.printStackTrace();
         }

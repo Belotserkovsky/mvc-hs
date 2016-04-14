@@ -4,9 +4,8 @@
     <title>Footer</title>
 </head>
 <body>
-User status = ${sessionScope}.
-<br/>
+User status = ${userType}.
 <hr/>
-<a href="controller?command=logout">Logout.</a>
+<a href="/controller?command=logout">Logout.</a>
 </body>
 </html>
