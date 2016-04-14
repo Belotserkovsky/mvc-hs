@@ -40,7 +40,7 @@ public class UserDAOServiceTest {
     }
 
     @After
-    public static void after(){
+    public void after(){
         UserDAOService.getInstance().deleteUser(login);
     }
 }

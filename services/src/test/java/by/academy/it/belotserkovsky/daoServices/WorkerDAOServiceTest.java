@@ -17,8 +17,6 @@ public class WorkerDAOServiceTest {
         List<Worker> actual = WorkerDAOService.getInstance().getWorkersList();
 
         assertNotNull(actual);
-        assertNotEquals(actual, null);
-
     }
 
 }
