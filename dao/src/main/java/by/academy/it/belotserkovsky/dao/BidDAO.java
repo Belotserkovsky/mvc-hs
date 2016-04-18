@@ -8,7 +8,6 @@ import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,6 +45,10 @@ public class BidDAO implements DAO<Bid> {
         return instance;
     }
 
+    /**
+     * @param bid
+     * @throws SQLException
+     */
     public void create(Bid bid) throws SQLException{
         Connection connection = null;
         PreparedStatement ps = null;
@@ -73,6 +76,11 @@ public class BidDAO implements DAO<Bid> {
         }
     }
 
+    /**
+     * @param key
+     * @return Bid
+     * @throws SQLException
+     */
     public Bid read(Object key) throws SQLException{
         Connection connection = null;
         PreparedStatement ps = null;
@@ -112,6 +120,10 @@ public class BidDAO implements DAO<Bid> {
         return bid;
     }
 
+    /**
+     * @return List of Bids
+     * @throws SQLException
+     */
     public List<Bid> readAll() throws SQLException{
         Connection connection = null;
         PreparedStatement ps = null;
@@ -147,6 +159,11 @@ public class BidDAO implements DAO<Bid> {
         return allBids;
     }
 
+    /**
+     * @param bid
+     * @return boolean
+     * @throws SQLException
+     */
     public boolean isUpdate(Bid bid) throws SQLException{
         Connection connection = null;
         PreparedStatement ps = null;
