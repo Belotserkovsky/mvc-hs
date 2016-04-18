@@ -39,6 +39,11 @@ public class BrigadeDAO implements DAO <Brigade> {
         return instance;
     }
 
+    /**
+     *
+     * @param brigade
+     * @throws SQLException
+     */
     public void create(Brigade brigade) throws SQLException{
         Connection connection = null;
         PreparedStatement ps = null;

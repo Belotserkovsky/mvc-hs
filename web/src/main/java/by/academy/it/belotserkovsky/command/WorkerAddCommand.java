@@ -17,13 +17,13 @@ public class WorkerAddCommand implements ActionCommand {
 
     private Worker worker = null;
 
-    private static final String PARAM_NAME_FULLNAME = "fullName";
+    private static final String PARAM_NAME_FULL_NAME = "fullName";
     private static final String PARAM_NAME_PROFESSION = "profession";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         String page = null;
-        String fullName = request.getParameter(PARAM_NAME_FULLNAME);
+        String fullName = request.getParameter(PARAM_NAME_FULL_NAME);
         String profession = request.getParameter(PARAM_NAME_PROFESSION);
 
         worker = new Worker();
