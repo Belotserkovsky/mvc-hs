@@ -1,12 +1,5 @@
 package by.academy.it.belotserkovsky.daoServices;
 
-import by.academy.it.belotserkovsky.entity.Worker;
-import org.junit.Test;
-
-import java.util.List;
-
-import static org.junit.Assert.*;
-
 /**
  *
  */

@@ -1,7 +1,6 @@
 package by.academy.it.belotserkovsky.daoServices;
 
-import by.academy.it.belotserkovsky.dao.WorkerDAO;
-import by.academy.it.belotserkovsky.entity.Worker;
+import by.academy.it.belotserkovsky.pojos.Worker;
 
 import java.sql.SQLException;
 import java.util.List;

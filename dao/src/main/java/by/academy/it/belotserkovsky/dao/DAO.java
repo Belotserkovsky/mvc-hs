@@ -1,5 +1,8 @@
 package by.academy.it.belotserkovsky.dao;
 
+import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
+
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -9,13 +12,11 @@ import java.util.List;
  */
 public interface DAO <T>{
 
-    public void create(T t) throws SQLException;
+    void saveOrUpdate(T t) throws ExceptionDAO;
 
-    public T read(Object key) throws SQLException;
+    T get(Serializable id) throws ExceptionDAO;
 
-    public boolean isUpdate(T t) throws SQLException;
+    T load(Serializable id) throws ExceptionDAO;
 
-    public boolean isDelete(Object key) throws SQLException;
-
-    public List<T> readAll() throws SQLException;
+    void delete(T t) throws ExceptionDAO;
 }

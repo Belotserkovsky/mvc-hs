@@ -1,6 +1,6 @@
 package by.academy.it.belotserkovsky.dao;
 
-import by.academy.it.belotserkovsky.entity.User;
+import by.academy.it.belotserkovsky.pojos.User;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;

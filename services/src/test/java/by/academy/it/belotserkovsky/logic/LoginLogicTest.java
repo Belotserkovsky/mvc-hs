@@ -1,8 +1,7 @@
 package by.academy.it.belotserkovsky.logic;
 
-import by.academy.it.belotserkovsky.dao.UserDAO;
 import by.academy.it.belotserkovsky.daoServices.UserDAOService;
-import by.academy.it.belotserkovsky.entity.User;
+import by.academy.it.belotserkovsky.pojos.User;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;

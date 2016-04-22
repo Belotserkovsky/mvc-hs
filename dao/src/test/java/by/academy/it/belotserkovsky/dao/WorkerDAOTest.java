@@ -1,6 +1,6 @@
 package by.academy.it.belotserkovsky.dao;
 
-import by.academy.it.belotserkovsky.entity.Worker;
+import by.academy.it.belotserkovsky.pojos.Worker;
 import org.junit.Test;
 
 import java.util.List;

@@ -1,7 +1,6 @@
 package by.academy.it.belotserkovsky.daoServices;
 
-import by.academy.it.belotserkovsky.dao.BrigadeDAO;
-import by.academy.it.belotserkovsky.entity.Brigade;
+import by.academy.it.belotserkovsky.pojos.Brigade;
 import org.apache.log4j.Logger;
 
 import java.sql.SQLException;

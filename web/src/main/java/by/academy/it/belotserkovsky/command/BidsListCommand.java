@@ -1,7 +1,7 @@
 package by.academy.it.belotserkovsky.command;
 
 import by.academy.it.belotserkovsky.daoServices.BidDAOService;
-import by.academy.it.belotserkovsky.entity.Bid;
+import by.academy.it.belotserkovsky.pojos.Bid;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,11 +1,10 @@
 package by.academy.it.belotserkovsky.daoServices;
 
-import by.academy.it.belotserkovsky.entity.Bid;
+import by.academy.it.belotserkovsky.pojos.Bid;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import static org.junit.Assert.*;
 

@@ -1,7 +1,7 @@
 package by.academy.it.belotserkovsky.command;
 
 import by.academy.it.belotserkovsky.daoServices.BrigadeDAOService;
-import by.academy.it.belotserkovsky.entity.Brigade;
+import by.academy.it.belotserkovsky.pojos.Brigade;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,7 +1,6 @@
 package by.academy.it.belotserkovsky.daoServices;
 
-import by.academy.it.belotserkovsky.dao.BidDAO;
-import by.academy.it.belotserkovsky.entity.Bid;
+import by.academy.it.belotserkovsky.pojos.Bid;
 import org.apache.log4j.Logger;
 
 import java.sql.SQLException;

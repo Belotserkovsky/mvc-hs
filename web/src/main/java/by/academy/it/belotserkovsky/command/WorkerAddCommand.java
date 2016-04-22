@@ -1,11 +1,9 @@
 package by.academy.it.belotserkovsky.command;
 
-import by.academy.it.belotserkovsky.command.ActionCommand;
 import by.academy.it.belotserkovsky.daoServices.WorkerDAOService;
-import by.academy.it.belotserkovsky.entity.Worker;
+import by.academy.it.belotserkovsky.pojos.Worker;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

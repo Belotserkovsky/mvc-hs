@@ -1,9 +1,8 @@
 package by.academy.it.belotserkovsky.daoServices;
 
-import by.academy.it.belotserkovsky.entity.Brigade;
+import by.academy.it.belotserkovsky.pojos.Brigade;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;

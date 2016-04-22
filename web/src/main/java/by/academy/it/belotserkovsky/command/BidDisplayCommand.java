@@ -1,14 +1,10 @@
 package by.academy.it.belotserkovsky.command;
 
-import by.academy.it.belotserkovsky.command.ActionCommand;
 import by.academy.it.belotserkovsky.daoServices.BidDAOService;
-import by.academy.it.belotserkovsky.entity.Bid;
-import by.academy.it.belotserkovsky.managers.ConfigurationManager;
+import by.academy.it.belotserkovsky.pojos.Bid;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * get all user's bids

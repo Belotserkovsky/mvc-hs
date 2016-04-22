@@ -1,9 +1,8 @@
 package by.academy.it.belotserkovsky.command;
 
-import by.academy.it.belotserkovsky.command.ActionCommand;
 import by.academy.it.belotserkovsky.command.constants.UserType;
 import by.academy.it.belotserkovsky.daoServices.UserDAOService;
-import by.academy.it.belotserkovsky.entity.User;
+import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.logic.LoginLogic;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 import by.academy.it.belotserkovsky.managers.MessageManager;

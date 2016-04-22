@@ -1,6 +1,6 @@
 package by.academy.it.belotserkovsky.dao;
 
-import by.academy.it.belotserkovsky.entity.Bid;
+import by.academy.it.belotserkovsky.pojos.Bid;
 import by.academy.it.belotserkovsky.poolConnection.DataSource;
 import org.junit.After;
 import org.junit.Assert;
