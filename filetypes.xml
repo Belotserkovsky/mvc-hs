@@ -1,6 +1,7 @@
 <application>
   <component name="FileTypeManager" version="17">
     <extensionMap>
+      <mapping pattern="UserDetails.hbm.xml" type="PLAIN_TEXT" />
       <mapping pattern="mysql" type="Properties" />
       <mapping pattern="log4j" type="Properties" />
     </extensionMap>
