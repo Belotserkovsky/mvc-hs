@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="by.academy.it.belotserkovsky.pojos">
+    <class name="Bid" table="bids" lazy="false">
+        <id name="id" type="long">
+            <generator class="increment"/>
+        </id>
+        <property name="kindOfWorks" type="string" access="property"/>
+        <property name="desiredRuntime" type="string" access="property"/>
+        <property name="scope" type="string" access="property"/>
+
+        <many-to-one name="workPlan" class="WorkPlan" column="workPlan_id"/>
+        <many-to-one name="user" class="User" column ="user_id"/>
+    </class>
+</hibernate-mapping>

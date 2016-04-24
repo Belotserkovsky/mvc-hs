@@ -1,5 +1,7 @@
 package by.academy.it.belotserkovsky.daoServices;
 
+import by.academy.it.belotserkovsky.dao.BidDAO;
+import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.Bid;
 import org.apache.log4j.Logger;
 
@@ -15,7 +17,7 @@ public class BidDAOService {
 
     private static BidDAOService instance;
 
-    public static BidDAOService getInstance() {
+    public synchronized static BidDAOService getInstance() {
         if (instance == null) {
             instance = new BidDAOService();
         }
@@ -25,40 +27,44 @@ public class BidDAOService {
     private BidDAO bidDAO;
 
     public BidDAOService() {
-        bidDAO = BidDAO.getInstance();
+        bidDAO = new BidDAO();
     }
 
     public void addBid (Bid bid) {
         try {
-            bidDAO.create(bid);
-        } catch (SQLException e) {
-            log.error("SQL exception: " + e);
+            if(bid != null) {
+                bidDAO.saveOrUpdate(bid);
+            }
+        } catch (ExceptionDAO e) {
+            log.error("DAO exception in service layer during addBid(): " + e);
         }
     }
 
     public Bid getBidByUserID(Integer key) {
         try {
-            return bidDAO.read(key);
-        } catch (SQLException e) {
-            log.error("SQL exception: " + e);;
+            return bidDAO.get(key);
+        } catch (ExceptionDAO e) {
+            log.error("DAO exception in service layer during getBidByUserID(): " + e);;
             return null;
         }
     }
 
-    public List<Bid> getBidsList() {
-        try {
-            return bidDAO.readAll();
-        } catch (SQLException e) {
-            log.error("SQL exception: " + e);
-            return null;
-        }
-    }
+//    public List<Bid> getBidsList() {
+//        try {
+//            return bidDAO.readAll();
+//        } catch (SQLException e) {
+//            log.error("SQL exception: " + e);
+//            return null;
+//        }
+//    }
 
-    public void updateBid (Bid bid) {
+    public void deleteBid (Bid bid) {
         try {
-            bidDAO.isUpdate(bid);
-        } catch (SQLException e) {
-            log.error("SQL exception: " + e);
+            if(bid != null) {
+                bidDAO.delete(bid);
+            }
+        } catch (ExceptionDAO e) {
+            log.error("DAO exception in service layer during deleteBid(): " + e);
         }
     }
 }

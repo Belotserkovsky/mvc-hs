@@ -1,14 +1,18 @@
 package by.academy.it.belotserkovsky.pojos;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by Kostya on 08.04.2016.
  */
-public class Brigade {
+public class Brigade implements Serializable{
 
     private Long id;
-    private String name;
-
+    private String title;
     private WorkPlan workPlan;
+    private Set<Worker> workers = new HashSet<Worker>();
 
     public Brigade() { }
 
@@ -20,12 +24,12 @@ public class Brigade {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public WorkPlan getWorkPlan() {
@@ -36,5 +40,11 @@ public class Brigade {
         this.workPlan = workPlan;
     }
 
+    public Set<Worker> getWorkers() {
+        return workers;
+    }
 
+    public void setWorkers(Set<Worker> workers) {
+        this.workers = workers;
+    }
 }

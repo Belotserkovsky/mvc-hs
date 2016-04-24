@@ -1,9 +1,11 @@
 package by.academy.it.belotserkovsky.pojos;
 
+import java.io.Serializable;
+
 /**
- * Created by Kostya on 22.04.2016.
+ * Created by Kostya on 23.04.2016.
  */
-public class Contacts {
+public class UserContacts implements Serializable {
 
     private Long id;
     private String address;
@@ -12,7 +14,8 @@ public class Contacts {
 
     private User user;
 
-    public Contacts(){}
+    public UserContacts() {
+    }
 
     public Long getId() {
         return id;
@@ -57,14 +60,15 @@ public class Contacts {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Contacts)) return false;
+        if (!(o instanceof UserContacts)) return false;
 
-        Contacts contacts = (Contacts) o;
+        UserContacts that = (UserContacts) o;
 
-        if (!id.equals(contacts.id)) return false;
-        if (!address.equals(contacts.address)) return false;
-        if (!phone.equals(contacts.phone)) return false;
-        return email.equals(contacts.email);
+        if (!id.equals(that.id)) return false;
+        if (!address.equals(that.address)) return false;
+        if (!phone.equals(that.phone)) return false;
+        if (!email.equals(that.email)) return false;
+        return user.equals(that.user);
 
     }
 
@@ -74,17 +78,7 @@ public class Contacts {
         result = 31 * result + address.hashCode();
         result = 31 * result + phone.hashCode();
         result = 31 * result + email.hashCode();
+        result = 31 * result + user.hashCode();
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Contacts{" +
-                "id=" + id +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", user=" + user +
-                '}';
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="by.academy.it.belotserkovsky.pojos">
+    <class name="User" table="users" lazy="false">
+        <id name="id" type="long">
+            <generator class="increment"/>
+        </id>
+
+        <property name="firstName" type="string" access="property"/>
+        <property name="secondName" type="string" access="property"/>
+        <property name="login" type="string" access="property"/>
+        <property name="password" type="string" access="property"/>
+
+        <one-to-one name="userContacts" class="UserContacts"/>
+        <set name="bids" table="bids">
+            <key column="user_id"></key>
+            <one-to-many class="Bid"/>
+        </set>
+    </class>
+</hibernate-mapping>

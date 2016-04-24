@@ -1,24 +1,28 @@
 package by.academy.it.belotserkovsky.pojos;
 
+import java.io.Serializable;
+import java.util.Set;
+
 /**
  * Created by Kostya on 08.04.2016.
  */
-public class User {
-    private int id;
+public class User implements Serializable{
+    private Long id;
     private String firstName;
     private String secondName;
     private String login;
     private String password;
 
-    private Contacts contacts;
+    private UserContacts userContacts;
+    private Set<Bid> bids;
 
     public User() {}
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,48 +58,48 @@ public class User {
         this.password = password;
     }
 
-    public Contacts getContacts() {
-        return contacts;
+    public Set<Bid> getBids() {
+        return bids;
     }
 
-    public void setContacts(Contacts contacts) {
-        this.contacts = contacts;
+    public void setBids(Set<Bid> bids) {
+        this.bids = bids;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-
-        User user = (User) o;
-
-        if (id != user.id) return false;
-        if (!firstName.equals(user.firstName)) return false;
-        if (!secondName.equals(user.secondName)) return false;
-        if (!login.equals(user.login)) return false;
-        return password.equals(user.password);
-
+    public UserContacts getUserContacts() {
+        return userContacts;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + firstName.hashCode();
-        result = 31 * result + secondName.hashCode();
-        result = 31 * result + login.hashCode();
-        result = 31 * result + password.hashCode();
-        return result;
+    public void setUserContacts(UserContacts userContacts) {
+        this.userContacts = userContacts;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", contacts=" + contacts +
-                '}';
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof User)) return false;
+//
+//        User user = (User) o;
+//
+//        if (!id.equals(user.id)) return false;
+//        if (!firstName.equals(user.firstName)) return false;
+//        if (!secondName.equals(user.secondName)) return false;
+//        if (!login.equals(user.login)) return false;
+//        if (!password.equals(user.password)) return false;
+//        if (!userContacts.equals(user.userContacts)) return false;
+//        return bids.equals(user.bids);
+//
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = id.hashCode();
+//        result = 31 * result + firstName.hashCode();
+//        result = 31 * result + secondName.hashCode();
+//        result = 31 * result + login.hashCode();
+//        result = 31 * result + password.hashCode();
+//        result = 31 * result + userContacts.hashCode();
+//        result = 31 * result + bids.hashCode();
+//        return result;
+//    }
 }

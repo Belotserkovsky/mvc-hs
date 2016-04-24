@@ -1,10 +1,11 @@
 package by.academy.it.belotserkovsky.dao;
 
-import by.academy.it.belotserkovsky.Main;
 import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
+import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.io.Serializable;
@@ -15,17 +16,14 @@ import java.lang.reflect.ParameterizedType;
  */
 public class BaseDAO<T> implements DAO<T>{
 
+    public static HibernateUtil util = null;
     private static Logger log = Logger.getLogger(BaseDAO.class);
     private Transaction transaction = null;
 
-
-    public BaseDAO() {
-
-    }
-
     public void saveOrUpdate(T t) throws ExceptionDAO{
+        util = HibernateUtil.getHibernateUtil();
         try {
-            Session session = Main.util.getSession();
+            Session session = util.getSession();
             transaction = session.beginTransaction();
             session.saveOrUpdate(t);
             log.info("saveOrUpdate(t):" + t);
@@ -36,14 +34,14 @@ public class BaseDAO<T> implements DAO<T>{
             transaction.rollback();
             throw new ExceptionDAO(e);
         }
-
     }
 
     public T get(Serializable id) throws ExceptionDAO {
+        util = HibernateUtil.getHibernateUtil();
         log.info("Get class by id:" + id);
         T t = null;
         try {
-            Session session = Main.util.getSession();
+            Session session = util.getSession();
             transaction = session.beginTransaction();
             t = (T) session.get(getPersistentClass(), id);
             transaction.commit();
@@ -57,10 +55,11 @@ public class BaseDAO<T> implements DAO<T>{
     }
 
     public T load(Serializable id) throws ExceptionDAO {
+        util = HibernateUtil.getHibernateUtil();
         log.info("Load class by id:" + id);
         T t = null;
         try {
-            Session session = Main.util.getSession();
+            Session session = util.getSession();
             transaction = session.beginTransaction();
             t = (T) session.load(getPersistentClass(), id);
             log.info("load() clazz:" + t);
@@ -75,8 +74,9 @@ public class BaseDAO<T> implements DAO<T>{
     }
 
     public void delete(T t) throws ExceptionDAO {
+        util = HibernateUtil.getHibernateUtil();
         try {
-            Session session = Main.util.getSession();
+            Session session = util.getSession();
             transaction = session.beginTransaction();
             session.delete(t);
             transaction.commit();

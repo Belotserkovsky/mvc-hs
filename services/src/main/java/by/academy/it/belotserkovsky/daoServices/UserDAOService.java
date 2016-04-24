@@ -1,5 +1,7 @@
 package by.academy.it.belotserkovsky.daoServices;
 
+import by.academy.it.belotserkovsky.dao.UserDAO;
+import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.User;
 import org.apache.log4j.Logger;
 
@@ -16,7 +18,7 @@ public class UserDAOService {
 
     private static UserDAOService instance;
 
-    public static UserDAOService getInstance() {
+    public static synchronized UserDAOService getInstance() {
         if (instance == null) {
             instance = new UserDAOService();
         }
@@ -24,47 +26,47 @@ public class UserDAOService {
     }
 
     public UserDAOService() {
-        userDAO = UserDAO.getInstance();
+        userDAO = new UserDAO();
     }
 
     public void addUser (User user) {
         try {
             if(user != null) {
-                userDAO.create(user);
+                userDAO.saveOrUpdate(user);
             }
-        }catch (SQLException e){
-            log.error("SQLException: " + e);
+        }catch (ExceptionDAO e){
+            log.error("DAO exception in service layer during addUser(): " + e);
         }
     }
 
     public User getUserByLoginPass(String login, String pass) {
         try {
-            return userDAO.read(login, pass);
-        }catch (SQLException e){
-            log.error("SQLException: " + e);
+            return userDAO.get(login, pass);
+        }catch (ExceptionDAO e){
+            log.error("DAO exception in service layer during getUserByLoginPass(): " + e);
             return null;
         }
     }
 
-    public void deleteUser(Object login){
-        try {
-            if (userDAO.isDelete(login)){
-                log.info("Success delete user by login: " + login);
-            }
-            else{
-                log.info("Failure delete user by login: " + login);
-            };
-        }catch (SQLException e){
-            log.error("SQLException: " + e);
-        }
-    }
-
-    public List<User> getUsersList (){
-        try{
-            return userDAO.readAll();
-        }catch (SQLException e){
-            log.error("SQLException: " + e);
-        }
-        return null;
-    }
+//    public void deleteUser(Object login){
+//        try {
+//            if (userDAO.isDelete(login)){
+//                log.info("Success delete user by login: " + login);
+//            }
+//            else{
+//                log.info("Failure delete user by login: " + login);
+//            };
+//        }catch (SQLException e){
+//            log.error("SQLException: " + e);
+//        }
+//    }
+//
+//    public List<User> getUsersList (){
+//        try{
+//            return userDAO.readAll();
+//        }catch (SQLException e){
+//            log.error("SQLException: " + e);
+//        }
+//        return null;
+//    }
 }
