@@ -17,20 +17,34 @@
     <form name="regForm" method="POST" action="/controller">
         <input type="hidden" name="command" value="registration"/>
         <br/>
-        Full Name:
+        First name:
         <br/>
-            <input type="text" name="fullName" value=""/>
+            <input type="text" name="firstName" value=""/>
+        <br/>
+        Second name:
+        <br/>
+            <input type="text" name="secondName" value=""/>
         <br/>
         Address:
-        <br/><input type="text" name="address" value=""/><br/>
+        <br/>
+            <input type="text" name="address" value=""/>
+        <br/>
         Phone:
-        <br/><input type="text" name="phone" value=""/><br/>
+        <br/>
+            <input type="text" name="phone" value=""/>
+        <br/>
         E-mail:
-        <br/><input type="text" name="email" value=""/><br/>
+        <br/>
+            <input type="text" name="email" value=""/>
+        <br/>
         Login:
-        <br/><input type="text" name="login" value=""/><br/>
+        <br/>
+            <input type="text" name="login" value=""/>
+        <br/>
         Password:
-        <br/><input type="text" name="password" value=""/><br/>
+        <br/>
+            <input type="text" name="password" value=""/>
+        <br/>
 
         <input type="submit" value="Send..."/>
     </form>

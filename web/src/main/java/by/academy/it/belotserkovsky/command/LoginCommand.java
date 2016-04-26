@@ -23,6 +23,11 @@ public class LoginCommand implements ActionCommand {
     private static final String PARAM_NAME_PASSWORD = "password";
     private final int ONE_WEEK = 60*60*24*7;
 
+    /**
+     * @param request
+     * @param response
+     * @return page to forward
+     */
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String login = request.getParameter(PARAM_NAME_LOGIN);
