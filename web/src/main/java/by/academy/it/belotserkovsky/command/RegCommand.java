@@ -6,6 +6,7 @@ import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.logic.LoginLogic;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 import by.academy.it.belotserkovsky.managers.MessageManager;
+import by.academy.it.belotserkovsky.pojos.UserContacts;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +20,12 @@ import javax.servlet.http.HttpSession;
 public class RegCommand implements ActionCommand {
 
     private User user = null;
+    private UserContacts contacts = null;
     private String page = null;
 
     private static final String UID = "u_id";
-    private static final String PARAM_NAME_FULLNAME = "fullName";
+    private static final String PARAM_NAME_FIRSTNAME = "firstName";
+    private static final String PARAM_NAME_SECONDNAME = "secondName";
     private static final String PARAM_NAME_ADDRESS = "address";
     private static final String PARAM_NAME_PHONE = "phone";
     private static final String PARAM_NAME_EMAIL = "email";
@@ -32,7 +35,8 @@ public class RegCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        String fullName = request.getParameter(PARAM_NAME_FULLNAME);
+        String firstName = request.getParameter(PARAM_NAME_FIRSTNAME);
+        String secondName = request.getParameter(PARAM_NAME_SECONDNAME);
         String address = request.getParameter(PARAM_NAME_ADDRESS);
         String phone = request.getParameter(PARAM_NAME_PHONE);
         String email = request.getParameter(PARAM_NAME_EMAIL);
@@ -48,16 +52,22 @@ public class RegCommand implements ActionCommand {
         }else {
 
             user = new User();
-            user.setFullName(fullName);
-            user.setAddress(address);
-            user.setPhone(phone);
-            user.setEmail(email);
+            user.setFirstName(firstName);
+            user.setSecondName(secondName);
             user.setLogin(login);
             user.setPassword(pass);
 
-            UserDAOService.getInstance().addUser(user);
+            UserDAOService.getInstance().addOrUpdate(user);
 
             user = UserDAOService.getInstance().getUserByLoginPass(login, pass);
+
+            contacts = new UserContacts();
+            contacts.setId(user.getId());
+            contacts.setPhone(phone);
+            contacts.setAddress(address);
+            contacts.setEmail(email);
+
+            UserDAOService.getInstance().updateContacts(user.getId(), contacts);
 
             if (user != null){
                 request.setAttribute("user", login);

@@ -3,6 +3,7 @@ package by.academy.it.belotserkovsky.daoServices;
 import by.academy.it.belotserkovsky.dao.UserDAO;
 import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.User;
+import by.academy.it.belotserkovsky.pojos.UserContacts;
 import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
@@ -29,7 +30,7 @@ public class UserDAOService {
         userDAO = new UserDAO();
     }
 
-    public void addUser (User user) {
+    public void addOrUpdate (User user) {
         try {
             if(user != null) {
                 userDAO.saveOrUpdate(user);
@@ -48,6 +49,15 @@ public class UserDAOService {
         }
     }
 
+    public void updateContacts(Long id, UserContacts userContacts){
+        try{
+            if(userContacts != null){
+                userDAO.flush(id, userContacts);
+            }
+        }catch (ExceptionDAO e){
+           log.error("DAO exception in service layer during updateContacts(): " + e);
+        }
+    }
 //    public void deleteUser(Object login){
 //        try {
 //            if (userDAO.isDelete(login)){

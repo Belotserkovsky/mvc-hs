@@ -2,6 +2,7 @@ package by.academy.it.belotserkovsky.dao;
 
 import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.User;
+import by.academy.it.belotserkovsky.pojos.UserContacts;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -20,7 +21,7 @@ public class UserDAO extends BaseDAO<User>{
     public User get(String login, String pass) throws ExceptionDAO {
         util = HibernateUtil.getHibernateUtil();
         User user = null;
-        log.info("Get user by login:" + login);
+        log.info("Get user by login and pass:" + login + pass);
         try{
             Session session = util.getSession();
             transaction = session.beginTransaction();
@@ -37,5 +38,18 @@ public class UserDAO extends BaseDAO<User>{
             throw new ExceptionDAO(e);
         }
         return user;
+    }
+
+    public void flush(Long id, UserContacts uc) throws ExceptionDAO {
+        try {
+            Session session = util.getSession();
+            User user = (User)session.get(User.class, id);
+            user.setUserContacts(uc);
+            session.flush();
+            log.info("User has contacts: " + uc);
+        } catch (HibernateException e) {
+            log.error("Error Flush user" + e);
+            throw new ExceptionDAO(e);
+        }
     }
 }

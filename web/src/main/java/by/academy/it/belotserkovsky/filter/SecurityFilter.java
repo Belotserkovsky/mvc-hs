@@ -29,8 +29,7 @@ public class SecurityFilter implements Filter{
         if (type == null) {
             type = UserType.GUEST;
             session.setAttribute("userType", type);
-            RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/index.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/index.jsp");
             dispatcher.forward(req, resp);
         }
         chain.doFilter(request, response);
