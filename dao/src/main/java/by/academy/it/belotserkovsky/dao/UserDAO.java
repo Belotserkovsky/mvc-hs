@@ -32,6 +32,7 @@ public class UserDAO extends BaseDAO<User>{
             user = (User)query.uniqueResult();
             transaction.commit();
             log.info("Get user: " + user);
+            util.closeSession();
         }catch (HibernateException e){
             log.error("Error get user by login in DAO: " + e);
             transaction.rollback();
@@ -47,6 +48,7 @@ public class UserDAO extends BaseDAO<User>{
             user.setUserContacts(uc);
             session.flush();
             log.info("User has contacts: " + uc);
+            util.closeSession();
         } catch (HibernateException e) {
             log.error("Error Flush user" + e);
             throw new ExceptionDAO(e);

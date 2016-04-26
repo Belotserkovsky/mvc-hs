@@ -12,7 +12,7 @@
         <property name="login" type="string" access="property"/>
         <property name="password" type="string" access="property"/>
 
-        <one-to-one name="userContacts" class="UserContacts"/>
+        <one-to-one name="userContacts" class="UserContacts" cascade="all"/>
         <set name="bids" table="bids">
             <key column="user_id"></key>
             <one-to-many class="Bid"/>
