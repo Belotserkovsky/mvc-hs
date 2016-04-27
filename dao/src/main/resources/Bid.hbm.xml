@@ -11,6 +11,6 @@
         <property name="scope" type="string" access="property"/>
 
         <many-to-one name="workPlan" class="WorkPlan" column="workPlan_id"/>
-        <many-to-one name="user" class="User" column ="user_id"/>
+        <many-to-one name="user" class="User" fetch="select" column ="f_user_id"/>
     </class>
 </hibernate-mapping>

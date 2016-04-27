@@ -74,23 +74,23 @@ public class User implements Serializable{
         this.userContacts = userContacts;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof User)) return false;
-//
-//        User user = (User) o;
-//
-//        if (!id.equals(user.id)) return false;
-//        if (!firstName.equals(user.firstName)) return false;
-//        if (!secondName.equals(user.secondName)) return false;
-//        if (!login.equals(user.login)) return false;
-//        if (!password.equals(user.password)) return false;
-//        if (!userContacts.equals(user.userContacts)) return false;
-//        return bids.equals(user.bids);
-//
-//    }
-//
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (!id.equals(user.id)) return false;
+        if (!firstName.equals(user.firstName)) return false;
+        if (!secondName.equals(user.secondName)) return false;
+        if (!login.equals(user.login)) return false;
+        if (!password.equals(user.password)) return false;
+        if (userContacts != null ? !userContacts.equals(user.userContacts) : user.userContacts != null) return false;
+        return bids != null ? bids.equals(user.bids) : user.bids == null;
+
+    }
+
 //    @Override
 //    public int hashCode() {
 //        int result = id.hashCode();
@@ -98,8 +98,9 @@ public class User implements Serializable{
 //        result = 31 * result + secondName.hashCode();
 //        result = 31 * result + login.hashCode();
 //        result = 31 * result + password.hashCode();
-//        result = 31 * result + userContacts.hashCode();
-//        result = 31 * result + bids.hashCode();
+//        result = 31 * result + (userContacts != null ? userContacts.hashCode() : 0);
+//        result = 31 * result + (bids != null ? bids.hashCode() : 0);
 //        return result;
 //    }
+
 }

@@ -37,15 +37,13 @@ public class UserDAOServiceTest {
         contacts.setAddress("address");
         contacts.setPhone("phone");
 
-        uds.addOrUpdate(user);
+        uds.createOrUpdate(user);
 
         user = uds.getUserByLoginPass(login, pass);
-        //uid = user.getId();
-        //contacts.setId(uid);
         contacts.setUser(user);
         user.setUserContacts(contacts);
 
-        uds.addOrUpdate(user);
+        uds.createOrUpdate(user);
 
         UserContactsDAO userContactsDAO = new UserContactsDAO();
         try {
@@ -62,17 +60,8 @@ public class UserDAOServiceTest {
 //    }
 //
 //    @Test
-//    public void addOrUpdate() throws Exception {
-//        try{
-//            user = userDAO.get(login, pass);
-//            contacts.setId(user.getId());
-//            user.setUserContacts(contacts);
-//
-//            UserDAOService.getInstance().addOrUpdate(user);
-//
-//        }catch (ExceptionDAO e){
-//            log.error("ExceptionDAO during creation UserDAOServiceTest(): " + e);
-//        }
+//    public void createOrUpdate() throws Exception {
+//        assertNotNull(user);
 //    }
 
     @Test
@@ -80,16 +69,14 @@ public class UserDAOServiceTest {
         assertEquals(login, user.getLogin());
         assertEquals(pass, user.getPassword());
         assertNotNull(user);
+        log.info("Reading: " + user);
     }
 
 //    @Test
-//    public void updateContacts()throws Exception{
-//        contacts.setUser(user);
-//        user.setUserContacts(contacts);
-//
-//        uds.updateContacts(uid, contacts);
-//
+//    public void deleteUser(){
+//        uds.deleteUser(user);
 //    }
+
 
     @After
     public void after(){

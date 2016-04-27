@@ -30,13 +30,13 @@ public class UserDAOService {
         userDAO = new UserDAO();
     }
 
-    public void addOrUpdate (User user) {
+    public void createOrUpdate (User user) {
         try {
             if(user != null) {
                 userDAO.saveOrUpdate(user);
             }
         }catch (ExceptionDAO e){
-            log.error("DAO exception in service layer during addUser(): " + e);
+            log.error("DAO exception in service layer during createOrUpdate() user: " + e);
         }
     }
 
@@ -49,27 +49,16 @@ public class UserDAOService {
         }
     }
 
-    public void updateContacts(Long id, UserContacts userContacts){
-        try{
-            if(userContacts != null){
-                userDAO.flush(id, userContacts);
+    public void deleteUser(User user){
+        try {
+            if (user != null){
+                userDAO.delete(user);
+                log.info("Successful delete user : " + user);
             }
         }catch (ExceptionDAO e){
-           log.error("DAO exception in service layer during updateContacts(): " + e);
+            log.info("Failure delete user: " + user);
         }
     }
-//    public void deleteUser(Object login){
-//        try {
-//            if (userDAO.isDelete(login)){
-//                log.info("Success delete user by login: " + login);
-//            }
-//            else{
-//                log.info("Failure delete user by login: " + login);
-//            };
-//        }catch (SQLException e){
-//            log.error("SQLException: " + e);
-//        }
-//    }
 //
 //    public List<User> getUsersList (){
 //        try{
