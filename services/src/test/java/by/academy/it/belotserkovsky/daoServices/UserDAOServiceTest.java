@@ -1,5 +1,7 @@
 package by.academy.it.belotserkovsky.daoServices;
 
+import by.academy.it.belotserkovsky.dao.UserContactsDAO;
+import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.pojos.UserContacts;
 import org.apache.log4j.Logger;
@@ -20,6 +22,7 @@ public class UserDAOServiceTest {
     UserDAOService uds = null;
     User user = null;
     UserContacts contacts = null;
+    Long uid = null;
 
     @Before
     public void before(){
@@ -35,6 +38,21 @@ public class UserDAOServiceTest {
         contacts.setPhone("phone");
 
         uds.addOrUpdate(user);
+
+        user = uds.getUserByLoginPass(login, pass);
+        //uid = user.getId();
+        //contacts.setId(uid);
+        contacts.setUser(user);
+        user.setUserContacts(contacts);
+
+        uds.addOrUpdate(user);
+
+        UserContactsDAO userContactsDAO = new UserContactsDAO();
+        try {
+            userContactsDAO.saveOrUpdate(contacts);
+        }catch (ExceptionDAO e){
+            log.error("ExceptionDAO during creation saveOrUpdate() contacts: " + e);
+        }
     }
 
 //    @Test
@@ -57,29 +75,21 @@ public class UserDAOServiceTest {
 //        }
 //    }
 
-//    @Test
-//    public void getUserByLoginPass() throws Exception {
-//        User actual = uds.getUserByLoginPass(login, pass);
-//        assertEquals(login, actual.getLogin());
-//        assertEquals(pass, actual.getPassword());
-//        assertNotNull(actual);
-//    }
-
     @Test
-    public void updateContacts()throws Exception{
-        User actual = uds.getUserByLoginPass(login, pass);
-        contacts.setId(actual.getId());
-        contacts.setUser(actual);
-        actual.setUserContacts(contacts);
-
-        uds.addOrUpdate(actual);
-        //uds.updateContacts(actual.getId(), contacts);
-
-        User finish = uds.getUserByLoginPass(login, pass);
-
-        assertNotNull(finish);
-        assertEquals(contacts.getPhone(), finish.getUserContacts().getPhone());
+    public void getUserByLoginPass() throws Exception {
+        assertEquals(login, user.getLogin());
+        assertEquals(pass, user.getPassword());
+        assertNotNull(user);
     }
+
+//    @Test
+//    public void updateContacts()throws Exception{
+//        contacts.setUser(user);
+//        user.setUserContacts(contacts);
+//
+//        uds.updateContacts(uid, contacts);
+//
+//    }
 
     @After
     public void after(){

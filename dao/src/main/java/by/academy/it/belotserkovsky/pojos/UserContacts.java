@@ -57,28 +57,4 @@ public class UserContacts implements Serializable {
         this.user = user;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserContacts)) return false;
-
-        UserContacts that = (UserContacts) o;
-
-        if (!id.equals(that.id)) return false;
-        if (!address.equals(that.address)) return false;
-        if (!phone.equals(that.phone)) return false;
-        if (!email.equals(that.email)) return false;
-        return user.equals(that.user);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + address.hashCode();
-        result = 31 * result + phone.hashCode();
-        result = 31 * result + email.hashCode();
-        result = 31 * result + user.hashCode();
-        return result;
-    }
 }

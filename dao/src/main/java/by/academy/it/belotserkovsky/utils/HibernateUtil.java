@@ -27,6 +27,9 @@ public class HibernateUtil {
         }
     }
 
+    /**
+     * @return
+     */
     public Session getSession () {
         Session session = (Session) sessions.get();
         if (session == null) {
@@ -37,6 +40,9 @@ public class HibernateUtil {
         return session;
     }
 
+    /**
+     *
+     */
     public void closeSession(){
         Session session = (Session) sessions.get();
         if (session != null){
@@ -45,6 +51,9 @@ public class HibernateUtil {
         }
     }
 
+    /**
+     * @return
+     */
     public static synchronized HibernateUtil getHibernateUtil(){
         if (util == null){
             util = new HibernateUtil();
