@@ -8,6 +8,5 @@ import org.hibernate.Transaction;
  * Created by Kostya on 24.04.2016.
  */
 public class UserContactsDAO extends BaseDAO<UserContacts> {
-    private static Logger log = Logger.getLogger(UserContactsDAO.class);
-    private Transaction transaction = null;
+
 }
