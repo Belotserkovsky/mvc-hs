@@ -32,6 +32,7 @@ public class BaseDAO<T> implements DAO<T>{
         } catch (HibernateException e) {
             log.error("Error save or update in Dao" + e);
             transaction.rollback();
+            util.closeSession();
             throw new ExceptionDAO(e);
         }
     }
@@ -46,6 +47,7 @@ public class BaseDAO<T> implements DAO<T>{
             t = (T) session.get(getPersistentClass(), id);
             transaction.commit();
             log.info("get clazz:" + t);
+            util.closeSession();
         } catch (HibernateException e) {
             transaction.rollback();
             log.error("Error get " + getPersistentClass() + " in Dao" + e);
