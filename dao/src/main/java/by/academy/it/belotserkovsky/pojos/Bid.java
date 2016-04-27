@@ -76,31 +76,20 @@ public class Bid implements Serializable{
         if (!kindOfWorks.equals(bid.kindOfWorks)) return false;
         if (!scope.equals(bid.scope)) return false;
         if (!desiredRuntime.equals(bid.desiredRuntime)) return false;
-        if (!user.equals(bid.user)) return false;
-        return workPlan.equals(bid.workPlan);
+        if (user != null ? !user.equals(bid.user) : bid.user != null) return false;
+        return workPlan != null ? workPlan.equals(bid.workPlan) : bid.workPlan == null;
 
     }
 
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + kindOfWorks.hashCode();
-        result = 31 * result + scope.hashCode();
-        result = 31 * result + desiredRuntime.hashCode();
-        result = 31 * result + user.hashCode();
-        result = 31 * result + workPlan.hashCode();
-        return result;
-    }
+//    @Override
+//    public int hashCode() {
+//        int result = id.hashCode();
+//        result = 31 * result + kindOfWorks.hashCode();
+//        result = 31 * result + scope.hashCode();
+//        result = 31 * result + desiredRuntime.hashCode();
+//        result = 31 * result + (user != null ? user.hashCode() : 0);
+//        result = 31 * result + (workPlan != null ? workPlan.hashCode() : 0);
+//        return result;
+//    }
 
-    @Override
-    public String toString() {
-        return "Bid{" +
-                "id=" + id +
-                ", kindOfWorks='" + kindOfWorks + '\'' +
-                ", scope='" + scope + '\'' +
-                ", desiredRuntime='" + desiredRuntime + '\'' +
-                ", user=" + user +
-                ", workPlan=" + workPlan +
-                '}';
-    }
 }

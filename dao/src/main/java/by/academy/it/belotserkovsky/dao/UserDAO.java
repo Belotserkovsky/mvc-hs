@@ -18,6 +18,12 @@ public class UserDAO extends BaseDAO<User>{
     private static Logger log = Logger.getLogger(UserDAO.class);
     private Transaction transaction = null;
 
+    /**
+     * @param login
+     * @param pass
+     * @return
+     * @throws ExceptionDAO
+     */
     public User get(String login, String pass) throws ExceptionDAO {
         util = HibernateUtil.getHibernateUtil();
         User user = null;
@@ -41,6 +47,11 @@ public class UserDAO extends BaseDAO<User>{
         return user;
     }
 
+    /**
+     * @param id
+     * @param uc
+     * @throws ExceptionDAO
+     */
     public void flush(Long id, UserContacts uc) throws ExceptionDAO {
         try {
             Session session = util.getSession();

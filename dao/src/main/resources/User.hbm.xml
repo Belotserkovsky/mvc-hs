@@ -13,8 +13,8 @@
         <property name="password" type="string" access="property"/>
 
         <one-to-one name="userContacts" class="UserContacts" cascade="all"/>
-        <set name="bids" table="bids">
-            <key column="user_id"></key>
+        <set name="bids" table="bids" inverse="true" lazy="true" fetch="select">
+            <key column="f_user_id" not-null="true"/>
             <one-to-many class="Bid"/>
         </set>
     </class>

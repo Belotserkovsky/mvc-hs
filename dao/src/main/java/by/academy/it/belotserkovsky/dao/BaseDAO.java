@@ -13,6 +13,7 @@ import java.lang.reflect.ParameterizedType;
 
 /**
  * Created by Kostya on 22.04.2016.
+ * @param <T>
  */
 public class BaseDAO<T> implements DAO<T>{
 
@@ -20,6 +21,10 @@ public class BaseDAO<T> implements DAO<T>{
     private static Logger log = Logger.getLogger(BaseDAO.class);
     private Transaction transaction = null;
 
+    /**
+     * @param t
+     * @throws ExceptionDAO
+     */
     public void saveOrUpdate(T t) throws ExceptionDAO{
         util = HibernateUtil.getHibernateUtil();
         try {
@@ -32,10 +37,16 @@ public class BaseDAO<T> implements DAO<T>{
         } catch (HibernateException e) {
             log.error("Error save or update in Dao" + e);
             transaction.rollback();
+            util.closeSession();
             throw new ExceptionDAO(e);
         }
     }
 
+    /**
+     * @param id
+     * @return
+     * @throws ExceptionDAO
+     */
     public T get(Serializable id) throws ExceptionDAO {
         util = HibernateUtil.getHibernateUtil();
         log.info("Get class by id:" + id);
@@ -46,6 +57,7 @@ public class BaseDAO<T> implements DAO<T>{
             t = (T) session.get(getPersistentClass(), id);
             transaction.commit();
             log.info("get clazz:" + t);
+            util.closeSession();
         } catch (HibernateException e) {
             transaction.rollback();
             log.error("Error get " + getPersistentClass() + " in Dao" + e);
@@ -54,6 +66,11 @@ public class BaseDAO<T> implements DAO<T>{
         return t;
     }
 
+    /**
+     * @param id
+     * @return
+     * @throws ExceptionDAO
+     */
     public T load(Serializable id) throws ExceptionDAO {
         util = HibernateUtil.getHibernateUtil();
         log.info("Load class by id:" + id);
@@ -65,6 +82,7 @@ public class BaseDAO<T> implements DAO<T>{
             log.info("load() clazz:" + t);
             session.isDirty();
             transaction.commit();
+            util.closeSession();
         } catch (HibernateException e) {
             log.error("Error load() " + getPersistentClass() + " in Dao" + e);
             transaction.rollback();
@@ -73,6 +91,10 @@ public class BaseDAO<T> implements DAO<T>{
         return t;
     }
 
+    /**
+     * @param t
+     * @throws ExceptionDAO
+     */
     public void delete(T t) throws ExceptionDAO {
         util = HibernateUtil.getHibernateUtil();
         try {
@@ -81,6 +103,7 @@ public class BaseDAO<T> implements DAO<T>{
             session.delete(t);
             transaction.commit();
             log.info("Delete:" + t);
+            util.closeSession();
         } catch (HibernateException e) {
             log.error("Error delete in Dao" + e);
             transaction.rollback();
@@ -88,14 +111,23 @@ public class BaseDAO<T> implements DAO<T>{
         }
     }
 
+    /**
+     * @return
+     */
     private Class getPersistentClass() {
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
+    /**
+     * @return
+     */
     public Transaction getTransaction() {
         return transaction;
     }
 
+    /**
+     * @param transaction
+     */
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
     }

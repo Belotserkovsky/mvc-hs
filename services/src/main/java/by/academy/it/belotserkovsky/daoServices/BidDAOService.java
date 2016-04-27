@@ -30,7 +30,7 @@ public class BidDAOService {
         bidDAO = new BidDAO();
     }
 
-    public void addBid (Bid bid) {
+    public void createOrUpdate (Bid bid) {
         try {
             if(bid != null) {
                 bidDAO.saveOrUpdate(bid);
@@ -40,7 +40,7 @@ public class BidDAOService {
         }
     }
 
-    public Bid getBidByUserID(Integer key) {
+    public Bid getBid(Long key) {
         try {
             return bidDAO.get(key);
         } catch (ExceptionDAO e) {
