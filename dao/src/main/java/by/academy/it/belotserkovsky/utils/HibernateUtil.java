@@ -36,7 +36,6 @@ public class HibernateUtil {
             session = sessionFactory.openSession();
             sessions.set(session);
         }
-
         return session;
     }
 
@@ -44,11 +43,8 @@ public class HibernateUtil {
      *
      */
     public void closeSession(){
-        Session session = (Session) sessions.get();
-        if (session != null){
-            session.close();
-            sessions.set(null);
-        }
+        getSession().close();
+        sessions.set(null);
     }
 
     /**
