@@ -49,24 +49,4 @@ public class Worker implements Serializable{
         this.profession = profession;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Worker)) return false;
-
-        Worker worker = (Worker) o;
-
-        if (!id.equals(worker.id)) return false;
-        if (!fullName.equals(worker.fullName)) return false;
-        return profession.equals(worker.profession);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + fullName.hashCode();
-        result = 31 * result + profession.hashCode();
-        return result;
-    }
 }

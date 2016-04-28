@@ -71,7 +71,7 @@ public class BidDAOServiceTest {
         user.setBids(bids);
 
         uds.createOrUpdate(user);
-        
+
         assertNotNull(bid.getId());
 
     }

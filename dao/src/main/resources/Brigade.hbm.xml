@@ -10,9 +10,9 @@
 
         <many-to-one name="workPlan" class="WorkPlan" column="workPlan_id"/>
 
-        <set name="workers" table="worker_brigade" cascade="all">
-            <key column="brigade_id"/>
-            <many-to-many column="worker_id" class="Worker"/>
+        <set name="workers" table="T_WORKER_BRIGADE" inverse="true" lazy="true" fetch="select">
+            <key column="F_BRIGADE_ID"/>
+            <many-to-many column="F_WORKER_ID" class="Worker"/>
         </set>
     </class>
 </hibernate-mapping>

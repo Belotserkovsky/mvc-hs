@@ -30,6 +30,9 @@ public class BidDAOService {
         bidDAO = new BidDAO();
     }
 
+    /**
+     * @param bid
+     */
     public void createOrUpdate (Bid bid) {
         try {
             if(bid != null) {
@@ -40,11 +43,15 @@ public class BidDAOService {
         }
     }
 
+    /**
+     * @param key
+     * @return
+     */
     public Bid getBid(Long key) {
         try {
             return bidDAO.get(key);
         } catch (ExceptionDAO e) {
-            log.error("DAO exception in service layer during getBidByUserID(): " + e);;
+            log.error("DAO exception in service layer during getBid(): " + e);;
             return null;
         }
     }
@@ -58,6 +65,9 @@ public class BidDAOService {
 //        }
 //    }
 
+    /**
+     * @param bid
+     */
     public void deleteBid (Bid bid) {
         try {
             if(bid != null) {
