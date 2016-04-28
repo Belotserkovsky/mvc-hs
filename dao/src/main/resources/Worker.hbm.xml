@@ -9,9 +9,9 @@
         <property name="fullName" type="string" access="property"/>
         <property name="profession" type="string" access="property"/>
 
-        <set name="brigades" table="worker_brigade">
-            <key column="worker_id"/>
-            <many-to-many column="brigade_id" class="Brigade"/>
+        <set name="brigades" table="T_WORKER_BRIGADE" inverse="false" lazy="true" fetch="select" cascade="all">
+            <key column="F_WORKER_ID"/>
+            <many-to-many column="F_BRIGADE_ID" class="Brigade"/>
         </set>
     </class>
 </hibernate-mapping>

@@ -25,6 +25,9 @@ public class UContactsDAOService {
         userContactsDAO = new UserContactsDAO();
     }
 
+    /**
+     * @param uContacts
+     */
     public void createOrUpdate(UserContacts uContacts){
         try {
             if (uContacts != null) {

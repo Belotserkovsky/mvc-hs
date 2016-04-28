@@ -30,6 +30,9 @@ public class UserDAOService {
         userDAO = new UserDAO();
     }
 
+    /**
+     * @param user
+     */
     public void createOrUpdate (User user) {
         try {
             if(user != null) {
@@ -40,6 +43,11 @@ public class UserDAOService {
         }
     }
 
+    /**
+     * @param login
+     * @param pass
+     * @return
+     */
     public User getUserByLoginPass(String login, String pass) {
         try {
             return userDAO.get(login, pass);
@@ -49,6 +57,9 @@ public class UserDAOService {
         }
     }
 
+    /**
+     * @param user
+     */
     public void deleteUser(User user){
         try {
             if (user != null){
