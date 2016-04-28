@@ -1,5 +1,7 @@
 package by.academy.it.belotserkovsky.daoServices;
 
+import by.academy.it.belotserkovsky.dao.BrigadeDAO;
+import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.Brigade;
 import org.apache.log4j.Logger;
 
@@ -12,58 +14,47 @@ import java.util.List;
  */
 
 public class BrigadeDAOService {
-//    private static Logger log = Logger.getLogger(BrigadeDAOService.class);
-//
-//    private static BrigadeDAOService instance;
-//
-//    public static BrigadeDAOService getInstance() {
-//        if (instance == null) {
-//            instance = new BrigadeDAOService();
-//        }
-//        return instance;
-//    }
-//
-//    private BrigadeDAO brigadeDAO;
-//
-//    public BrigadeDAOService() {
-//        brigadeDAO = BrigadeDAO.getInstance();
-//    }
-//
-//    public Brigade getBrigadeByName (String name){
-//
-//        Brigade brigade = null;
-//
-//       try {
-//           if (name.length() != 0) {
-//               brigade = BrigadeDAO.getInstance().read(name);
-//               return brigade;
-//           }
-//       }catch (SQLException e){
-//           log.error("SQL exception: " + e);
-//       }
-//        return null;
-//    }
-//
-//    public void addBrigade (Brigade brigade) {
-//        try {
-//            brigadeDAO.create(brigade);
-//        } catch (SQLException e) {
-//            log.error("SQL exception: " + e);
-//        }
-//    }
-//
-//    public void deleteBrigade (Object key) {
-//
-//        try {
-//                if (brigadeDAO.isDelete(key)){
-//                log.info("Deleted: " + key);
-//            } else {
-//                log.info("Not delete: " + key);
-//            }
-//        }catch (SQLException e){
-//            log.error("SQL exception: " + e);
-//        }
-//    }
+    private static Logger log = Logger.getLogger(BrigadeDAOService.class);
+    private BrigadeDAO brigadeDAO;
+    private static BrigadeDAOService instance;
+
+    public static BrigadeDAOService getInstance() {
+        if (instance == null) {
+            instance = new BrigadeDAOService();
+        }
+        return instance;
+    }
+
+    public BrigadeDAOService() {
+        brigadeDAO = new BrigadeDAO();
+    }
+
+    /**
+     * @param brigade
+     */
+    public void createOrUpdate(Brigade brigade){
+        try{
+            if(brigade != null){
+                brigadeDAO.saveOrUpdate(brigade);
+            }
+        }catch(ExceptionDAO e){
+            log.error("DAO exception in service layer during createOrUpdate() brigade: " + e);
+        }
+    }
+
+    /**
+     * @param brigade
+     */
+    public void delete (Brigade brigade) {
+
+        try {
+            if(brigade != null){
+                brigadeDAO.delete(brigade);
+            }
+        }catch (ExceptionDAO e){
+            log.error("DAO exception in service layer during delete() brigade: " + e);
+        }
+    }
 //
 //    public List<Brigade> getBrigadesList () {
 //        try {
