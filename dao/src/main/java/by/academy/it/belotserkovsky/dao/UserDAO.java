@@ -9,7 +9,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.mapping.List;
 
 /**
  * Created by Kostya on 24.04.2016.
@@ -25,23 +24,18 @@ public class UserDAO extends BaseDAO<User>{
      * @throws ExceptionDAO
      */
     public User get(String login, String pass) throws ExceptionDAO {
-        util = HibernateUtil.getHibernateUtil();
-        User user = null;
+        User user = new User();
         log.info("Get user by login and pass:" + login + pass);
         try{
-            Session session = util.getSession();
-            transaction = session.beginTransaction();
+            Session session = HibernateUtil.getSession();
             String hql = "SELECT user FROM User user WHERE user.login=:login AND user.password=:pass";
             Query query = session.createQuery(hql);
             query.setParameter("login", login);
             query.setParameter("pass", pass);
             user = (User)query.uniqueResult();
-            transaction.commit();
             log.info("Get user: " + user);
-            util.closeSession();
         }catch (HibernateException e){
             log.error("Error get user by login in DAO: " + e);
-            transaction.rollback();
             throw new ExceptionDAO(e);
         }
         return user;
@@ -54,12 +48,12 @@ public class UserDAO extends BaseDAO<User>{
      */
     public void flush(Long id, UserContacts uc) throws ExceptionDAO {
         try {
-            Session session = util.getSession();
+            Session session = HibernateUtil.getSession();
             User user = (User)session.get(User.class, id);
             user.setUserContacts(uc);
             session.flush();
             log.info("User has contacts: " + uc);
-            util.closeSession();
+          //  util.closeSession();
         } catch (HibernateException e) {
             log.error("Error Flush user" + e);
             throw new ExceptionDAO(e);

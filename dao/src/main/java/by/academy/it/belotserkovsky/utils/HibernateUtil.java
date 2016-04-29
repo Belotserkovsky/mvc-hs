@@ -6,31 +6,28 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 /**
- * Created by Kostya on 22.04.2016.
+ * Created by Kostya on 28.04.2016.
  */
 public class HibernateUtil {
-    private static HibernateUtil util = null;
-
     private static Logger log = Logger.getLogger(HibernateUtil.class);
+   // private static HibernateUtil util = null;
+    private static final SessionFactory sessionFactory;
+    private static final ThreadLocal sessions = new ThreadLocal();
 
-    private SessionFactory sessionFactory = null;
-
-    private final ThreadLocal sessions = new ThreadLocal();
-
-    private HibernateUtil() {
+    static {
         try {
-            sessionFactory = new Configuration().
-                    configure().setNamingStrategy(new CustomNamingStrategy()).buildSessionFactory();
+            sessionFactory = new Configuration().configure().setNamingStrategy(new CustomNamingStrategy()).buildSessionFactory();
         } catch (Throwable ex) {
             log.error("Initial SessionFactory creation failed." + ex);
-            System.exit(0);
+            throw new ExceptionInInitializerError(ex);
         }
     }
+
 
     /**
      * @return
      */
-    public Session getSession () {
+    public static Session getSession () {
         Session session = (Session) sessions.get();
         if (session == null) {
             session = sessionFactory.openSession();
@@ -42,18 +39,25 @@ public class HibernateUtil {
     /**
      *
      */
-    public void closeSession(){
+    public static void closeSession(){
         getSession().close();
         sessions.set(null);
     }
 
+//    /**
+//     * @return
+//     */
+//    public static synchronized HibernateUtil getHibernateUtil(){
+//        if (util == null){
+//            util = new HibernateUtil();
+//        }
+//        return util;
+//    }
+
     /**
      * @return
      */
-    public static synchronized HibernateUtil getHibernateUtil(){
-        if (util == null){
-            util = new HibernateUtil();
-        }
-        return util;
+    public static SessionFactory getSessionFactory(){
+        return sessionFactory;
     }
 }

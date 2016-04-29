@@ -12,33 +12,33 @@ import java.util.Set;
  *
  */
 public class WorkerDAOServiceTest {
-    private static Logger log = Logger.getLogger(WorkerDAOServiceTest.class);
-    private static String FULL_NAME = "fullname";
-    private static String PROF = "profession";
-
-    Brigade brigade = null;
-    Worker worker = null;
-
-    @Test
-    public void createOrUpdate(){
-        worker = new Worker();
-        worker.setFullName(FULL_NAME);
-        worker.setProfession(PROF);
-
-        WorkerDAOService.getInstance().createOrUpdate(worker);
-        Set<Worker> workers = new HashSet<Worker>();
-        workers.add(worker);
-
-        brigade = new Brigade();
-        brigade.setTitle("title");
-        Set<Brigade> brigades = new HashSet<Brigade>();
-        brigades.add(brigade);
-
-        worker.setBrigades(brigades);
-        brigade.setWorkers(workers);
-
-        WorkerDAOService.getInstance().createOrUpdate(worker);
-
-    }
+//    private static Logger log = Logger.getLogger(WorkerDAOServiceTest.class);
+//    private static String FULL_NAME = "fullname";
+//    private static String PROF = "profession";
+//
+//    Brigade brigade = null;
+//    Worker worker = null;
+//
+//    @Test
+//    public void createOrUpdate(){
+//        worker = new Worker();
+//        worker.setFullName(FULL_NAME);
+//        worker.setProfession(PROF);
+//
+//        WorkerDAOService.getInstance().createOrUpdate(worker);
+//        Set<Worker> workers = new HashSet<Worker>();
+//        workers.add(worker);
+//
+//        brigade = new Brigade();
+//        brigade.setTitle("title");
+//        Set<Brigade> brigades = new HashSet<Brigade>();
+//        brigades.add(brigade);
+//
+//        worker.setBrigades(brigades);
+//        brigade.setWorkers(workers);
+//
+//        WorkerDAOService.getInstance().createOrUpdate(worker);
+//
+//    }
 
 }

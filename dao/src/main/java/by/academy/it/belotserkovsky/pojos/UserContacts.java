@@ -1,13 +1,21 @@
 package by.academy.it.belotserkovsky.pojos;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Parameter;
+import org.jboss.logging.annotations.Property;
+
+import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**
  * Created by Kostya on 23.04.2016.
  */
+
+@Entity
 public class UserContacts implements Serializable {
 
-    private Long id;
+    private Long uid;
     private String address;
     private String phone;
     private String email;
@@ -17,44 +25,50 @@ public class UserContacts implements Serializable {
     public UserContacts() {
     }
 
-    public Long getId() {
-        return id;
+    @Id
+    @GenericGenerator(name = "gen",
+            strategy = "foreign",
+            parameters = @Parameter(name = "property", value = "user")
+    )
+    @GeneratedValue(generator = "gen")
+    public Long getUid() {
+        return uid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    @Column
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
+    @Column
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
+    @Column
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    @OneToOne
+    @PrimaryKeyJoinColumn
     public User getUser() {
         return user;
     }
 
+    public void setUid(Long uid) {
+        this.uid = uid;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public void setUser(User user) {
         this.user = user;
     }
-
 }

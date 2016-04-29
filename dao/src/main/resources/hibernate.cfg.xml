@@ -8,6 +8,7 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">kost</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
         <property name="hibernate.connection.pool_size">10</property>
         <property name="hibernate.c3p0.acquire_increment">5</property>
         <property name="hibernate.c3p0.max_size">20</property>
@@ -16,12 +17,12 @@
         <property name="show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
 
-        <mapping resource="Bid.hbm.xml"/>
-        <mapping resource="User.hbm.xml"/>
-        <mapping resource="Brigade.hbm.xml"/>
-        <mapping resource="WorkPlan.hbm.xml"/>
-        <mapping resource="Worker.hbm.xml"/>
-        <mapping resource="UserContacts.hbm.xml"/>
+        <mapping class="by.academy.it.belotserkovsky.pojos.Bid"/>
+        <mapping class="by.academy.it.belotserkovsky.pojos.User"/>
+        <mapping class="by.academy.it.belotserkovsky.pojos.Brigade"/>
+        <mapping class="by.academy.it.belotserkovsky.pojos.WorkPlan"/>
+        <mapping class="by.academy.it.belotserkovsky.pojos.Worker"/>
+        <mapping class="by.academy.it.belotserkovsky.pojos.UserContacts"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -3,10 +3,12 @@ package by.academy.it.belotserkovsky.daoServices;
 import by.academy.it.belotserkovsky.dao.UserDAO;
 import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.User;
-import by.academy.it.belotserkovsky.pojos.UserContacts;
+import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +17,9 @@ import java.util.List;
  */
 public class UserDAOService {
     private static Logger log = Logger.getLogger(UserDAOService.class);
-    private UserDAO userDAO;
+    private Transaction transaction = null;
+
+    private UserDAO userDAO = null;
 
     private static UserDAOService instance;
 
@@ -31,14 +35,18 @@ public class UserDAOService {
     }
 
     /**
-     * @param user
+     * @param newUser
      */
-    public void createOrUpdate (User user) {
+    public void createOrUpdate (User newUser) {
         try {
-            if(user != null) {
-                userDAO.saveOrUpdate(user);
+            if(newUser != null) {
+                Session session = HibernateUtil.getSession();
+                transaction = session.beginTransaction();
+                userDAO.saveOrUpdate(newUser);
+                transaction.commit();
             }
         }catch (ExceptionDAO e){
+            transaction.rollback();
             log.error("DAO exception in service layer during createOrUpdate() user: " + e);
         }
     }
@@ -49,12 +57,13 @@ public class UserDAOService {
      * @return
      */
     public User getUserByLoginPass(String login, String pass) {
+        User user = new User();
         try {
-            return userDAO.get(login, pass);
+            user = userDAO.get(login, pass);
         }catch (ExceptionDAO e){
             log.error("DAO exception in service layer during getUserByLoginPass(): " + e);
-            return null;
         }
+        return user;
     }
 
     /**
@@ -63,20 +72,24 @@ public class UserDAOService {
     public void deleteUser(User user){
         try {
             if (user != null){
+                Session session = HibernateUtil.getSession();
+                transaction = session.beginTransaction();
                 userDAO.delete(user);
+                transaction.commit();
                 log.info("Successful delete user : " + user);
             }
         }catch (ExceptionDAO e){
             log.info("Failure delete user: " + user);
         }
     }
-//
-//    public List<User> getUsersList (){
-//        try{
-//            return userDAO.readAll();
-//        }catch (SQLException e){
-//            log.error("SQLException: " + e);
-//        }
-//        return null;
-//    }
+
+    public List<User> getAllUsers (){
+        List<User> allUsers = new ArrayList<User>();
+        try{
+            allUsers = (List<User>)userDAO.getAll();
+        }catch (ExceptionDAO e){
+            log.error("DAO exception in service layer during getAll(): " + e);
+        }
+        return allUsers;
+    }
 }

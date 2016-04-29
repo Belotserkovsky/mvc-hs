@@ -1,5 +1,6 @@
 package by.academy.it.belotserkovsky.pojos;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,46 +8,52 @@ import java.util.Set;
 /**
  * Created by Kostya on 08.04.2016.
  */
+@Entity
 public class Worker implements Serializable{
 
-    private Long id;
+    private Long wid;
     private String fullName;
     private String profession;
-
     private Set<Brigade> brigades = new HashSet<Brigade>();
 
     public Worker() {}
 
-    public Set<Brigade> getBrigades() {
-        return brigades;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getWid() {
+        return wid;
     }
 
-    public void setBrigades(Set<Brigade> brigades) {
-        this.brigades = brigades;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    @Column
     public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
+    @Column
     public String getProfession() {
         return profession;
     }
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "T_WORKER_BRIGADE",
+            joinColumns = @JoinColumn(name = "f_worker_id"),
+            inverseJoinColumns = @JoinColumn(name = "f_brigade_id"))
+    public Set<Brigade> getBrigades() {
+        return brigades;
+    }
+
+
+    public void setWid(Long wid) {
+        this.wid = wid;
+    }
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
     public void setProfession(String profession) {
         this.profession = profession;
+    }
+    public void setBrigades(Set<Brigade> brigades) {
+        this.brigades = brigades;
     }
 
 }
