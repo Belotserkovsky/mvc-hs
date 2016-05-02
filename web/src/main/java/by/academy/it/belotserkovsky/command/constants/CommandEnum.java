@@ -38,11 +38,6 @@ public enum CommandEnum {
             this.command = new WorkersListCommand();
         }
     },
-    ADDBRIGADE{
-        {
-            this.command = new BrigadeAddCommand();
-        }
-    },
     BRIGADESLIST {
         {
             this.command = new BrigadesListCommand();
@@ -51,11 +46,6 @@ public enum CommandEnum {
     BIDFORM{
         {
             this.command = new BidFormCommand();
-        }
-    },
-    BRIGADEADD{
-        {
-            this.command = new BrigadeAddCommand();
         }
     },
     BIDDISPLAY{

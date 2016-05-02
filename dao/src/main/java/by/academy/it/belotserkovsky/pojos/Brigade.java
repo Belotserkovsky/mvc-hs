@@ -1,6 +1,10 @@
 package by.academy.it.belotserkovsky.pojos;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Parameter;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,17 +16,26 @@ import java.util.Set;
 @Entity
 public class Brigade implements Serializable{
 
-    private Long brId;
+    private Long bId;
     private String title;
-    private WorkPlan workPlan;
+    private Bid bid;
+//    private WorkPlan workPlan;
     private Set<Worker> workers = new HashSet<Worker>();
 
     public Brigade() { }
 
+    public Brigade(String title) {
+        this.title = title;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getBrId() {
-        return brId;
+    @GenericGenerator(name = "gen2",
+            strategy = "foreign",
+            parameters = @Parameter(name = "property", value = "bid")
+    )
+    @GeneratedValue(generator = "gen2")
+    public Long getbId() {
+        return bId;
     }
 
     @Column
@@ -30,27 +43,39 @@ public class Brigade implements Serializable{
         return title;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "f_workPlan_id")
-    public WorkPlan getWorkPlan() {
-        return workPlan;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "f_workPlan_id")
+//    public WorkPlan getWorkPlan() {
+//        return workPlan;
+//    }
 
     @ManyToMany(mappedBy = "brigades")
     public Set<Worker> getWorkers() {
         return workers;
     }
 
-    public void setBrId(Long brId) {
-        this.brId = brId;
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    public Bid getBid() {
+        return bid;
+    }
+
+    public void setbId(Long brId) {
+        this.bId = bId;
     }
     public void setTitle(String title) {
         this.title = title;
     }
-    public void setWorkPlan(WorkPlan workPlan) {
-        this.workPlan = workPlan;
-    }
+
+//    public void setWorkPlan(WorkPlan workPlan) {
+//        this.workPlan = workPlan;
+//    }
+
     public void setWorkers(Set<Worker> workers) {
         this.workers = workers;
+    }
+
+    public void setBid(Bid bid) {
+        this.bid = bid;
     }
 }

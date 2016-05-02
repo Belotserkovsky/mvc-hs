@@ -1,12 +1,24 @@
 package by.academy.it.belotserkovsky.daoServices;
 
 import by.academy.it.belotserkovsky.dao.BidDAO;
+import by.academy.it.belotserkovsky.dao.BrigadeDAO;
+import by.academy.it.belotserkovsky.dao.WorkerDAO;
+import by.academy.it.belotserkovsky.dto.BidDTO;
 import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.Bid;
+import by.academy.it.belotserkovsky.pojos.Brigade;
+import by.academy.it.belotserkovsky.pojos.User;
+import by.academy.it.belotserkovsky.pojos.Worker;
+import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
+import org.apache.tools.ant.taskdefs.Manifest;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Access to the class object BidDAO
@@ -40,6 +52,32 @@ public class BidDAOService {
             }
         } catch (ExceptionDAO e) {
             log.error("DAO exception in service layer during addBid(): " + e);
+        }
+    }
+
+    public void create (BidDTO bidDTO){
+        Bid bid = null;
+        Worker worker = null;
+        Brigade brigade = null;
+        Set<Worker> workers = new HashSet<Worker>();
+        WorkerDAO workerDAO = null;
+        String profession = null;
+        String[] selected = bidDTO.getSelectedWorkers();
+        Transaction transaction = null;
+
+        try{
+            Session session = HibernateUtil.getSession();
+            transaction = session.beginTransaction();
+            brigade = BrigadeDAOService.getInstance().createForBid(selected);
+            bid = new Bid(bidDTO.getKindOfWorks(), bidDTO.getScope(), bidDTO.getDesiredRuntime());
+            bid.setBrigade(brigade);
+            User user = UserDAOService.getInstance().getById(bidDTO.getUid());
+            bid.setUser(user);
+            bidDAO.saveOrUpdate(bid);
+            transaction.commit();
+        }catch (ExceptionDAO e){
+            transaction.rollback();
+            log.error("DAO exception in service layer create() bid: " + e);
         }
     }
 

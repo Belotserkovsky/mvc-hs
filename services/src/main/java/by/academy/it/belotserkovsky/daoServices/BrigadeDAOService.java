@@ -1,12 +1,20 @@
 package by.academy.it.belotserkovsky.daoServices;
 
 import by.academy.it.belotserkovsky.dao.BrigadeDAO;
+import by.academy.it.belotserkovsky.dao.WorkerDAO;
+import by.academy.it.belotserkovsky.dto.BidDTO;
 import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.Brigade;
+import by.academy.it.belotserkovsky.pojos.Worker;
+import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Access to the class object BrigadeDAO
@@ -65,26 +73,31 @@ public class BrigadeDAOService {
 //        }
 //    }
 //
-//    /**
-//     *
-//     *parse date input through checkbox
-//     */
-//    public String addBrigade (String[] selected){
-//
-//        String nameBrigade = "";
-//        Brigade newBrigade = null;
-//
-//        try{
-//            if(selected.length != 0) {
-//                for (int i = 0; i < selected.length; ++i) {
-//                    nameBrigade += "/" + selected[i] + "/";
-//                }
-//            }
-//            newBrigade = new Brigade (nameBrigade);
-//            brigadeDAO.create(newBrigade);
-//        }catch (SQLException e){
-//            log.error("SQL exception: " + e);
-//        }
-//        return nameBrigade;
-//    }
+    /**
+     * parse date input through checkbox
+     * @param selectedWorkers
+     * @return
+     */
+    public Brigade createForBid (String[] selectedWorkers){
+        Brigade brigade = null;
+        String title = "";
+        Worker worker = null;
+        Set<Worker> workers = new HashSet<Worker>();
+        WorkerDAO workerDAO = null;
+        String profession = null;
+        Transaction transaction = null;
+
+            if(selectedWorkers.length != 0) {
+                for (int i = 0; i < selectedWorkers.length; ++i) {
+                    profession = selectedWorkers[i];
+                    title += (", " + profession);
+                    worker = WorkerDAOService.getInstance().getByProfession(profession);
+                    workers.add(worker);
+                }
+                brigade = new Brigade(title.substring(2));
+                brigade.setWorkers(workers);
+            }
+        return brigade;
+    }
+
 }

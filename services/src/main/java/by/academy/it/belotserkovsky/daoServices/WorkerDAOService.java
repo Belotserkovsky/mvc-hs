@@ -42,6 +42,22 @@ public class WorkerDAOService {
     }
 
     /**
+     * @param profession
+     * @return
+     */
+    public Worker getByProfession(String profession){
+        Worker worker = null;
+        try{
+            if(profession.length() > 0){
+                worker = workerDAO.get(profession.trim());
+            }
+        }catch (ExceptionDAO e){
+            log.error("DAO exception in service layer during getByProfession() worker: " + e);
+        }
+        return worker;
+    }
+
+    /**
      * @param worker
      */
     public void delete (Worker worker) {

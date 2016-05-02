@@ -15,10 +15,24 @@ public class Bid implements Serializable{
     private String scope;
     private String desiredRuntime;
 
-    User user;
-    WorkPlan workPlan;
+    private User user;
+    private Brigade brigade;
+    //WorkPlan workPlan;
 
     public Bid(){}
+
+    public Bid(Long bId, String kindOfWorks, String scope, String desiredRuntime) {
+        this.bId = bId;
+        this.kindOfWorks = kindOfWorks;
+        this.scope = scope;
+        this.desiredRuntime = desiredRuntime;
+    }
+
+    public Bid(String kindOfWorks, String scope, String desiredRuntime) {
+        this.kindOfWorks = kindOfWorks;
+        this.scope = scope;
+        this.desiredRuntime = desiredRuntime;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,11 +61,16 @@ public class Bid implements Serializable{
         return user;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "f_workPlan_id")
-    public WorkPlan getWorkPlan() {
-        return workPlan;
+    @OneToOne(mappedBy = "bid", cascade = CascadeType.ALL)
+    public Brigade getBrigade() {
+        return brigade;
     }
+
+    //    @ManyToOne
+//    @JoinColumn(name = "f_workPlan_id")
+//    public WorkPlan getWorkPlan() {
+//        return workPlan;
+//    }
 
 
     public void setbId(Long bId) {
@@ -74,7 +93,11 @@ public class Bid implements Serializable{
         this.user = user;
     }
 
-    public void setWorkPlan(WorkPlan workPlan) {
-        this.workPlan = workPlan;
+    public void setBrigade(Brigade brigade) {
+        this.brigade = brigade;
     }
+
+    //    public void setWorkPlan(WorkPlan workPlan) {
+//        this.workPlan = workPlan;
+//    }
 }

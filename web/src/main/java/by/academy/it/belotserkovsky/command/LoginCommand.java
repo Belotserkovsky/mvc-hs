@@ -42,6 +42,7 @@ public class LoginCommand implements ActionCommand {
             session.setAttribute("userType", UserType.ADMIN);
             request.setAttribute("user", login);
             page = ConfigurationManager.PATH_PAGE_ADMIN;
+
         } else if (userDTO != null) {
             request.setAttribute("user", userDTO.getFirstName());
             request.setAttribute("u_id", userDTO.getUserId());

@@ -44,6 +44,13 @@ public class UserDAOService {
             if(dtoUser != null) {
                 Session session = HibernateUtil.getSession();
                 transaction = session.beginTransaction();
+                if(dtoUser.getUserId() != null) {
+                    User user = new User(dtoUser.getUserId(), dtoUser.getFirstName(), dtoUser.getSecondName(), dtoUser.getLogin(), dtoUser.getPassword());
+                    UserContacts uContacts = new UserContacts(dtoUser.getAddress(), dtoUser.getPhone(), dtoUser.getEmail());
+                    user.setUserContacts(uContacts);
+                    uContacts.setUser(user);
+                    userDAO.saveOrUpdate(user);
+                }
                 User user = new User(dtoUser.getFirstName(), dtoUser.getSecondName(), dtoUser.getLogin(), dtoUser.getPassword());
                 UserContacts uContacts = new UserContacts(dtoUser.getAddress(), dtoUser.getPhone(), dtoUser.getEmail());
                 user.setUserContacts(uContacts);
@@ -122,6 +129,16 @@ public class UserDAOService {
         }catch (ExceptionDAO e){
             log.info("Failure delete user: " + user);
         }
+    }
+
+    public User getById (Long uid){
+        User user = null;
+        try{
+            user = userDAO.get(uid);
+        }catch (ExceptionDAO e){
+            log.error("DAO exception in service layer during getUserWithContact(): " + e);
+        }
+        return user;
     }
 
     public List<User> getAllUsers (){

@@ -32,11 +32,11 @@ public class UserContacts implements Serializable {
     }
 
     @Id
-    @GenericGenerator(name = "gen",
+    @GenericGenerator(name = "gen1",
             strategy = "foreign",
             parameters = @Parameter(name = "property", value = "user")
     )
-    @GeneratedValue(generator = "gen")
+    @GeneratedValue(generator = "gen1")
     public Long getUid() {
         return uid;
     }

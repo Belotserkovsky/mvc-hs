@@ -40,6 +40,7 @@ public class RegCommand implements ActionCommand {
      */
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
+        String uid = request.getParameter(UID);
         String firstName = request.getParameter(PARAM_NAME_FIRSTNAME);
         String secondName = request.getParameter(PARAM_NAME_SECONDNAME);
         String address = request.getParameter(PARAM_NAME_ADDRESS);
@@ -48,21 +49,34 @@ public class RegCommand implements ActionCommand {
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 
-        if(LoginLogic.getInstance().checkUserLogin(login, pass)){
+        HttpSession session = request.getSession();
+        UserType uType = (UserType)session.getAttribute("userType");
+
+        if(LoginLogic.getInstance().checkUserLogin(login, pass) && uType == UserType.GUEST){
             request.setAttribute("errorLoginPassMessage", MessageManager.MESSAGE_LOGIN_PASS_EXISTS);
-            request.getSession().setAttribute("userType", UserType.GUEST);
+            //request.getSession().setAttribute("userType", UserType.GUEST);
             page = ConfigurationManager.PATH_PAGE_REGISTRATION;
             return page;
 
         }else {
-            userDTO = new UserDTO(firstName, secondName, login, pass, address, phone, email);
-            UserDAOService.getInstance().createOrUpdate(userDTO);
-
-            userDTO = UserDAOService.getInstance().getUserByLoginPass(login, pass);
-
-            request.setAttribute("user", userDTO.getFirstName());
-            request.setAttribute("u_id", userDTO.getUserId());
-            HttpSession session = request.getSession(true);
+            if(uid.length()!= 0){
+                userDTO = UserDAOService.getInstance().getUserWithContact(Long.parseLong(uid));
+                userDTO.setFirstName(firstName);
+                userDTO.setSecondName(secondName);
+                userDTO.setLogin(login);
+                userDTO.setPassword(pass);
+                userDTO.setAddress(address);
+                userDTO.setPhone(phone);
+                userDTO.setEmail(email);
+                UserDAOService.getInstance().createOrUpdate(userDTO);
+            }else {
+                userDTO = new UserDTO(firstName, secondName, login, pass, address, phone, email);
+                UserDAOService.getInstance().createOrUpdate(userDTO);
+                userDTO = UserDAOService.getInstance().getUserByLoginPass(login, pass);
+                request.setAttribute("user", userDTO.getFirstName());
+                request.setAttribute("u_id", userDTO.getUserId());
+            }
+            session = request.getSession(true);
             session.setAttribute("userType", UserType.USER);
             Cookie c = new Cookie(UID, String.valueOf(userDTO.getUserId()));
             c.setMaxAge(ONE_WEEK);
