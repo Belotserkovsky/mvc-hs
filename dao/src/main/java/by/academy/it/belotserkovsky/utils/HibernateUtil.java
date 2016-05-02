@@ -23,7 +23,6 @@ public class HibernateUtil {
         }
     }
 
-
     /**
      * @return
      */
@@ -43,16 +42,6 @@ public class HibernateUtil {
         getSession().close();
         sessions.set(null);
     }
-
-//    /**
-//     * @return
-//     */
-//    public static synchronized HibernateUtil getHibernateUtil(){
-//        if (util == null){
-//            util = new HibernateUtil();
-//        }
-//        return util;
-//    }
 
     /**
      * @return

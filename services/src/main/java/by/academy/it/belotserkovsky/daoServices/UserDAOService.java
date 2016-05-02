@@ -1,8 +1,10 @@
 package by.academy.it.belotserkovsky.daoServices;
 
 import by.academy.it.belotserkovsky.dao.UserDAO;
+import by.academy.it.belotserkovsky.dto.UserDTO;
 import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.User;
+import by.academy.it.belotserkovsky.pojos.UserContacts;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -35,15 +37,20 @@ public class UserDAOService {
     }
 
     /**
-     * @param newUser
+     * @param
      */
-    public void createOrUpdate (User newUser) {
+    public void createOrUpdate (UserDTO dtoUser) {
         try {
-            if(newUser != null) {
+            if(dtoUser != null) {
                 Session session = HibernateUtil.getSession();
                 transaction = session.beginTransaction();
-                userDAO.saveOrUpdate(newUser);
+                User user = new User(dtoUser.getFirstName(), dtoUser.getSecondName(), dtoUser.getLogin(), dtoUser.getPassword());
+                UserContacts uContacts = new UserContacts(dtoUser.getAddress(), dtoUser.getPhone(), dtoUser.getEmail());
+                user.setUserContacts(uContacts);
+                uContacts.setUser(user);
+                userDAO.saveOrUpdate(user);
                 transaction.commit();
+                HibernateUtil.closeSession();
             }
         }catch (ExceptionDAO e){
             transaction.rollback();
@@ -56,24 +63,39 @@ public class UserDAOService {
      * @param pass
      * @return
      */
-    public User getUserByLoginPass(String login, String pass) {
-        User user = new User();
+    public UserDTO getUserByLoginPass(String login, String pass) {
+        UserDTO userDTO = null;
+        User user = null;
         try {
+            Session session = HibernateUtil.getSession();
+            transaction = session.beginTransaction();
             user = userDAO.get(login, pass);
+            if(user != null) {
+                userDTO = new UserDTO();
+                userDTO.setUserId(user.getUid());
+                userDTO.setLogin(user.getLogin());
+                userDTO.setPassword(user.getPassword());
+                userDTO.setFirstName(user.getFirstName());
+                userDTO.setSecondName(user.getSecondName());
+                transaction.commit();
+                return userDTO;
+            }
         }catch (ExceptionDAO e){
             log.error("DAO exception in service layer during getUserByLoginPass(): " + e);
         }
-        return user;
+        return userDTO;
     }
 
     /**
-     * @param user
+     * @param userDTO
      */
-    public void deleteUser(User user){
+    public void deleteUser(UserDTO userDTO){
+        User user = null;
         try {
-            if (user != null){
+            if (userDTO != null){
                 Session session = HibernateUtil.getSession();
                 transaction = session.beginTransaction();
+                user = userDAO.get(userDTO.getUserId());
                 userDAO.delete(user);
                 transaction.commit();
                 log.info("Successful delete user : " + user);

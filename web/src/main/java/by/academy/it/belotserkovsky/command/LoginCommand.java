@@ -2,6 +2,7 @@ package by.academy.it.belotserkovsky.command;
 
 import by.academy.it.belotserkovsky.command.constants.UserType;
 import by.academy.it.belotserkovsky.daoServices.UserDAOService;
+import by.academy.it.belotserkovsky.dto.UserDTO;
 import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.logic.LoginLogic;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
@@ -30,21 +31,23 @@ public class LoginCommand implements ActionCommand {
      */
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
+        UserDTO userDTO = null;
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
+
+        userDTO = UserDAOService.getInstance().getUserByLoginPass(login, pass);
 
         if (LoginLogic.getInstance().checkAdminLogin(login, pass)) {
             HttpSession session = request.getSession(true);
             session.setAttribute("userType", UserType.ADMIN);
-            session.setAttribute("user", login);
+            request.setAttribute("user", login);
             page = ConfigurationManager.PATH_PAGE_ADMIN;
-        } else if (LoginLogic.getInstance().checkUserLogin(login, pass)) {
-            User user = UserDAOService.getInstance().getUserByLoginPass(login, pass);
+        } else if (userDTO != null) {
+            request.setAttribute("user", userDTO.getFirstName());
+            request.setAttribute("u_id", userDTO.getUserId());
             HttpSession session = request.getSession(true);
             session.setAttribute("userType", UserType.USER);
-            session.setAttribute("user", login);
-            session.setAttribute("u_id", user.getId());
-            Cookie c = new Cookie(UID, String.valueOf(user.getId()));
+            Cookie c = new Cookie(UID, String.valueOf(userDTO.getUserId()));
             c.setMaxAge(ONE_WEEK);
             response.addCookie(c);
             page = ConfigurationManager.PATH_PAGE_USER;

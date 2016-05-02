@@ -8,10 +8,9 @@
     </style>
 </head>
 <body>
-<div> <div class="content"><h3>Bid for work</h3>
+<div> <div class="content"><h3>Bid for work</h3></div></div>
     <br/>
     <hr/>
-<div> <div class="content">Number of your brigade: ${brigade_id}.</div></div>
 <br/>
 <div> <div class="content">Please fill in the empty fields below to form a bid:</div></div>
 
@@ -19,16 +18,11 @@
     <form name="addBid" method="POST" action="controller">
         <input type="hidden" name="command" value="bidform"/>
         <br/>
-        User ID:
-        <br/>
-        <input type="text" name="u_id" value=${u_id} >
-        <br/>
         Kind of works:
         <br/>
         <input type="text" name="kindOfWorks" value="" >
         <br/>
         Scope:
-        <br/>
         <br/>
         <input type="text" name="scope" value=""/>
         <br/>
@@ -36,10 +30,12 @@
         <br/>
         <input type="text" name="desiredRuntime" value="">
         <br/>
-        Brigade ID:
-        <br/>
-        <input type="text" name="brigade_id" value=${brigade_id} >
-        <br/>
+        <p><b>Select the required specialist:</b></p>
+        <p><input type="CHECKBOX" name="workers" value="Plumber">Plumber<Br>
+        <input type="CHECKBOX" name="workers" value="Welder">Welder<Br>
+        <input type="CHECKBOX" name="workers" value="Electrician">Electrician<Br>
+        <input type="CHECKBOX" name="workers" value="House painter">House painter<Br></p>
+
         <input type="submit" value="Form a bid."/>
     </form>
 </div></div>
@@ -50,3 +46,13 @@
 <br/>
 </body>
 </html>
+
+<%--<form name="addBid" method="POST" action="/controller">--%>
+<%--<input type="hidden" name="command" value="brigadeAdd">--%>
+<%--<p><b>Select the required specialist:</b></p>--%>
+<%--<p><input type="CHECKBOX" name="workers" value="Plumber">Plumber<Br>--%>
+<%--<input type="CHECKBOX" name="workers" value="Welder">Welder<Br>--%>
+<%--<input type="CHECKBOX" name="workers" value="Electrician">Electrician<Br>--%>
+<%--<input type="CHECKBOX" name="workers" value="House painter">House painter<Br></p>--%>
+<%--<p><input type="submit" value="Select"></p>--%>
+<%--</form>--%>

@@ -13,18 +13,18 @@
     <hr/>
 <br/>
 <div> <div class="content">
-    <form name="addBid" method="POST" action="/controller">
-        <input type="hidden" name="command" value="brigadeAdd">
-        <p><b>Select the required specialist:</b></p>
-        <p><input type="CHECKBOX" name="workers" value="Plumber">Plumber<Br>
-            <input type="CHECKBOX" name="workers" value="Welder">Welder<Br>
-            <input type="CHECKBOX" name="workers" value="Electrician">Electrician<Br>
-            <input type="CHECKBOX" name="workers" value="House painter">House painter<Br></p>
-            <p><input type="submit" value="Select"></p>
+    <form name="bidForm" method="POST" action="/controller">
+        <input type="hidden" name="command" value="showBidForm"/>
+        <input type="submit" value="Bid form"/>
+    </form>
+    <br/>
+    <form name="contactInfo" method="POST" action="/controller">
+        <input type="hidden" name="command" value="editContact"/>
+        <input type="submit" value="Edit contact info"/>
     </form>
 </div></div>
 <br/>
-<div> <div class="content2">${success}</div></div>
+    <div> <div class="content2">${success}</div></div>
 <br/>
 <hr/>
     <div> <div class="content2"> <c:import url="/jsp/fragment/footer.jsp"/> </div></div>

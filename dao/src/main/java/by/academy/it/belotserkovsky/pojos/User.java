@@ -20,6 +20,21 @@ public class User implements Serializable{
 
     public User() {}
 
+    public User(String firstName, String secondName, String login, String password) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.login = login;
+        this.password = password;
+    }
+
+    public User(Long uid, String firstName, String secondName, String login, String password) {
+        this.uid = uid;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.login = login;
+        this.password = password;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getUid() {
@@ -51,7 +66,7 @@ public class User implements Serializable{
         return userContacts;
     }
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     public Set<Bid> getBids() {
         return bids;
     }

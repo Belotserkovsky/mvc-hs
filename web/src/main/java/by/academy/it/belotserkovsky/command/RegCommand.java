@@ -2,6 +2,7 @@ package by.academy.it.belotserkovsky.command;
 
 import by.academy.it.belotserkovsky.command.constants.UserType;
 import by.academy.it.belotserkovsky.daoServices.UserDAOService;
+import by.academy.it.belotserkovsky.dto.UserDTO;
 import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.logic.LoginLogic;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
@@ -19,8 +20,7 @@ import javax.servlet.http.HttpSession;
  */
 public class RegCommand implements ActionCommand {
 
-    private User user = null;
-    private UserContacts contacts = null;
+    private UserDTO userDTO = null;
     private String page = null;
 
     private static final String UID = "u_id";
@@ -33,6 +33,11 @@ public class RegCommand implements ActionCommand {
     private static final String PARAM_NAME_PASSWORD = "password";
     private final int ONE_WEEK = 60*60*24*7;
 
+    /**
+     * @param request
+     * @param response
+     * @return
+     */
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         String firstName = request.getParameter(PARAM_NAME_FIRSTNAME);
@@ -50,38 +55,20 @@ public class RegCommand implements ActionCommand {
             return page;
 
         }else {
+            userDTO = new UserDTO(firstName, secondName, login, pass, address, phone, email);
+            UserDAOService.getInstance().createOrUpdate(userDTO);
 
-            user = new User();
-            user.setFirstName(firstName);
-            user.setSecondName(secondName);
-            user.setLogin(login);
-            user.setPassword(pass);
+            userDTO = UserDAOService.getInstance().getUserByLoginPass(login, pass);
 
-            UserDAOService.getInstance().addOrUpdate(user);
-
-            user = UserDAOService.getInstance().getUserByLoginPass(login, pass);
-
-            contacts = new UserContacts();
-            contacts.setId(user.getId());
-            contacts.setPhone(phone);
-            contacts.setAddress(address);
-            contacts.setEmail(email);
-
-            UserDAOService.getInstance().updateContacts(user.getId(), contacts);
-
-            if (user != null){
-                request.setAttribute("user", login);
-                HttpSession session = request.getSession(true);
-                session.setAttribute("userType", UserType.USER);
-                session.setAttribute("u_id", user.getId());
-                Cookie c = new Cookie(UID, String.valueOf(user.getId()));
-                c.setMaxAge(ONE_WEEK);
-                response.addCookie(c);
-                page = ConfigurationManager.PATH_PAGE_USER;
-                return page;
-            }
+            request.setAttribute("user", userDTO.getFirstName());
+            request.setAttribute("u_id", userDTO.getUserId());
+            HttpSession session = request.getSession(true);
+            session.setAttribute("userType", UserType.USER);
+            Cookie c = new Cookie(UID, String.valueOf(userDTO.getUserId()));
+            c.setMaxAge(ONE_WEEK);
+            response.addCookie(c);
+            page = ConfigurationManager.PATH_PAGE_USER;
+            return page;
         }
-        return page;
     }
-
 }

@@ -13,7 +13,6 @@ import java.util.Set;
 public class WorkPlan implements Serializable{
 
     private Long wpid;
-    private String title;
     private Date date;
     private Set<Bid> bids;
     private Set<Brigade> brigades;
@@ -24,12 +23,7 @@ public class WorkPlan implements Serializable{
         return wpid;
     }
 
-    @Column
-    public String getTitle() {
-        return title;
-    }
-
-    @OneToMany(mappedBy = "workPlan")
+    @OneToMany(mappedBy = "workPlan", cascade = CascadeType.REFRESH)
     public Set<Bid> getBids() {
         return bids;
     }
@@ -39,16 +33,13 @@ public class WorkPlan implements Serializable{
         return brigades;
     }
 
-    @Column()
+    @Column
     public Date getDate() {
         return date;
     }
 
     public void setWpid(Long wpid) {
         this.wpid = wpid;
-    }
-    public void setTitle(String title) {
-        this.title = title;
     }
     public void setBids(Set<Bid> bids) {
         this.bids = bids;

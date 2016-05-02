@@ -67,6 +67,16 @@ public enum CommandEnum {
         {
             this.command = new BidsListCommand();
         }
+    },
+    SHOWBIDFORM {
+        {
+        this.command = new ShowBidFormCommand();
+        }
+    },
+    EDITCONTACT{
+        {
+          this.command = new EditContactCommand();
+        }
     };
 
     ActionCommand command;

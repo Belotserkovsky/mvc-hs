@@ -25,6 +25,12 @@ public class UserContacts implements Serializable {
     public UserContacts() {
     }
 
+    public UserContacts(String address, String phone, String email) {
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+    }
+
     @Id
     @GenericGenerator(name = "gen",
             strategy = "foreign",

@@ -1,5 +1,7 @@
 package by.academy.it.belotserkovsky.pojos;
 
+import org.hibernate.annotations.OnDelete;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
