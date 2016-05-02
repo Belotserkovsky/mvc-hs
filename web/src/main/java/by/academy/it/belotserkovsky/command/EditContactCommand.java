@@ -1,5 +1,6 @@
 package by.academy.it.belotserkovsky.command;
 
+import by.academy.it.belotserkovsky.daoServices.UserDAOService;
 import by.academy.it.belotserkovsky.dto.UserDTO;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 
@@ -16,17 +17,19 @@ public class EditContactCommand implements ActionCommand {
     private String page = null;
 
     private static final String UID = "u_id";
-    private static final String PARAM_NAME_FIRSTNAME = "firstName";
-    private static final String PARAM_NAME_SECONDNAME = "secondName";
-    private static final String PARAM_NAME_ADDRESS = "address";
-    private static final String PARAM_NAME_PHONE = "phone";
-    private static final String PARAM_NAME_EMAIL = "email";
-    private static final String PARAM_NAME_LOGIN = "login";
-    private static final String PARAM_NAME_PASSWORD = "password";
 
     public String execute(HttpServletRequest request, HttpServletResponse response){
 
+        Long uid = Long.parseLong(request.getParameter(UID));
+        userDTO = UserDAOService.getInstance().getUserWithContact(uid);
 
+        request.setAttribute("firstName", userDTO.getFirstName());
+        request.setAttribute("secondName", userDTO.getSecondName());
+        request.setAttribute("address", userDTO.getAddress());
+        request.setAttribute("phone", userDTO.getPhone());
+        request.setAttribute("email", userDTO.getEmail());
+        request.setAttribute("login", userDTO.getLogin());
+        request.setAttribute("pass", userDTO.getPassword());
 
         return page = ConfigurationManager.PATH_PAGE_REGISTRATION;
     }

@@ -6,10 +6,8 @@ import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.pojos.UserContacts;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
+import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
 
 import java.util.List;
@@ -50,27 +48,57 @@ public class UserDAO extends BaseDAO<User>{
         return user;
     }
 
-    public UserDTO getUserWithContact(Long uid){
+    /**
+     * @param uid
+     * @return
+     * @throws ExceptionDAO
+     */
+    public UserDTO getDTO(Long uid) throws ExceptionDAO {
         UserDTO userDTO = null;
-    try{
-        Session session = HibernateUtil.getSession();
-        userDTO = session.createSQLQuery("SELECT u.F_UID as uid, u.F_FIRSTNAME as firstName, "+
-                "u.F_SECONDNAME as secondName, u.F_LOGIN as login, " +
-                "u.F_PASSWORD as pass, uc.F_ADDRESS as address, " +
-                "uc.F_PHONE as phone, uc.F_EMAIL as email " +
-                "from t_user u JOIN t_usercontacts uc ON u.F_UID=uc.F_UID")
-                .addScalar("uid", StandardBasicTypes.LONG)
-                .addScalar("firstName", StandardBasicTypes.STRING)
-                .addScalar("secondName", StandardBasicTypes.STRING)
-                .addScalar("login", StandardBasicTypes.STRING)
-                .addScalar("pass", StandardBasicTypes.STRING)
-                .addScalar("address", StandardBasicTypes.STRING)
-                .addScalar("phone", StandardBasicTypes.STRING)
-                .addScalar("email", StandardBasicTypes.STRING)
+        try {
+            Session session = HibernateUtil.getSession();
+            userDTO = (UserDTO) session.createSQLQuery("SELECT u.F_UID as uid, u.F_FIRSTNAME as firstName, " +
+                    "u.F_SECONDNAME as secondName, u.F_LOGIN as login, " +
+                    "u.F_PASSWORD as pass, uc.F_ADDRESS as address, " +
+                    "uc.F_PHONE as phone, uc.F_EMAIL as email " +
+                    "from t_user u JOIN t_usercontacts uc ON u.F_UID=uc.F_UID")
+                    .addScalar("uid", StandardBasicTypes.LONG)
+                    .addScalar("firstName", StandardBasicTypes.STRING)
+                    .addScalar("secondName", StandardBasicTypes.STRING)
+                    .addScalar("login", StandardBasicTypes.STRING)
+                    .addScalar("pass", StandardBasicTypes.STRING)
+                    .addScalar("address", StandardBasicTypes.STRING)
+                    .addScalar("phone", StandardBasicTypes.STRING)
+                    .addScalar("email", StandardBasicTypes.STRING)
+                    .setResultTransformer(Transformers.aliasToBean(UserDTO.class)).uniqueResult();
+        } catch (NonUniqueResultException e) {
+            log.error(e.getMessage());
+        }
+        return userDTO;
     }
+//                    {private static final long serialVersionUID = 1L;
+//                    public Object tranformTuple(Object[] arg0, String[] arg1){
+//                        UserDTO userDTO = new UserDTO();
+//                        userDTO.setUserId((Long)arg0[0]);
+//                        userDTO.setFirstName((String)arg0[1]);
+//                        userDTO.setSecondName((String)arg0[2]);
+//                        userDTO.setLogin((String)arg0[3]);
+//                        userDTO.setPassword((String)arg0[4]);
+//                        userDTO.setAddress((String)arg0[5]);
+//                        userDTO.setPhone((String)arg0[6]);
+//                        userDTO.setEmail((String)arg0[7]);
+//
+//                        return userDTO;
+//                    }
+//
+//                    @SuppressWarnings("unchecked")
+//                    public List transformList(List arg0){
+//                        return arg0;
+//                    }
+//                }).uniqueResult();
+//    }catch (NonUniqueResultException e){
+//        log.error(e.getMessage());
+//    }
 
-
-    return
-}
 
 }

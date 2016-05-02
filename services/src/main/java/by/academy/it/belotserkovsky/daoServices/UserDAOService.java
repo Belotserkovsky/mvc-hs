@@ -81,7 +81,26 @@ public class UserDAOService {
                 return userDTO;
             }
         }catch (ExceptionDAO e){
+            transaction.rollback();
             log.error("DAO exception in service layer during getUserByLoginPass(): " + e);
+        }
+        return userDTO;
+    }
+
+    /**
+     * @param uid
+     * @return
+     */
+    public UserDTO getUserWithContact(Long uid){
+        UserDTO userDTO = null;
+        try{
+            Session session = HibernateUtil.getSession();
+            transaction = session.beginTransaction();
+            userDTO = userDAO.getDTO(uid);
+            transaction.commit();
+        }catch (ExceptionDAO e){
+            transaction.rollback();
+            log.error("DAO exception in service layer during getUserWithContact(): " + e);
         }
         return userDTO;
     }

@@ -19,31 +19,31 @@
         <br/>
         First name:
         <br/>
-            <input type="text" name="firstName" value=""/>
+            <input type="text" name="firstName" value="${firstName}"/>
         <br/>
         Second name:
         <br/>
-            <input type="text" name="secondName" value=""/>
+            <input type="text" name="secondName" value="${secondName}"/>
         <br/>
         Address:
         <br/>
-            <input type="text" name="address" value=""/>
+            <input type="text" name="address" value="${address}"/>
         <br/>
         Phone:
         <br/>
-            <input type="text" name="phone" value=""/>
+            <input type="text" name="phone" value="${phone}"/>
         <br/>
         E-mail:
         <br/>
-            <input type="text" name="email" value=""/>
+            <input type="text" name="email" value="${email}"/>
         <br/>
         Login:
         <br/>
-            <input type="text" name="login" value=""/>
+            <input type="text" name="login" value="${login}"/>
         <br/>
         Password:
         <br/>
-            <input type="text" name="password" value=""/>
+            <input type="text" name="password" value="${pass}"/>
         <br/>
 
         <input type="submit" value="Send..."/>
