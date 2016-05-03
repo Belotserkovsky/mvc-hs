@@ -20,7 +20,6 @@
         <mapping class="by.academy.it.belotserkovsky.pojos.Bid"/>
         <mapping class="by.academy.it.belotserkovsky.pojos.User"/>
         <mapping class="by.academy.it.belotserkovsky.pojos.Brigade"/>
-        <mapping class="by.academy.it.belotserkovsky.pojos.WorkPlan"/>
         <mapping class="by.academy.it.belotserkovsky.pojos.Worker"/>
         <mapping class="by.academy.it.belotserkovsky.pojos.UserContacts"/>
 

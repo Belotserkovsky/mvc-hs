@@ -34,6 +34,8 @@ public class BidFormCommand implements ActionCommand {
 
         bidDTO = new BidDTO(Long.parseLong(uid), kindOfWorks, scope, desiredRuntime, selected);
 
+        BidDAOService.getInstance().create(bidDTO);
+
         request.setAttribute("success", MessageManager.MESSAGE_SUCCESS);
 
         return page = ConfigurationManager.PATH_PAGE_USER;

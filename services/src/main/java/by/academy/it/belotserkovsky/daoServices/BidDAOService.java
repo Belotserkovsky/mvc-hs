@@ -2,6 +2,7 @@ package by.academy.it.belotserkovsky.daoServices;
 
 import by.academy.it.belotserkovsky.dao.BidDAO;
 import by.academy.it.belotserkovsky.dao.BrigadeDAO;
+import by.academy.it.belotserkovsky.dao.UserDAO;
 import by.academy.it.belotserkovsky.dao.WorkerDAO;
 import by.academy.it.belotserkovsky.dto.BidDTO;
 import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
@@ -55,6 +56,9 @@ public class BidDAOService {
         }
     }
 
+    /**
+     * @param bidDTO
+     */
     public void create (BidDTO bidDTO){
         Bid bid = null;
         Worker worker = null;
@@ -73,8 +77,16 @@ public class BidDAOService {
             bid.setBrigade(brigade);
             User user = UserDAOService.getInstance().getById(bidDTO.getUid());
             bid.setUser(user);
-            bidDAO.saveOrUpdate(bid);
+            //bidDAO.saveOrUpdate(bid);
+
+            Set<Bid> bids = new HashSet<Bid>();
+            bids.add(bid);
+            user.setBids(bids);
+
+            UserDAO userDAO = new UserDAO();
+            userDAO.saveOrUpdate(user);
             transaction.commit();
+            HibernateUtil.closeSession();
         }catch (ExceptionDAO e){
             transaction.rollback();
             log.error("DAO exception in service layer create() bid: " + e);
