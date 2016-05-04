@@ -2,6 +2,7 @@ package by.academy.it.belotserkovsky.pojos;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -16,7 +17,7 @@ public class User implements Serializable{
     private String login;
     private String password;
     private UserContacts userContacts;
-    private Set<Bid> bids;
+    private Set<Bid> bids = new HashSet<Bid>();
 
     public User() {}
 

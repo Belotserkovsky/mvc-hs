@@ -30,13 +30,7 @@
         <br/>
         <input type="text" name="desiredRuntime" value="">
         <br/>
-        <p><b>Select the required specialist:</b></p>
-        <p><input type="CHECKBOX" name="workers" value="Plumber">Plumber<Br>
-        <input type="CHECKBOX" name="workers" value="Welder">Welder<Br>
-        <input type="CHECKBOX" name="workers" value="Electrician">Electrician<Br>
-        <input type="CHECKBOX" name="workers" value="House painter">House painter<Br></p>
-
-        <input type="submit" value="Form a bid."/>
+        <input type="submit" value="Next"/>
     </form>
 </div></div>
 

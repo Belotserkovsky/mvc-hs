@@ -78,7 +78,7 @@ public class BrigadeDAOService {
      * @param selectedWorkers
      * @return
      */
-    public Brigade createForBid (String[] selectedWorkers){
+    public Brigade create (String[] selectedWorkers){
         Brigade brigade = null;
         String title = "";
         Worker worker = null;

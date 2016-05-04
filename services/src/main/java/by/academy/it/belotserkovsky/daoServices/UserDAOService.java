@@ -3,6 +3,7 @@ package by.academy.it.belotserkovsky.daoServices;
 import by.academy.it.belotserkovsky.dao.UserDAO;
 import by.academy.it.belotserkovsky.dto.UserDTO;
 import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
+import by.academy.it.belotserkovsky.pojos.Bid;
 import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.pojos.UserContacts;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
@@ -11,7 +12,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Access to the class object UserDAO
@@ -45,17 +48,29 @@ public class UserDAOService {
                 Session session = HibernateUtil.getSession();
                 transaction = session.beginTransaction();
                 if(dtoUser.getUserId() != null) {
-                    User user = new User(dtoUser.getUserId(), dtoUser.getFirstName(), dtoUser.getSecondName(), dtoUser.getLogin(), dtoUser.getPassword());
+                    User user = userDAO.get(dtoUser.getUserId());
+                    user.setFirstName(dtoUser.getFirstName());
+                    user.setSecondName(dtoUser.getSecondName());
+                    user.setLogin(dtoUser.getLogin());
+                    user.setPassword(dtoUser.getPassword());
+                    //User user = new User(dtoUser.getUserId(), dtoUser.getFirstName(), dtoUser.getSecondName(), dtoUser.getLogin(), dtoUser.getPassword());
                     UserContacts uContacts = new UserContacts(dtoUser.getAddress(), dtoUser.getPhone(), dtoUser.getEmail());
                     user.setUserContacts(uContacts);
                     uContacts.setUser(user);
                     userDAO.saveOrUpdate(user);
+
+                    transaction.commit();
+                    HibernateUtil.closeSession();
                 }
+
                 User user = new User(dtoUser.getFirstName(), dtoUser.getSecondName(), dtoUser.getLogin(), dtoUser.getPassword());
                 UserContacts uContacts = new UserContacts(dtoUser.getAddress(), dtoUser.getPhone(), dtoUser.getEmail());
+                Set<Bid> bids = new HashSet<Bid>();
+                user.setBids(bids);
                 user.setUserContacts(uContacts);
                 uContacts.setUser(user);
                 userDAO.saveOrUpdate(user);
+
                 transaction.commit();
                 HibernateUtil.closeSession();
             }

@@ -67,7 +67,13 @@ public enum CommandEnum {
         {
           this.command = new EditContactCommand();
         }
-    };
+    },
+    SELECTWORKERS{
+        {
+            this.command = new SelectWorkersCommand();
+        }
+    }
+    ;
 
     ActionCommand command;
 

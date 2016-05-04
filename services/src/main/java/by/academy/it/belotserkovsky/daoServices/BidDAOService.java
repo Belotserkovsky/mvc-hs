@@ -66,27 +66,19 @@ public class BidDAOService {
         Set<Worker> workers = new HashSet<Worker>();
         WorkerDAO workerDAO = null;
         String profession = null;
-        String[] selected = bidDTO.getSelectedWorkers();
         Transaction transaction = null;
 
         try{
             Session session = HibernateUtil.getSession();
             transaction = session.beginTransaction();
-            brigade = BrigadeDAOService.getInstance().createForBid(selected);
+            //brigade = BrigadeDAOService.getInstance().createForBid(selected);
             bid = new Bid(bidDTO.getKindOfWorks(), bidDTO.getScope(), bidDTO.getDesiredRuntime());
             bid.setBrigade(brigade);
             User user = UserDAOService.getInstance().getById(bidDTO.getUid());
             bid.setUser(user);
-            //bidDAO.saveOrUpdate(bid);
-
-            Set<Bid> bids = new HashSet<Bid>();
-            bids.add(bid);
-            user.setBids(bids);
-
+            user.getBids().add(bid);
             UserDAO userDAO = new UserDAO();
             userDAO.saveOrUpdate(user);
-            transaction.commit();
-            HibernateUtil.closeSession();
         }catch (ExceptionDAO e){
             transaction.rollback();
             log.error("DAO exception in service layer create() bid: " + e);

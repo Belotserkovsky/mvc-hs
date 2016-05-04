@@ -18,6 +18,7 @@ public class ConfigurationManager {
     public static final String PATH_PAGE_FORM_BID = "/jsp/bid.jsp";
     public static final String PATH_PAGE_LOGOUT = "/jsp/logout.jsp";
     public static final String PATH_PAGE_BID_LIST = "/jsp/bidsList.jsp";
+    public static final String PATH_PAGE_SELECT_WORKERS = "/jsp/workers.jsp";
     public static final String PATH_PAGE_ERROR = "/jsp/error/error.jsp";
 
 }

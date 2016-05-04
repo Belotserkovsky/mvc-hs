@@ -1,70 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<html><%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<html>
 <head>
-    <title>Workers</title>
+    <title>Select workers</title>
     <style>
-        .content { text-align: center}
+        .content { text-align: left}
+        .content2 {text-align: center}
     </style>
 </head>
-<body>
-<hr/>
-<div> <div class="content">Fill in the fields below:</div> </div>
-<hr/>
-
-<div> <div class="content"> <form name="addWorker" method="POST" action="controller">
-    <input type="hidden" name="command" value="addworker"/>
-
-    <br/>
-    <div><div class="content"> Full Name:</div></div> <br/>
-    <div><div class="content"> <input type="text" name="fullName" value=""/></div></div>
-    <br/>
-
-    <div><div class="content"> Profession: </div> </div> <br/>
-    <div><div class="content"> <input type="text" name="profession" value=""/> </div> </div>
-    <br/>
-    <div> <div class="content"> <input type="submit" value="Add..."/> </div></div>
-</form></div></div>
-<hr/>
-<br/>
-<div> <div class="content"> <form name="updateWorker" method="POST" action="controller">
-    <input type="hidden" name="command" value="updateworker"/>
-
-    <br/>
-    <div><div class="content"> Worker ID:</div></div> <br/>
-    <div><div class="content"> <input type="text" name="id" value=""/></div></div>
-    <br/>
-
-    <br/>
-    <div><div class="content"> Full Name:</div></div> <br/>
-    <div><div class="content"> <input type="text" name="fullName" value=""/></div></div>
-    <br/>
-
-    <div><div class="content"> Profession: </div> </div> <br/>
-    <div><div class="content"> <input type="text" name="profession" value=""/> </div> </div>
-    <br/>
-
-    <br/>
-    <div><div class="content"> Brigade ID:</div></div> <br/>
-    <div><div class="content"> <input type="number" name="brigadeId" value=""/></div></div>
-
-    <div> <div class="content"> <input type="submit" value="Update..."/> </div></div>
-</form></div></div>
-
-<hr/>
-<br/>
-${errorLoginPassMessage}
-<br/>
-${wrongAction}
-<br/>
-${nullPage}
-<br/>
-<div><div class="content">
-    <a href="/jsp/admin.jsp">Return to admin page.</a>
+<div> <div class="content2">
+    <c:import url="/jsp/fragment/header.jsp"/>
 </div></div>
+<hr/>
 <br/>
 <div> <div class="content">
-    <c:import url="/jsp/fragment/footer.jsp"/>
+    <form name="selectWorker" method="POST" action="/controller">
+        <input type="hidden" name="command" value="selectWorkers">
+        <p><b>Select the needed specialist:</b></p>
+        <p><input type="CHECKBOX" name="workers" value="Plumber">Plumber<Br>
+            <input type="CHECKBOX" name="workers" value="Welder">Welder<Br>
+            <input type="CHECKBOX" name="workers" value="Electrician">Electrician<Br>
+            <input type="CHECKBOX" name="workers" value="House painter">House painter<Br></p>
+        <p><input type="submit" value="Select"></p>
+    </form>
 </div></div>
+<br/>
+<div> <div class="content2">${success}</div></div>
+<br/>
+<hr/>
+<div> <div class="content2"> <c:import url="/jsp/fragment/footer.jsp"/> </div></div>
 </body>
 </html>

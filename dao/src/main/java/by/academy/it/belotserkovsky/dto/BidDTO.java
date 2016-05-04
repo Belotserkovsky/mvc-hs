@@ -1,5 +1,7 @@
 package by.academy.it.belotserkovsky.dto;
 
+import by.academy.it.belotserkovsky.pojos.Brigade;
+
 /**
  * Created by Kostya on 02.05.2016.
  */
@@ -9,17 +11,17 @@ public class BidDTO {
     private String kindOfWorks;
     private String scope;
     private String desiredRuntime;
-    private String[] selectedWorkers;
+    private Brigade brigade;
 
     public BidDTO() {
     }
 
-    public BidDTO(Long uid, String kindOfWorks, String scope, String desiredRuntime, String[] selectedWorkers) {
+    public BidDTO(Long uid, String kindOfWorks, String scope, String desiredRuntime, Brigade brigade) {
         this.uid = uid;
         this.kindOfWorks = kindOfWorks;
         this.scope = scope;
         this.desiredRuntime = desiredRuntime;
-        this.selectedWorkers = selectedWorkers;
+        this.brigade = brigade;
     }
 
     public Long getUid() {
@@ -54,11 +56,11 @@ public class BidDTO {
         this.desiredRuntime = desiredRuntime;
     }
 
-    public String[] getSelectedWorkers() {
-        return selectedWorkers;
+    public Brigade getBrigade() {
+        return brigade;
     }
 
-    public void setSelectedWorkers(String[] selectedWorkers) {
-        this.selectedWorkers = selectedWorkers;
+    public void setBrigade(Brigade brigade) {
+        this.brigade = brigade;
     }
 }
