@@ -17,14 +17,13 @@ public class BrigadesListCommand implements ActionCommand{
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        String page = null;
-
-        List<Brigade> brigadesList = new ArrayList<Brigade>();
-
-        brigadesList = BrigadeDAOService.getInstance().getBrigadesList();
-
-        request.setAttribute("brigadesList", brigadesList);
-
+//
+//        List<Brigade> brigadesList = new ArrayList<Brigade>();
+//
+//        brigadesList = BrigadeDAOService.getInstance().getBrigadesList();
+//
+//        request.setAttribute("brigadesList", brigadesList);
+//
         return ConfigurationManager.PATH_PAGE_BRIGADESLIST;
     }
 

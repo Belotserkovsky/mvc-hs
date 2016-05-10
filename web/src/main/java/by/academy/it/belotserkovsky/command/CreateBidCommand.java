@@ -6,15 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * session destruction
- * Created by Kostya on 09.04.2016.
+ * Created by Kostya on 06.05.2016.
  */
-public class LogoutCommand implements ActionCommand {
+public class CreateBidCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = ConfigurationManager.PATH_PAGE_INDEX;
-        request.getSession().invalidate();
+        String page = ConfigurationManager.PATH_PAGE_SELECT_WORKERS;
         return page;
     }
-
 }

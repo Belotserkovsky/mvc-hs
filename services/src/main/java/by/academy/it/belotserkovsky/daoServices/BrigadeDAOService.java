@@ -75,22 +75,19 @@ public class BrigadeDAOService {
 //
     /**
      * parse date input through checkbox
-     * @param selectedWorkers
+     * @param selected
      * @return
      */
-    public Brigade create (String[] selectedWorkers){
+    public Brigade createBrigade (String[] selected){
         Brigade brigade = null;
         String title = "";
         Worker worker = null;
         Set<Worker> workers = new HashSet<Worker>();
-        WorkerDAO workerDAO = null;
         String profession = null;
-        Transaction transaction = null;
-
-            if(selectedWorkers.length != 0) {
-                for (int i = 0; i < selectedWorkers.length; ++i) {
-                    profession = selectedWorkers[i];
-                    title += (", " + profession);
+            if(selected.length != 0) {
+                for (int i = 0; i < selected.length; ++i) {
+                    profession = selected[i];
+                    title += (", " + profession.toLowerCase());
                     worker = WorkerDAOService.getInstance().getByProfession(profession);
                     workers.add(worker);
                 }

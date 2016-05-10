@@ -7,16 +7,16 @@
     </style>
 </head>
 <body>
-<div> <div class="content"><h1>Please login...</h1></div></div>
+<div> <div class="content"><h1>Введите данные для входа:</h1></div></div>
 
 <div><div class="content">
     <form name="loginForm" method="POST" action="/controller">
         <input type="hidden" name="command" value="login"/>
-        Login:
+        Имя пользователя:
         <br/>
         <input type="text" name="login" value=""/>
         <br/>
-        Password:
+        Пароль:
         <br/>
         <input type="text" name="password" value=""/>
         <br/>
@@ -31,7 +31,7 @@
 <br/>
 <div><div class="content">${nullPage}</div></div>
 <br/>
-<div> <div class="content"> <a href="/jsp/registration.jsp">Registration</a> </div></div>
+<div> <div class="content"> <a href="/jsp/registration.jsp">Регистрация</a> </div></div>
 <br/>
 <hr/>
 <div> <div class="content"> <c:import url="/jsp/fragment/footer.jsp"/> </div></div>

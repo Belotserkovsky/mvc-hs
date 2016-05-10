@@ -8,25 +8,17 @@
     </style>
 </head>
 <body>
+
 <div> <div class="content">
     <c:import url="/jsp/fragment/header.jsp" />
 </div> </div>
 <br/>
 
 <div> <div class="content">
-    <form name="workersList" method="POST" action="/controller">
-        <input type="hidden" name="command" value="bidslist"/>
-        <input type="submit" value="Get list of bids"/>
-</form>
-</div></div>
-
-<div> <div class="content">
-    <form name="brigadesList" method="POST" action="/controller">
-        <input type="hidden" name="command" value="brigadeslist"/>
-        <input type="submit" value="Get list of brigades"/>
-    </form>
+    <a href="/controller?command=usersList">Список пользователей</a>
 </div></div>
 <br/>
+
 <div> <div class="content">
     <c:import url="/jsp/fragment/footer.jsp"/>
 </div></div>

@@ -23,6 +23,8 @@ import java.util.Set;
 public class UserDAOService {
     private static Logger log = Logger.getLogger(UserDAOService.class);
     private Transaction transaction = null;
+    private Session session = null;
+    private int result;
 
     private UserDAO userDAO = null;
 
@@ -45,38 +47,36 @@ public class UserDAOService {
     public void createOrUpdate (UserDTO dtoUser) {
         try {
             if(dtoUser != null) {
-                Session session = HibernateUtil.getSession();
+                session = HibernateUtil.getSession();
                 transaction = session.beginTransaction();
-                if(dtoUser.getUserId() != null) {
-                    User user = userDAO.get(dtoUser.getUserId());
+                if(dtoUser.getUid() != null) {
+                    User user = userDAO.get(dtoUser.getUid());
                     user.setFirstName(dtoUser.getFirstName());
                     user.setSecondName(dtoUser.getSecondName());
                     user.setLogin(dtoUser.getLogin());
                     user.setPassword(dtoUser.getPassword());
-                    //User user = new User(dtoUser.getUserId(), dtoUser.getFirstName(), dtoUser.getSecondName(), dtoUser.getLogin(), dtoUser.getPassword());
+                    UserContacts uContacts = user.getUserContacts();
+                    uContacts.setAddress(dtoUser.getAddress());
+                    uContacts.setPhone(dtoUser.getPhone());
+                    uContacts.setEmail(dtoUser.getEmail());
+                    userDAO.saveOrUpdate(user);
+                }else{
+                    User user = new User(dtoUser.getFirstName(), dtoUser.getSecondName(), dtoUser.getLogin(), dtoUser.getPassword());
                     UserContacts uContacts = new UserContacts(dtoUser.getAddress(), dtoUser.getPhone(), dtoUser.getEmail());
+                    Set<Bid> bids = new HashSet<Bid>();
+                    user.setBids(bids);
                     user.setUserContacts(uContacts);
                     uContacts.setUser(user);
                     userDAO.saveOrUpdate(user);
-
-                    transaction.commit();
-                    HibernateUtil.closeSession();
                 }
-
-                User user = new User(dtoUser.getFirstName(), dtoUser.getSecondName(), dtoUser.getLogin(), dtoUser.getPassword());
-                UserContacts uContacts = new UserContacts(dtoUser.getAddress(), dtoUser.getPhone(), dtoUser.getEmail());
-                Set<Bid> bids = new HashSet<Bid>();
-                user.setBids(bids);
-                user.setUserContacts(uContacts);
-                uContacts.setUser(user);
-                userDAO.saveOrUpdate(user);
-
-                transaction.commit();
-                HibernateUtil.closeSession();
             }
         }catch (ExceptionDAO e){
             transaction.rollback();
             log.error("DAO exception in service layer during createOrUpdate() user: " + e);
+        }
+        finally {
+            transaction.commit();
+            HibernateUtil.closeSession();
         }
     }
 
@@ -86,25 +86,27 @@ public class UserDAOService {
      * @return
      */
     public UserDTO getUserByLoginPass(String login, String pass) {
-        UserDTO userDTO = null;
         User user = null;
+        UserDTO userDTO = null;
         try {
-            Session session = HibernateUtil.getSession();
+            session = HibernateUtil.getSession();
             transaction = session.beginTransaction();
             user = userDAO.get(login, pass);
             if(user != null) {
                 userDTO = new UserDTO();
-                userDTO.setUserId(user.getUid());
+                userDTO.setUid(user.getUid());
                 userDTO.setLogin(user.getLogin());
                 userDTO.setPassword(user.getPassword());
                 userDTO.setFirstName(user.getFirstName());
                 userDTO.setSecondName(user.getSecondName());
                 transaction.commit();
-                return userDTO;
             }
         }catch (ExceptionDAO e){
             transaction.rollback();
             log.error("DAO exception in service layer during getUserByLoginPass(): " + e);
+        }
+        finally {
+            HibernateUtil.closeSession();
         }
         return userDTO;
     }
@@ -124,6 +126,9 @@ public class UserDAOService {
             transaction.rollback();
             log.error("DAO exception in service layer during getUserWithContact(): " + e);
         }
+        finally {
+            HibernateUtil.closeSession();
+        }
         return userDTO;
     }
 
@@ -134,9 +139,9 @@ public class UserDAOService {
         User user = null;
         try {
             if (userDTO != null){
-                Session session = HibernateUtil.getSession();
+                session = HibernateUtil.getSession();
                 transaction = session.beginTransaction();
-                user = userDAO.get(userDTO.getUserId());
+                user = userDAO.get(userDTO.getUid());
                 userDAO.delete(user);
                 transaction.commit();
                 log.info("Successful delete user : " + user);
@@ -151,18 +156,29 @@ public class UserDAOService {
         try{
             user = userDAO.get(uid);
         }catch (ExceptionDAO e){
-            log.error("DAO exception in service layer during getUserWithContact(): " + e);
+            log.error("DAO exception in service layer during getById(): " + e);
         }
         return user;
     }
 
-    public List<User> getAllUsers (){
-        List<User> allUsers = new ArrayList<User>();
+    public List<UserDTO> getAllUsers (int offset, int noOfRecords){
+        List<UserDTO> allUsers = null;
         try{
-            allUsers = (List<User>)userDAO.getAll();
+            session = HibernateUtil.getSession();
+            transaction = session.beginTransaction();
+            allUsers = userDAO.getAll(offset, noOfRecords);
+            transaction.commit();
         }catch (ExceptionDAO e){
+            transaction.rollback();
             log.error("DAO exception in service layer during getAll(): " + e);
+        }finally {
+            HibernateUtil.closeSession();
         }
         return allUsers;
+    }
+
+    public int getRowsUsers(){
+        result = userDAO.getFoundRows();;
+        return result;
     }
 }

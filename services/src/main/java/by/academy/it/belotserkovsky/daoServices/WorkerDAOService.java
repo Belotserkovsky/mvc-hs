@@ -49,7 +49,7 @@ public class WorkerDAOService {
         Worker worker = null;
         try{
             if(profession.length() > 0){
-                worker = workerDAO.get(profession.trim());
+                worker = workerDAO.get(profession.toLowerCase().trim());
             }
         }catch (ExceptionDAO e){
             log.error("DAO exception in service layer during getByProfession() worker: " + e);

@@ -1,6 +1,11 @@
 package by.academy.it.belotserkovsky.pojos;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +15,7 @@ import java.util.Set;
  */
 
 @Entity
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
 public class User implements Serializable{
     private Long uid;
     private String firstName;
@@ -62,6 +68,7 @@ public class User implements Serializable{
         return password;
     }
 
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     public UserContacts getUserContacts() {
         return userContacts;

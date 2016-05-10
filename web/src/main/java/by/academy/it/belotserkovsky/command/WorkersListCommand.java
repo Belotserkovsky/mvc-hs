@@ -17,15 +17,14 @@ public class WorkersListCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        String page = null;
-
-        List<Worker> workersList = new ArrayList<Worker>();
-
-        workersList = WorkerDAOService.getInstance().getWorkersList();
-
-        request.setAttribute("workersList", workersList);
-
-        return page = ConfigurationManager.PATH_PAGE_WORKERSLIST;
+//
+//        List<Worker> workersList = new ArrayList<Worker>();
+//
+//        workersList = WorkerDAOService.getInstance().getWorkersList();
+//
+//        request.setAttribute("workersList", workersList);
+//
+        return ConfigurationManager.PATH_PAGE_WORKERSLIST;
     }
 }
 

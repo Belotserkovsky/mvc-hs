@@ -5,37 +5,39 @@
     <title>Form a bid</title>
     <style>
         .content { text-align: center}
+        .content2 {text-align: left}
     </style>
 </head>
 <body>
-<div> <div class="content"><h3>Bid for work</h3></div></div>
+<div> <div class="content"><h3>Заявка</h3></div></div>
     <br/>
     <hr/>
 <br/>
-<div> <div class="content">Please fill in the empty fields below to form a bid:</div></div>
+<div> <div class="content">Пожалуйста, заполните пустые поля:</div></div>
 
-<div> <div class="content">
-    <form name="addBid" method="POST" action="controller">
+<div> <div class="content2">
+    <form name="addBid" method="POST" action="/controller">
         <input type="hidden" name="command" value="bidform"/>
         <br/>
-        Kind of works:
+        Род работ:
         <br/>
         <input type="text" name="kindOfWorks" value="" >
         <br/>
-        Scope:
+        Масштаб:
         <br/>
         <input type="text" name="scope" value=""/>
         <br/>
-        Desired runtime:
+        Желаемое время выполнения:
         <br/>
         <input type="text" name="desiredRuntime" value="">
         <br/>
-        <input type="submit" value="Next"/>
+        <input type="submit" value="Отправить"/>
     </form>
 </div></div>
-
 <br/>
-<hr/>
+<div> <div class="content2">${success}</div></div>
+<br/>
+<hr>
 <div> <div class="content"><c:import url="/jsp/fragment/footer.jsp"/></div></div>
 <br/>
 </body>

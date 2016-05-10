@@ -72,6 +72,16 @@ public enum CommandEnum {
         {
             this.command = new SelectWorkersCommand();
         }
+    },
+    CREATEBID{
+        {
+            this.command = new CreateBidCommand();
+        }
+    },
+    USERSLIST{
+        {
+            this.command = new UsersListCommand();
+        }
     }
     ;
 

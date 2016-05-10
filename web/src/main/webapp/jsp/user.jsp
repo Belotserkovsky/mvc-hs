@@ -13,14 +13,14 @@
     <hr/>
 <br/>
 <div> <div class="content">
-    <form name="bidForm" method="POST" action="/controller">
-        <input type="hidden" name="command" value="showBidForm"/>
-        <input type="submit" value="Bid form"/>
+    <form name="createBid" method="POST" action="/controller">
+        <input type="hidden" name="command" value="createBid"/>
+        <input type="submit" value="Создать заявку"/>
     </form>
     <br/>
     <form name="contactInfo" method="POST" action="/controller">
         <input type="hidden" name="command" value="editContact"/>
-        <input type="submit" value="Edit contact info"/>
+        <input type="submit" value="Редактировать контактные данные"/>
     </form>
 </div></div>
 <br/>

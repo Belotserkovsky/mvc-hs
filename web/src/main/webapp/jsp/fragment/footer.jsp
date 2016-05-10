@@ -4,8 +4,8 @@
     <title>Footer</title>
 </head>
 <body>
-User status = ${userType}.
+Статус = ${userType}.
 <hr/>
-<a href="/controller?command=logout">Logout.</a>
+<a href="/controller?command=logout">Выйти</a>
 </body>
 </html>

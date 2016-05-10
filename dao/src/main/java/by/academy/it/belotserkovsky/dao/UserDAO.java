@@ -7,9 +7,11 @@ import by.academy.it.belotserkovsky.pojos.UserContacts;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
+import org.hibernate.criterion.Projections;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,15 +34,16 @@ public class UserDAO extends BaseDAO<User>{
             Session session = HibernateUtil.getSession();
             String hql = "SELECT user FROM User user WHERE user.login=:login AND user.password=:pass";
             Query query = session.createQuery(hql);
+            query.setCacheable(true);
             query.setParameter("login", login);
             query.setParameter("pass", pass);
             List<User> results = query.list();
             if(!results.isEmpty()){
                 for(User result : results){
                     user = result;
+                    log.info("Got user: " + user);
                 }
             }
-            log.info("Get user: " + user);
         }catch (HibernateException e){
             log.error("Error get user by login in DAO: " + e);
             throw new ExceptionDAO(e);
@@ -59,14 +62,14 @@ public class UserDAO extends BaseDAO<User>{
             Session session = HibernateUtil.getSession();
             userDTO = (UserDTO) session.createSQLQuery("SELECT u.F_UID as uid, u.F_FIRSTNAME as firstName, " +
                     "u.F_SECONDNAME as secondName, u.F_LOGIN as login, " +
-                    "u.F_PASSWORD as pass, uc.F_ADDRESS as address, " +
+                    "u.F_PASSWORD as password, uc.F_ADDRESS as address, " +
                     "uc.F_PHONE as phone, uc.F_EMAIL as email " +
-                    "from t_user u JOIN t_usercontacts uc ON u.F_UID=uc.F_UID")
+                    "from t_user u JOIN t_usercontacts uc ON u.F_UID=uc.F_UID WHERE u.F_UID="+uid)
                     .addScalar("uid", StandardBasicTypes.LONG)
                     .addScalar("firstName", StandardBasicTypes.STRING)
                     .addScalar("secondName", StandardBasicTypes.STRING)
                     .addScalar("login", StandardBasicTypes.STRING)
-                    .addScalar("pass", StandardBasicTypes.STRING)
+                    .addScalar("password", StandardBasicTypes.STRING)
                     .addScalar("address", StandardBasicTypes.STRING)
                     .addScalar("phone", StandardBasicTypes.STRING)
                     .addScalar("email", StandardBasicTypes.STRING)
@@ -76,29 +79,34 @@ public class UserDAO extends BaseDAO<User>{
         }
         return userDTO;
     }
-//                    {private static final long serialVersionUID = 1L;
-//                    public Object tranformTuple(Object[] arg0, String[] arg1){
-//                        UserDTO userDTO = new UserDTO();
-//                        userDTO.setUserId((Long)arg0[0]);
-//                        userDTO.setFirstName((String)arg0[1]);
-//                        userDTO.setSecondName((String)arg0[2]);
-//                        userDTO.setLogin((String)arg0[3]);
-//                        userDTO.setPassword((String)arg0[4]);
-//                        userDTO.setAddress((String)arg0[5]);
-//                        userDTO.setPhone((String)arg0[6]);
-//                        userDTO.setEmail((String)arg0[7]);
-//
-//                        return userDTO;
-//                    }
-//
-//                    @SuppressWarnings("unchecked")
-//                    public List transformList(List arg0){
-//                        return arg0;
-//                    }
-//                }).uniqueResult();
-//    }catch (NonUniqueResultException e){
-//        log.error(e.getMessage());
-//    }
 
+    public List<UserDTO> getAll(int offset, int noOfRecords)throws ExceptionDAO{
+        List<UserDTO> all = new ArrayList<UserDTO>();
+        Session session = HibernateUtil.getSession();
+        all = session.createSQLQuery("SELECT u.F_UID as uid, u.F_FIRSTNAME as firstName, " +
+                "u.F_SECONDNAME as secondName, u.F_LOGIN as login, " +
+                "u.F_PASSWORD as password, uc.F_ADDRESS as address, " +
+                "uc.F_PHONE as phone, uc.F_EMAIL as email " +
+                "from t_user u JOIN t_usercontacts uc ON u.F_UID=uc.F_UID LIMIT " + offset + "," + noOfRecords)
+                .addScalar("uid", StandardBasicTypes.LONG)
+                .addScalar("firstName", StandardBasicTypes.STRING)
+                .addScalar("secondName", StandardBasicTypes.STRING)
+                .addScalar("login", StandardBasicTypes.STRING)
+                .addScalar("password", StandardBasicTypes.STRING)
+                .addScalar("address", StandardBasicTypes.STRING)
+                .addScalar("phone", StandardBasicTypes.STRING)
+                .addScalar("email", StandardBasicTypes.STRING)
+                .setResultTransformer(Transformers.aliasToBean(UserDTO.class)).list();
+        return all;
+    }
 
+    public int getFoundRows() {
+        Session session = HibernateUtil.getSession();
+        Criteria criteria = session.createCriteria(User.class);
+        criteria.setProjection(Projections.rowCount());
+        Long result = (Long)criteria.uniqueResult();
+        int foundRows = result.intValue();
+
+        return foundRows;
+    }
 }

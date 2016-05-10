@@ -17,17 +17,17 @@ public class BidDisplayCommand implements ActionCommand{
     public String execute(HttpServletRequest request, HttpServletResponse response){
 
         String page = null;
-
-        Bid bid = new Bid();
-
-        int uid = Integer.parseInt(request.getParameter(PARAM_NAME_USER_ID));
-
-        Integer key = new Integer(uid);
-
-        bid = BidDAOService.getInstance().getBidByUserID(key);
-
-        request.setAttribute("bid", bid);
-
+//
+//        Bid bid = new Bid();
+//
+//        int uid = Integer.parseInt(request.getParameter(PARAM_NAME_USER_ID));
+//
+//        Integer key = new Integer(uid);
+//
+//        bid = BidDAOService.getInstance().getBidByUserID(key);
+//
+//        request.setAttribute("bid", bid);
+//
         return page;
     }
 }

@@ -17,14 +17,13 @@ public class BidsListCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        String page = null;
-
-        List<Bid> bidsList = new ArrayList<Bid>();
-
-        bidsList = BidDAOService.getInstance().getBidsList();
-
-        request.setAttribute("bidsList", bidsList);
-
+//
+//        List<Bid> bidsList = new ArrayList<Bid>();
+//
+//        bidsList = BidDAOService.getInstance().getBidsList();
+//
+//        request.setAttribute("bidsList", bidsList);
+//
         return ConfigurationManager.PATH_PAGE_BID_LIST;
     }
 }

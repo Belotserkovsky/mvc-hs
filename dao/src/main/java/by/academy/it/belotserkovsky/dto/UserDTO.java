@@ -5,7 +5,7 @@ package by.academy.it.belotserkovsky.dto;
  */
 public class UserDTO {
 
-    private Long userId;
+    private Long uid;
     private String firstName;
     private String secondName;
     private String login;
@@ -15,6 +15,17 @@ public class UserDTO {
     private String email;
 
     public UserDTO() {
+    }
+
+    public UserDTO(Long uid, String firstName, String secondName, String login, String password, String address, String phone, String email) {
+        this.uid = uid;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.login = login;
+        this.password = password;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
     }
 
     public UserDTO(String firstName, String secondName, String login, String password, String address, String phone, String email) {
@@ -34,12 +45,12 @@ public class UserDTO {
         this.password = password;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getUid() {
+        return uid;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
     public String getFirstName() {

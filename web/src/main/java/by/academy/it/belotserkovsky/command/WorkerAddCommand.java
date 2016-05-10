@@ -20,19 +20,17 @@ public class WorkerAddCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        String page = null;
-        String fullName = request.getParameter(PARAM_NAME_FULL_NAME);
-        String profession = request.getParameter(PARAM_NAME_PROFESSION);
-
-        worker = new Worker();
-
-        worker.setFullName(fullName);
-        worker.setProfession(profession);
-
-        WorkerDAOService.getInstance().addWorker(worker);
-
-        page = ConfigurationManager.PATH_PAGE_ADMIN;
-
-        return page;
+//        String page = null;
+//        String fullName = request.getParameter(PARAM_NAME_FULL_NAME);
+//        String profession = request.getParameter(PARAM_NAME_PROFESSION);
+//
+//        worker = new Worker();
+//
+//        worker.setFullName(fullName);
+//        worker.setProfession(profession);
+//
+//        WorkerDAOService.getInstance().addWorker(worker);
+//
+        return ConfigurationManager.PATH_PAGE_ADMIN;
     }
 }

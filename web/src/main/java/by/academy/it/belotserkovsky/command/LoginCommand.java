@@ -31,33 +31,33 @@ public class LoginCommand implements ActionCommand {
      */
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
-        UserDTO userDTO = null;
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 
-        userDTO = UserDAOService.getInstance().getUserByLoginPass(login, pass);
+        HttpSession session = request.getSession();
+        UserDTO userDTO = UserDAOService.getInstance().getUserByLoginPass(login, pass);
 
         if (LoginLogic.getInstance().checkAdminLogin(login, pass)) {
-            HttpSession session = request.getSession(true);
+            session = request.getSession();
             session.setAttribute("userType", UserType.ADMIN);
-            request.setAttribute("user", login);
+            session.setAttribute("user", login);
             page = ConfigurationManager.PATH_PAGE_ADMIN;
-
+            return page;
         } else if (userDTO != null) {
-            request.setAttribute("user", userDTO.getFirstName());
-            request.setAttribute("u_id", userDTO.getUserId());
-            HttpSession session = request.getSession(true);
+            session.setAttribute("user", userDTO.getFirstName());
+            session.setAttribute("u_id", userDTO.getUid());
             session.setAttribute("userType", UserType.USER);
-            Cookie c = new Cookie(UID, String.valueOf(userDTO.getUserId()));
+            Cookie c = new Cookie(UID, String.valueOf(userDTO.getUid()));
             c.setMaxAge(ONE_WEEK);
             response.addCookie(c);
             page = ConfigurationManager.PATH_PAGE_USER;
+            return page;
         }
         else {
             request.setAttribute("errorLoginPassMessage", MessageManager.MESSAGE_LOGIN_ERROR);
-            request.getSession().setAttribute("userType", UserType.GUEST);
+            session.setAttribute("userType", UserType.GUEST);
             page = ConfigurationManager.PATH_PAGE_LOGIN;
+            return page;
         }
-        return page;
     }
 }

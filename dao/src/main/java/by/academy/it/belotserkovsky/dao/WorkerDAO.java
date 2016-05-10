@@ -14,7 +14,6 @@ import org.hibernate.Transaction;
  */
 public class WorkerDAO extends BaseDAO<Worker> {
     private static Logger log = Logger.getLogger(WorkerDAO.class);
-    private Transaction transaction = null;
 
     /**
      * @param profession
@@ -25,14 +24,11 @@ public class WorkerDAO extends BaseDAO<Worker> {
         Worker worker = null;
             try{
                 Session session = HibernateUtil.getSession();
-                transaction = session.beginTransaction();
                 String hql = "SELECT worker FROM Worker worker WHERE worker.profession=:profession";
                 Query query = session.createQuery(hql);
                 query.setParameter("profession", profession);
                 worker = (Worker)query.uniqueResult();
-                transaction.commit();
             }catch (HibernateException e){
-                transaction.rollback();
                 log.error("Error get worker by profession in DAO: " + e);
                 throw new ExceptionDAO(e);
             }

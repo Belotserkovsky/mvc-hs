@@ -22,23 +22,22 @@ public class WorkerUpdateCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        String page = null;
-        String w_id = request.getParameter(PARAM_NAME_ID);
-        String fullName = request.getParameter(PARAM_NAME_FULLNAME);
-        String profession = request.getParameter(PARAM_NAME_PROFESSION);
-        String brigadeId = request.getParameter(PARAM_NAME_BRIGADE_ID);
+//        String page = null;
+//        String w_id = request.getParameter(PARAM_NAME_ID);
+//        String fullName = request.getParameter(PARAM_NAME_FULLNAME);
+//        String profession = request.getParameter(PARAM_NAME_PROFESSION);
+//        String brigadeId = request.getParameter(PARAM_NAME_BRIGADE_ID);
+//
+//        worker = new Worker();
+//
+//        worker.setId(Integer.parseInt(w_id));
+//        worker.setFullName(fullName);
+//        worker.setProfession(profession);
+//        worker.setBrigadeId(Integer.parseInt(brigadeId));
+//
+//        WorkerDAOService.getInstance().updateWorker(worker);
+//
+        return ConfigurationManager.PATH_PAGE_ADMIN;
 
-        worker = new Worker();
-
-        worker.setId(Integer.parseInt(w_id));
-        worker.setFullName(fullName);
-        worker.setProfession(profession);
-        worker.setBrigadeId(Integer.parseInt(brigadeId));
-
-        WorkerDAOService.getInstance().updateWorker(worker);
-
-        page = ConfigurationManager.PATH_PAGE_ADMIN;
-
-        return page;
     }
 }

@@ -2,22 +2,27 @@ package by.academy.it.belotserkovsky.command;
 
 import by.academy.it.belotserkovsky.daoServices.BidDAOService;
 import by.academy.it.belotserkovsky.dto.BidDTO;
-import by.academy.it.belotserkovsky.pojos.Bid;
+import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 import by.academy.it.belotserkovsky.managers.MessageManager;
+import by.academy.it.belotserkovsky.pojos.Brigade;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.engine.spi.SessionImplementor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * add a bid
  * Created by Kostya on 12.04.2016.
  */
 public class BidFormCommand implements ActionCommand {
-    private Bid newBid = null;
+    private static Logger log = Logger.getLogger(BidFormCommand.class);
     private Session hibSession = null;
     private Transaction transaction = null;
 
@@ -25,26 +30,42 @@ public class BidFormCommand implements ActionCommand {
     private static final String PARAM_NAME_USER_KIND_OF_WORKS = "kindOfWorks";
     private static final String PARAM_NAME_USER_SCOPE = "scope";
     private static final String PARAM_NAME_USER_DESIRED_RUNTIME = "desiredRuntime";
+    private static final String PARAM_NAME_BRIGADE = "brigade";
+    private static final String PARAM_NAME_HIB_SESSION = "hibernateSession";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         BidDTO bidDTO = null;
 
-        hibSession = HibernateUtil.getSession();
-        transaction = hibSession.beginTransaction();
+        hibSession = (Session)request.getSession().getAttribute(PARAM_NAME_HIB_SESSION);
+        SessionImplementor si = (SessionImplementor)hibSession;
 
-        String uid = request.getParameter(PARAM_NAME_USER_ID);
+        hibSession.reconnect(si.connection());
+
+        transaction = hibSession.getTransaction();
+
+        Long uid = (Long)request.getSession().getAttribute(PARAM_NAME_USER_ID);
         String kindOfWorks = request.getParameter(PARAM_NAME_USER_KIND_OF_WORKS);
         String scope = request.getParameter(PARAM_NAME_USER_SCOPE);
         String desiredRuntime = request.getParameter(PARAM_NAME_USER_DESIRED_RUNTIME);
+        Brigade brigade = (Brigade)request.getAttribute(PARAM_NAME_BRIGADE);
 
-        bidDTO = new BidDTO(Long.parseLong(uid), kindOfWorks, scope, desiredRuntime);
-        BidDAOService.getInstance().create(bidDTO);
+        bidDTO = new BidDTO(uid, kindOfWorks, scope, desiredRuntime, brigade);
 
-        request.getSession().setAttribute("hibernateSession", hibSession);
-        hibSession.disconnect();
+        try {
+            BidDAOService.getInstance().createBid(bidDTO);
+            transaction.commit();
+        }catch (ExceptionDAO e){
+            transaction.rollback();
+            log.error("DAO exception in service layer createBid(): " + e);
+        }
+        finally{
+            HibernateUtil.closeSession();
+        }
 
-        return page = ConfigurationManager.PATH_PAGE_SELECT_WORKERS;
+        request.setAttribute("success", MessageManager.MESSAGE_SUCCESS);
+        page = ConfigurationManager.PATH_PAGE_USER;
+        return page;
     }
 
 }

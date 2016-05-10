@@ -17,15 +17,14 @@ public class Bid implements Serializable{
 
     private User user;
     private Brigade brigade;
-    //WorkPlan workPlan;
 
     public Bid(){}
 
-    public Bid(Long bId, String kindOfWorks, String scope, String desiredRuntime) {
-        this.bId = bId;
+    public Bid(String kindOfWorks, String scope, String desiredRuntime, Brigade brigade) {
         this.kindOfWorks = kindOfWorks;
         this.scope = scope;
         this.desiredRuntime = desiredRuntime;
+        this.brigade = brigade;
     }
 
     public Bid(String kindOfWorks, String scope, String desiredRuntime) {
@@ -66,13 +65,6 @@ public class Bid implements Serializable{
         return brigade;
     }
 
-    //    @ManyToOne
-//    @JoinColumn(name = "f_workPlan_id")
-//    public WorkPlan getWorkPlan() {
-//        return workPlan;
-//    }
-
-
     public void setbId(Long bId) {
         this.bId = bId;
     }
@@ -97,7 +89,4 @@ public class Bid implements Serializable{
         this.brigade = brigade;
     }
 
-    //    public void setWorkPlan(WorkPlan workPlan) {
-//        this.workPlan = workPlan;
-//    }
 }

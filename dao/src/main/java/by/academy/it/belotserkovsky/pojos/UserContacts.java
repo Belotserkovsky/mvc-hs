@@ -1,6 +1,7 @@
 package by.academy.it.belotserkovsky.pojos;
 
 import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Parameter;
 import org.jboss.logging.annotations.Property;
 
@@ -13,6 +14,7 @@ import java.io.Serializable;
  */
 
 @Entity
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
 public class UserContacts implements Serializable {
 
     private Long uid;

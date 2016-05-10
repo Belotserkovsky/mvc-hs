@@ -59,39 +59,22 @@ public class BidDAOService {
     /**
      * @param bidDTO
      */
-    public void create (BidDTO bidDTO){
+    public void createBid (BidDTO bidDTO) throws ExceptionDAO {
         Bid bid = null;
-        Worker worker = null;
-        Brigade brigade = null;
-        Set<Worker> workers = new HashSet<Worker>();
-        WorkerDAO workerDAO = null;
-        String profession = null;
-        Transaction transaction = null;
 
-        try{
-            Session session = HibernateUtil.getSession();
-            transaction = session.beginTransaction();
-            //brigade = BrigadeDAOService.getInstance().createForBid(selected);
-            bid = new Bid(bidDTO.getKindOfWorks(), bidDTO.getScope(), bidDTO.getDesiredRuntime());
-            bid.setBrigade(brigade);
-            User user = UserDAOService.getInstance().getById(bidDTO.getUid());
-            bid.setUser(user);
-            user.getBids().add(bid);
-            UserDAO userDAO = new UserDAO();
-            userDAO.saveOrUpdate(user);
-        }catch (ExceptionDAO e){
-            transaction.rollback();
-            log.error("DAO exception in service layer create() bid: " + e);
-        }
+        bid = new Bid(bidDTO.getKindOfWorks(), bidDTO.getScope(), bidDTO.getDesiredRuntime(), bidDTO.getBrigade());
+        User user = UserDAOService.getInstance().getById(bidDTO.getUid());
+        bid.setUser(user);
+        bidDAO.saveOrUpdate(bid);
     }
 
     /**
-     * @param key
+     * @param bId
      * @return
      */
-    public Bid getBid(Long key) {
+    public Bid getBid(Long bId) {
         try {
-            return bidDAO.get(key);
+            return bidDAO.get(bId);
         } catch (ExceptionDAO e) {
             log.error("DAO exception in service layer during getBid(): " + e);;
             return null;

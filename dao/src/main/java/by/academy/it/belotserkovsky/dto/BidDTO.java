@@ -63,4 +63,5 @@ public class BidDTO {
     public void setBrigade(Brigade brigade) {
         this.brigade = brigade;
     }
+
 }

@@ -19,7 +19,6 @@ public class Brigade implements Serializable{
     private Long bId;
     private String title;
     private Bid bid;
-//    private WorkPlan workPlan;
     private Set<Worker> workers = new HashSet<Worker>();
 
     public Brigade() { }
@@ -43,12 +42,6 @@ public class Brigade implements Serializable{
         return title;
     }
 
-//    @ManyToOne
-//    @JoinColumn(name = "f_workPlan_id")
-//    public WorkPlan getWorkPlan() {
-//        return workPlan;
-//    }
-
     @ManyToMany(mappedBy = "brigades")
     public Set<Worker> getWorkers() {
         return workers;
@@ -66,15 +59,9 @@ public class Brigade implements Serializable{
     public void setTitle(String title) {
         this.title = title;
     }
-
-//    public void setWorkPlan(WorkPlan workPlan) {
-//        this.workPlan = workPlan;
-//    }
-
     public void setWorkers(Set<Worker> workers) {
         this.workers = workers;
     }
-
     public void setBid(Bid bid) {
         this.bid = bid;
     }
