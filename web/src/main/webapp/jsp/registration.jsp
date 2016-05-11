@@ -8,28 +8,28 @@
     </style>
 </head>
 <body>
-<div> <div class="content"><h2>REGISTRATION PAGE</h2></div> </div>
+<div> <div class="content"><h3>Регистрация</h3></div> </div>
 <hr/>
 <hr/>
-<div> <div class="content">Please fill in the fields below:</div> </div>
+<div> <div class="content">Пожалуйста, заполните поля ниже:</div> </div>
 <br/>
 <div> <div class="content">
     <form name="regForm" method="POST" action="/controller">
         <input type="hidden" name="command" value="registration"/>
         <br/>
-        First name:
+        Имя:
         <br/>
             <input type="text" name="firstName" value="${firstName}"/>
         <br/>
-        Second name:
+        Фамилия:
         <br/>
             <input type="text" name="secondName" value="${secondName}"/>
         <br/>
-        Address:
+        Адрес:
         <br/>
             <input type="text" name="address" value="${address}"/>
         <br/>
-        Phone:
+        Телефон:
         <br/>
             <input type="text" name="phone" value="${phone}"/>
         <br/>
@@ -37,16 +37,15 @@
         <br/>
             <input type="text" name="email" value="${email}"/>
         <br/>
-        Login:
+        Имя пользователя:
         <br/>
             <input type="text" name="login" value="${login}"/>
         <br/>
-        Password:
+        Пароль:
         <br/>
             <input type="text" name="password" value="${pass}"/>
         <br/>
-
-        <input type="submit" value="Send..."/>
+        <input type="submit" value="Зарегистрироваться"/>
     </form>
 </div></div>
 

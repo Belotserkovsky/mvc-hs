@@ -31,7 +31,7 @@ public class RegCommand implements ActionCommand {
     private static final String PARAM_NAME_EMAIL = "email";
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
-    private final int ONE_WEEK = 60*60*24*7;
+    private final int ONE_WEEK = 60 * 60 * 24 * 7;
 
     /**
      * @param request
@@ -42,7 +42,7 @@ public class RegCommand implements ActionCommand {
 
         HttpSession session = request.getSession();
 
-        Long uid = (Long)session.getAttribute(UID);
+        Long uid = (Long) session.getAttribute(UID);
         String firstName = request.getParameter(PARAM_NAME_FIRSTNAME);
         String secondName = request.getParameter(PARAM_NAME_SECONDNAME);
         String address = request.getParameter(PARAM_NAME_ADDRESS);
@@ -51,40 +51,20 @@ public class RegCommand implements ActionCommand {
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 
-        UserType uType = (UserType)session.getAttribute("userType");
+        UserDTO uDTO = new UserDTO(uid, firstName, secondName, login, pass, address, phone, email);
 
-        if(LoginLogic.getInstance().checkUserLogin(login, pass) && uType == UserType.GUEST){
+        UserType uType = (UserType) session.getAttribute("userType");
+
+        if (uType == UserType.GUEST && LoginLogic.getInstance().checkUserLogin(login, pass)) {
             request.setAttribute("errorLoginPassMessage", MessageManager.MESSAGE_LOGIN_PASS_EXISTS);
-            //request.getSession().setAttribute("userType", UserType.GUEST);
             page = ConfigurationManager.PATH_PAGE_REGISTRATION;
             return page;
-
-        }else {
-            if(uid != null) {
-                userDTO = UserDAOService.getInstance().getUserWithContact(uid);
-                userDTO.setFirstName(firstName);
-                userDTO.setSecondName(secondName);
-                userDTO.setLogin(login);
-                userDTO.setPassword(pass);
-                userDTO.setAddress(address);
-                userDTO.setPhone(phone);
-                userDTO.setEmail(email);
-                UserDAOService.getInstance().createOrUpdate(userDTO);
-            }else {
-                userDTO = new UserDTO(firstName, secondName, login, pass, address, phone, email);
-                UserDAOService.getInstance().createOrUpdate(userDTO);
-                userDTO = UserDAOService.getInstance().getUserByLoginPass(login, pass);
-                session.setAttribute("user", userDTO.getFirstName());
-                session.setAttribute("u_id", userDTO.getUid());
-                session.setAttribute("userType", UserType.USER);
-                Cookie c = new Cookie(UID, String.valueOf(userDTO.getUid()));
-                c.setMaxAge(ONE_WEEK);
-                response.addCookie(c);
-            }
-
-            request.setAttribute("success", MessageManager.MESSAGE_SUCCESS);
-            page = ConfigurationManager.PATH_PAGE_USER;
-            return page;
+        } else {
+            UserDAOService.getInstance().createOrUpdate(userDTO);
         }
+        request.setAttribute("successfulReg", MessageManager.MESSAGE_SUCCESS_REGISTRATION);
+        page = ConfigurationManager.PATH_PAGE_LOGIN;
+        return page;
     }
 }
+

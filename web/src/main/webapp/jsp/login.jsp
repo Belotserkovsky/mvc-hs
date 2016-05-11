@@ -25,14 +25,16 @@
     </div></div>
 </hr>
 <br/>
-<div><div class="content">${errorLoginPassMessage}</div></div>
+    <div><div class="content">${errorLoginPassMessage}</div></div>
 <br/>
-<div><div class="content">${wrongAction}</div></div>
+    <div><div class="content">${wrongAction}</div></div>
 <br/>
-<div><div class="content">${nullPage}</div></div>
+    <div><div class="content">${nullPage}</div></div>
 <br/>
-<div> <div class="content"> <a href="/jsp/registration.jsp">Регистрация</a> </div></div>
+    <div><div class="content">${successfulReg}</div></div>
+<br/>
+    <div> <div class="content"> <a href="/jsp/registration.jsp">Регистрация</a> </div></div>
 <br/>
 <hr/>
-<div> <div class="content"> <c:import url="/jsp/fragment/footer.jsp"/> </div></div>
+    <div> <div class="content"> <c:import url="/jsp/fragment/footer.jsp"/> </div></div>
 </body></html>

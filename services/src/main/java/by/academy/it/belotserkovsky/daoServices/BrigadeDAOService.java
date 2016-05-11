@@ -96,5 +96,4 @@ public class BrigadeDAOService {
             }
         return brigade;
     }
-
 }

@@ -45,8 +45,9 @@ public class UserDAOService {
      * @param
      */
     public void createOrUpdate (UserDTO dtoUser) {
+        Long uid = dtoUser.getUid();
         try {
-            if(dtoUser != null) {
+            if(uid != null) {
                 session = HibernateUtil.getSession();
                 transaction = session.beginTransaction();
                 if(dtoUser.getUid() != null) {
@@ -69,14 +70,13 @@ public class UserDAOService {
                     uContacts.setUser(user);
                     userDAO.saveOrUpdate(user);
                 }
+                transaction.commit();
             }
         }catch (ExceptionDAO e){
-            transaction.rollback();
+            if(transaction != null){
+                transaction.rollback();
+            }
             log.error("DAO exception in service layer during createOrUpdate() user: " + e);
-        }
-        finally {
-            transaction.commit();
-            HibernateUtil.closeSession();
         }
     }
 
@@ -105,9 +105,6 @@ public class UserDAOService {
             transaction.rollback();
             log.error("DAO exception in service layer during getUserByLoginPass(): " + e);
         }
-        finally {
-            HibernateUtil.closeSession();
-        }
         return userDTO;
     }
 
@@ -118,16 +115,13 @@ public class UserDAOService {
     public UserDTO getUserWithContact(Long uid){
         UserDTO userDTO = null;
         try{
-            Session session = HibernateUtil.getSession();
-            transaction = session.beginTransaction();
             userDTO = userDAO.getDTO(uid);
-            transaction.commit();
         }catch (ExceptionDAO e){
-            transaction.rollback();
+            transaction = HibernateUtil.getSession().getTransaction();
+            if(transaction != null){
+             transaction.rollback();
+            }
             log.error("DAO exception in service layer during getUserWithContact(): " + e);
-        }
-        finally {
-            HibernateUtil.closeSession();
         }
         return userDTO;
     }

@@ -1,6 +1,7 @@
 package by.academy.it.belotserkovsky.filter;
 
 import by.academy.it.belotserkovsky.command.constants.UserType;
+import by.academy.it.belotserkovsky.utils.HibernateUtil;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -33,6 +34,7 @@ public class SecurityFilter implements Filter{
             return;
         }
         chain.doFilter(request, response);
+        HibernateUtil.closeSession();
     }
     public void init(FilterConfig fConfig) throws ServletException {
     }

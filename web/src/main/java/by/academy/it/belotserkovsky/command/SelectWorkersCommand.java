@@ -19,26 +19,15 @@ public class SelectWorkersCommand implements ActionCommand {
     private Transaction transaction = null;
 
     private static final String PARAM_NAME_WORKERS = "workers";
-    private static final String PARAM_NAME_HIB_SESSION = "hibernateSession";
-
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         String nameBrigade = "";
 
-        hibSession = HibernateUtil.getSession();
-        transaction = hibSession.beginTransaction();
-
         String[] selected = request.getParameterValues(PARAM_NAME_WORKERS);
-
         Brigade newBrigade = BrigadeDAOService.getInstance().createBrigade(selected);
-
-        request.getSession().setAttribute("brigade", newBrigade);
-        request.getSession().setAttribute(PARAM_NAME_HIB_SESSION, hibSession);
-      
-        hibSession.disconnect();
-
         page = ConfigurationManager.PATH_PAGE_FORM_BID;
+
         return page;
     }
 }

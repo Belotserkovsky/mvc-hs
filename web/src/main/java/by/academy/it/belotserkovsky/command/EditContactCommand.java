@@ -21,6 +21,7 @@ public class EditContactCommand implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response){
 
         Long uid = (Long)(request.getSession().getAttribute(UID));
+
         userDTO = UserDAOService.getInstance().getUserWithContact(uid);
 
         request.setAttribute("firstName", userDTO.getFirstName());

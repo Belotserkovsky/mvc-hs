@@ -23,15 +23,14 @@ import java.sql.SQLException;
  */
 public class BidFormCommand implements ActionCommand {
     private static Logger log = Logger.getLogger(BidFormCommand.class);
-    private Session hibSession = null;
-    private Transaction transaction = null;
+    Session hibSession = null;
 
     private static final String PARAM_NAME_USER_ID = "u_id";
     private static final String PARAM_NAME_USER_KIND_OF_WORKS = "kindOfWorks";
     private static final String PARAM_NAME_USER_SCOPE = "scope";
     private static final String PARAM_NAME_USER_DESIRED_RUNTIME = "desiredRuntime";
     private static final String PARAM_NAME_BRIGADE = "brigade";
-    private static final String PARAM_NAME_HIB_SESSION = "hibernateSession";
+    private static final String PARAM_NAME_HIB_SESSION = "hibSession";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
@@ -40,10 +39,11 @@ public class BidFormCommand implements ActionCommand {
         hibSession = (Session)request.getSession().getAttribute(PARAM_NAME_HIB_SESSION);
         SessionImplementor si = (SessionImplementor)hibSession;
 
-        hibSession.reconnect(si.connection());
-
-        transaction = hibSession.getTransaction();
-
+        try {
+            hibSession.reconnect(si.getJdbcConnectionAccess().obtainConnection());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Long uid = (Long)request.getSession().getAttribute(PARAM_NAME_USER_ID);
         String kindOfWorks = request.getParameter(PARAM_NAME_USER_KIND_OF_WORKS);
         String scope = request.getParameter(PARAM_NAME_USER_SCOPE);
@@ -54,13 +54,8 @@ public class BidFormCommand implements ActionCommand {
 
         try {
             BidDAOService.getInstance().createBid(bidDTO);
-            transaction.commit();
-        }catch (ExceptionDAO e){
-            transaction.rollback();
-            log.error("DAO exception in service layer createBid(): " + e);
-        }
-        finally{
-            HibernateUtil.closeSession();
+        } catch (ExceptionDAO exceptionDAO) {
+            exceptionDAO.printStackTrace();
         }
 
         request.setAttribute("success", MessageManager.MESSAGE_SUCCESS);

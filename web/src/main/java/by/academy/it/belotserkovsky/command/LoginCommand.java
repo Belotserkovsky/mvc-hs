@@ -38,7 +38,6 @@ public class LoginCommand implements ActionCommand {
         UserDTO userDTO = UserDAOService.getInstance().getUserByLoginPass(login, pass);
 
         if (LoginLogic.getInstance().checkAdminLogin(login, pass)) {
-            session = request.getSession();
             session.setAttribute("userType", UserType.ADMIN);
             session.setAttribute("user", login);
             page = ConfigurationManager.PATH_PAGE_ADMIN;
