@@ -61,9 +61,8 @@ The when condition does not display a link for the current page--%>
     <td><a href="/controller?command=usersList&page=${currentPage + 1}">Next</a></td>
 </c:if>
 <hr>
+<a href="/controller?command=adminPage">Admin's page</a>
 <br/>
-<div> <div class="content">
     <c:import url="/jsp/fragment/footer.jsp"/>
-</div></div>
 </body>
 </html>

@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class UserDAO extends BaseDAO<User>{
     private static Logger log = Logger.getLogger(UserDAO.class);
-    private Transaction transaction = null;
+    Session session = null;
 
     /**
      * @param login
@@ -31,7 +31,7 @@ public class UserDAO extends BaseDAO<User>{
         User user = null;
         log.info("Get user by login and pass:" + login +"-" + pass);
         try{
-            Session session = HibernateUtil.getSession();
+            session = HibernateUtil.getSession();
             String hql = "SELECT user FROM User user WHERE user.login=:login AND user.password=:pass";
             Query query = session.createQuery(hql);
             query.setCacheable(true);
@@ -59,7 +59,7 @@ public class UserDAO extends BaseDAO<User>{
     public UserDTO getDTO(Long uid) throws ExceptionDAO {
         UserDTO userDTO = null;
         try {
-            Session session = HibernateUtil.getSession();
+            session = HibernateUtil.getSession();
             userDTO = (UserDTO) session.createSQLQuery("SELECT u.F_UID as uid, u.F_FIRSTNAME as firstName, " +
                     "u.F_SECONDNAME as secondName, u.F_LOGIN as login, " +
                     "u.F_PASSWORD as password, uc.F_ADDRESS as address, " +
@@ -75,14 +75,16 @@ public class UserDAO extends BaseDAO<User>{
                     .addScalar("email", StandardBasicTypes.STRING)
                     .setResultTransformer(Transformers.aliasToBean(UserDTO.class)).uniqueResult();
         } catch (NonUniqueResultException e) {
+            session.getTransaction().rollback();
             log.error(e.getMessage());
+            HibernateUtil.closeSession();
         }
         return userDTO;
     }
 
     public List<UserDTO> getAll(int offset, int noOfRecords)throws ExceptionDAO{
         List<UserDTO> all = new ArrayList<UserDTO>();
-        Session session = HibernateUtil.getSession();
+        session = HibernateUtil.getSession();
         all = session.createSQLQuery("SELECT u.F_UID as uid, u.F_FIRSTNAME as firstName, " +
                 "u.F_SECONDNAME as secondName, u.F_LOGIN as login, " +
                 "u.F_PASSWORD as password, uc.F_ADDRESS as address, " +

@@ -35,7 +35,7 @@ public class Bid implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getbId() {
+    public Long getBId() {
         return bId;
     }
 
@@ -65,7 +65,7 @@ public class Bid implements Serializable{
         return brigade;
     }
 
-    public void setbId(Long bId) {
+    public void setBId(Long bId) {
         this.bId = bId;
     }
 

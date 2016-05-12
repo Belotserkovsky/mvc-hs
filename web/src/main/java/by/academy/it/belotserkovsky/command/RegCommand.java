@@ -20,7 +20,6 @@ import javax.servlet.http.HttpSession;
  */
 public class RegCommand implements ActionCommand {
 
-    private UserDTO userDTO = null;
     private String page = null;
 
     private static final String UID = "u_id";
@@ -31,7 +30,6 @@ public class RegCommand implements ActionCommand {
     private static final String PARAM_NAME_EMAIL = "email";
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
-    private final int ONE_WEEK = 60 * 60 * 24 * 7;
 
     /**
      * @param request
@@ -52,7 +50,6 @@ public class RegCommand implements ActionCommand {
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 
         UserDTO uDTO = new UserDTO(uid, firstName, secondName, login, pass, address, phone, email);
-
         UserType uType = (UserType) session.getAttribute("userType");
 
         if (uType == UserType.GUEST && LoginLogic.getInstance().checkUserLogin(login, pass)) {
@@ -60,7 +57,7 @@ public class RegCommand implements ActionCommand {
             page = ConfigurationManager.PATH_PAGE_REGISTRATION;
             return page;
         } else {
-            UserDAOService.getInstance().createOrUpdate(userDTO);
+            UserDAOService.getInstance().createOrUpdate(uDTO);
         }
         request.setAttribute("successfulReg", MessageManager.MESSAGE_SUCCESS_REGISTRATION);
         page = ConfigurationManager.PATH_PAGE_LOGIN;

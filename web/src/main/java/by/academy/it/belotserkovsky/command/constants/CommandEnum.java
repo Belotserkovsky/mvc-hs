@@ -3,8 +3,8 @@ package by.academy.it.belotserkovsky.command.constants;
 import by.academy.it.belotserkovsky.command.*;
 
 /**
- * constants to define commands
- * Created by Kostya on 09.04.2016.
+ * Constants to define commands
+ * Created by K.Belotserkovsky
  */
 public enum CommandEnum {
 
@@ -23,34 +23,14 @@ public enum CommandEnum {
             this.command = new RegCommand();
         }
     },
-    ADDWORKER{
-        {
-            this.command = new WorkerAddCommand();
-        }
-    },
-    UPDATEWORKER{
-        {
-            this.command = new WorkerUpdateCommand();
-        }
-    },
     WORKERSLIST{
         {
             this.command = new WorkersListCommand();
         }
     },
-    BRIGADESLIST {
-        {
-            this.command = new BrigadesListCommand();
-        }
-    },
     BIDFORM{
         {
             this.command = new BidFormCommand();
-        }
-    },
-    BIDDISPLAY{
-        {
-            this.command = new BidDisplayCommand();
         }
     },
     BIDSLIST{
@@ -82,8 +62,12 @@ public enum CommandEnum {
         {
             this.command = new UsersListCommand();
         }
-    }
-    ;
+    },
+    ADMINPAGE{
+        {
+            this.command = new AdminPageCommand();
+        }
+    };
 
     ActionCommand command;
 

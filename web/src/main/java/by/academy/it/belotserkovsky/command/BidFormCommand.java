@@ -23,43 +23,29 @@ import java.sql.SQLException;
  */
 public class BidFormCommand implements ActionCommand {
     private static Logger log = Logger.getLogger(BidFormCommand.class);
-    Session hibSession = null;
 
     private static final String PARAM_NAME_USER_ID = "u_id";
     private static final String PARAM_NAME_USER_KIND_OF_WORKS = "kindOfWorks";
     private static final String PARAM_NAME_USER_SCOPE = "scope";
     private static final String PARAM_NAME_USER_DESIRED_RUNTIME = "desiredRuntime";
-    private static final String PARAM_NAME_BRIGADE = "brigade";
-    private static final String PARAM_NAME_HIB_SESSION = "hibSession";
+    private static final String PARAM_NAME_BID_ID = "bidId";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
         BidDTO bidDTO = null;
 
-        hibSession = (Session)request.getSession().getAttribute(PARAM_NAME_HIB_SESSION);
-        SessionImplementor si = (SessionImplementor)hibSession;
-
-        try {
-            hibSession.reconnect(si.getJdbcConnectionAccess().obtainConnection());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         Long uid = (Long)request.getSession().getAttribute(PARAM_NAME_USER_ID);
         String kindOfWorks = request.getParameter(PARAM_NAME_USER_KIND_OF_WORKS);
         String scope = request.getParameter(PARAM_NAME_USER_SCOPE);
         String desiredRuntime = request.getParameter(PARAM_NAME_USER_DESIRED_RUNTIME);
-        Brigade brigade = (Brigade)request.getAttribute(PARAM_NAME_BRIGADE);
 
-        bidDTO = new BidDTO(uid, kindOfWorks, scope, desiredRuntime, brigade);
+        bidDTO = new BidDTO(uid, kindOfWorks, scope, desiredRuntime);
 
-        try {
-            BidDAOService.getInstance().createBid(bidDTO);
-        } catch (ExceptionDAO exceptionDAO) {
-            exceptionDAO.printStackTrace();
-        }
+        Long bidId = BidDAOService.getInstance().createBid(bidDTO);
 
-        request.setAttribute("success", MessageManager.MESSAGE_SUCCESS);
-        page = ConfigurationManager.PATH_PAGE_USER;
+        request.getSession().setAttribute(PARAM_NAME_BID_ID, bidId);
+
+        page = ConfigurationManager.PATH_PAGE_SELECT_WORKERS;
         return page;
     }
 

@@ -4,7 +4,6 @@
     <title>User page</title>
     <style>
         .content { text-align: left}
-        .content2 {text-align: center}
     </style>
 </head>
 <div> <div class="content2">
@@ -24,9 +23,9 @@
     </form>
 </div></div>
 <br/>
-    <div> <div class="content2">${success}</div></div>
+    <div> <div class="content">${success}</div></div>
 <br/>
 <hr/>
-    <div> <div class="content2"> <c:import url="/jsp/fragment/footer.jsp"/> </div></div>
+    <div> <div class="content"> <c:import url="/jsp/fragment/footer.jsp"/> </div></div>
 </body>
 </html>

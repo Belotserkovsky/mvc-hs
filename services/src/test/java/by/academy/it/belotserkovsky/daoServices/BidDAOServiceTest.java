@@ -2,6 +2,7 @@ package by.academy.it.belotserkovsky.daoServices;
 
 import by.academy.it.belotserkovsky.dao.BidDAO;
 import by.academy.it.belotserkovsky.dao.UserDAO;
+import by.academy.it.belotserkovsky.dto.BidDTO;
 import by.academy.it.belotserkovsky.dto.UserDTO;
 import by.academy.it.belotserkovsky.pojos.Bid;
 import by.academy.it.belotserkovsky.pojos.User;
@@ -23,16 +24,16 @@ import static org.junit.Assert.*;
  * Created by Kostya on 27.04.2016.
  */
 public class BidDAOServiceTest {
-//    private static Logger log = Logger.getLogger(BidDAOServiceTest.class);
-//    private static String LOGIN = "login";
-//    private static String PASSWORD = "password";
-//    private static String KIND_OF_WORK = "kind of work";
-//    private static String SCOPE = "scope";
-//    private static String DESIRED_RUNTIME = "desired_runtime";
-//    UserDAOService uds = null;
-//    BidDAOService bds = null;
-//    Bid bid = null;
-//    Transaction transaction = null;
+    private static Logger log = Logger.getLogger(BidDAOServiceTest.class);
+    private static String LOGIN = "login";
+    private static String PASSWORD = "password";
+    private static String KIND_OF_WORK = "kind of work";
+    private static String SCOPE = "scope";
+    private static String DESIRED_RUNTIME = "desired_runtime";
+    UserDAOService uds = null;
+    BidDAOService bds = null;
+    Bid bid = null;
+    Transaction transaction = null;
 //
 //    @Before
 //    public void before(){
@@ -51,27 +52,18 @@ public class BidDAOServiceTest {
 //
 //    }
 //
-//    @Test
-//    public void createOrUpdate() throws Exception {
-//        Session session = HibernateUtil.getSession();
-//        transaction = session.beginTransaction();
-//        Bid bid = new Bid();
-//        bid.setKindOfWorks(KIND_OF_WORK);
-//        bid.setDesiredRuntime(DESIRED_RUNTIME);
-//        bid.setScope(SCOPE);
-//
-//        User user = UserDAOService.getInstance().getById(Long.parseLong("1"));
-//        bid.setUser(user);
-//
-////        Set<Bid> bids = new HashSet<Bid>();
-////        bids.add(bid);
-////        user.setBids(bids);
-//
-//        BidDAO bd = new BidDAO();
-//        bd.saveOrUpdate(bid);
-//        transaction.commit();
-//
-//    }
+    @Test
+    public void createBid() throws Exception {
+        BidDTO bDTO = new BidDTO(Long.parseLong("1"),"ggggggg","rrrrrrr","ttttttt");
+
+
+//        Set<Bid> bids = new HashSet<Bid>();
+//        bids.add(bid);
+//        user.setBids(bids);
+
+        BidDAOService.getInstance().createBid(bDTO);
+
+    }
 ////
 //////    @Test
 //////    public void getBid() throws Exception {

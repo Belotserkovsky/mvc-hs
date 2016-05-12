@@ -7,8 +7,7 @@
     </style>
 </head>
 <body>
-<div> <div class="content"><h1>Введите данные для входа:</h1></div></div>
-
+<div> <div class="content"><h3>Введите данные для входа:</h3></div></div>
 <div><div class="content">
     <form name="loginForm" method="POST" action="/controller">
         <input type="hidden" name="command" value="login"/>
@@ -23,7 +22,6 @@
         <input type="submit" value="Log in"/>
 </form>
     </div></div>
-</hr>
 <br/>
     <div><div class="content">${errorLoginPassMessage}</div></div>
 <br/>

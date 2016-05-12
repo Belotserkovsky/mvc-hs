@@ -4,18 +4,15 @@
 <head>
     <title>Form a bid</title>
     <style>
-        .content { text-align: center}
-        .content2 {text-align: left}
+        .content { text-align: left}
     </style>
 </head>
 <body>
 <div> <div class="content"><h3>Заявка</h3></div></div>
     <br/>
     <hr/>
-<br/>
 <div> <div class="content">Пожалуйста, заполните пустые поля:</div></div>
-
-<div> <div class="content2">
+<div> <div class="content">
     <form name="addBid" method="POST" action="/controller">
         <input type="hidden" name="command" value="bidform"/>
         <br/>
@@ -35,20 +32,11 @@
     </form>
 </div></div>
 <br/>
-<div> <div class="content2">${success}</div></div>
+    <div> <div class="content">${success}</div></div>
 <br/>
 <hr>
-<div> <div class="content"><c:import url="/jsp/fragment/footer.jsp"/></div></div>
+    <div> <div class="content"><c:import url="/jsp/fragment/footer.jsp"/></div></div>
 <br/>
 </body>
 </html>
 
-<%--<form name="addBid" method="POST" action="/controller">--%>
-<%--<input type="hidden" name="command" value="brigadeAdd">--%>
-<%--<p><b>Select the required specialist:</b></p>--%>
-<%--<p><input type="CHECKBOX" name="workers" value="Plumber">Plumber<Br>--%>
-<%--<input type="CHECKBOX" name="workers" value="Welder">Welder<Br>--%>
-<%--<input type="CHECKBOX" name="workers" value="Electrician">Electrician<Br>--%>
-<%--<input type="CHECKBOX" name="workers" value="House painter">House painter<Br></p>--%>
-<%--<p><input type="submit" value="Select"></p>--%>
-<%--</form>--%>

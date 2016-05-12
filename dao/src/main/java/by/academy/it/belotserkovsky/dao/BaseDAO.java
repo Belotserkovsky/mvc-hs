@@ -86,6 +86,10 @@ public class BaseDAO<T> implements DAO<T>{
         }
     }
 
+    /**
+     * @return Collection T
+     * @throws ExceptionDAO
+     */
     public Collection getAll()throws ExceptionDAO {
         List<T> allT = new ArrayList<T>();
         try{
@@ -104,19 +108,4 @@ public class BaseDAO<T> implements DAO<T>{
     private Class getPersistentClass() {
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
-
-    /**
-     * @return
-     */
-//    public Transaction getTransaction() {
-//        return transaction;
-//    }
-
-    /**
-     * @param transaction
-     */
-//    public void setTransaction(Transaction transaction) {
-//
-//        this.transaction = transaction;
-//    }
 }

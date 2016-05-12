@@ -33,7 +33,7 @@ public class Brigade implements Serializable{
             parameters = @Parameter(name = "property", value = "bid")
     )
     @GeneratedValue(generator = "gen2")
-    public Long getbId() {
+    public Long getBId() {
         return bId;
     }
 
@@ -53,7 +53,7 @@ public class Brigade implements Serializable{
         return bid;
     }
 
-    public void setbId(Long brId) {
+    public void setBId(Long bId) {
         this.bId = bId;
     }
     public void setTitle(String title) {

@@ -1,8 +1,5 @@
 package by.academy.it.belotserkovsky.pojos;
 
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.Cache;
-
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Kostya on 08.04.2016.
+ * Created by K.Belotserkovsky
  */
 @Entity
 public class Worker implements Serializable{
@@ -46,7 +43,6 @@ public class Worker implements Serializable{
     public Set<Brigade> getBrigades() {
         return brigades;
     }
-
 
     public void setWid(Long wid) {
         this.wid = wid;

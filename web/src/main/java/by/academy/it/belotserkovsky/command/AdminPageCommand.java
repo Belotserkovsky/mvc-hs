@@ -6,17 +6,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by K.Belotserkovsky
+ * Created by Kostya on 12.05.2016.
  */
-public class CreateBidCommand implements ActionCommand {
+public class AdminPageCommand implements ActionCommand {
+    private String page = null;
 
     /**
      * @param request
      * @param response
-     * @return String page
+     * @return page to forward
      */
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = ConfigurationManager.PATH_PAGE_FORM_BID;
+        String page = ConfigurationManager.PATH_PAGE_ADMIN;
         return page;
     }
 }

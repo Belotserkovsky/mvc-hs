@@ -4,36 +4,34 @@
 <head>
     <title>Workers list</title>
     <style>
-        .content { text-align: center}
+        .content { text-align: left}
     </style>
 </head>
 <body>
-<div> <div class="content">
-    <h2> Currently available workers </h2>
-</div> </div>
 <br/>
 <div> <div class="content">
-    <table>
-    <c:forEach var="worker" items="${workersList}" varStatus="status">
+    <table border="1" cellpadding="5" cellspacing="5">
+        <caption>Список работников</caption>
         <tr>
-            <td><c:out value="${ worker.id }" /></td>
-            <td><c:out value="${ worker.FullName }" /></td>
-            <td><c:out value="${ worker.Profession }" /></td>
-            <td><c:out value="${ worker.BrigadeId }" /></td>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Профессия</th>
+        </tr>
+
+        <c:forEach var="worker" items="${workersList}" varStatus="status">
+        <tr>
+            <td>${worker.wid}</td>
+            <td>${worker.fullName}</td>
+            <td>${worker.profession}</td>
         </tr>
     </c:forEach>
 </table>
 </div> </div>
 <hr/>
-<br/>
-${errorLoginPassMessage}
-<br/>
-${wrongAction}
-<br/>
-${nullPage}
-<br/>
 <div> <div class="content">
-    <a href="/jsp/admin.jsp">Return to admin page...</a>
+    <a href="/controller?command=adminPage">Admin's page</a>
+    <br/>
+    <c:import url="/jsp/fragment/footer.jsp"/>
 </div> </div>
 </body>
 </html>

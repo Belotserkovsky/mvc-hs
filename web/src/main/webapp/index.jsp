@@ -8,14 +8,12 @@
     </style>
 </head>
 <body>
-
 <div> <div class="content"><h3>Жилищно-коммунальные услуги</h3></div></div>
-
+<br/>
 <div> <div class="content"><a href="/controller">Вход</a></div></div>
 <br/>
+<br/>
 <hr/>
-<div> <div class="content">
-    <c:import url="/jsp/fragment/footer.jsp"/>
-</div></div>
+<div> <div class="content">K.Belotserkovsky, 2016</div></div>
 </body>
 </html>

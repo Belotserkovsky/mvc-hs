@@ -3,18 +3,15 @@
 <head>
     <title>Select workers</title>
     <style>
-        .content { text-align: center}
+        .content { text-align: left}
     </style>
 </head>
-<div> <div class="content">
-    <c:import url="/jsp/fragment/header.jsp"/>
-</div></div>
 <hr/>
 <br/>
 <div> <div class="content">
     <form name="selectWorker" method="POST" action="/controller">
         <input type="hidden" name="command" value="selectWorkers">
-        <p><b>Выбирете необходимого специалиста(ов):</b></p>
+        <p><b>Выберите необходимого специалиста(ов):</b></p>
         <p><input type="CHECKBOX" name="workers" value="сантехник">сантехник<Br>
             <input type="CHECKBOX" name="workers" value="сварщик">сварщик<Br>
             <input type="CHECKBOX" name="workers" value="электрик">электрик<Br>
@@ -22,8 +19,11 @@
         <p><input type="submit" value="Выбрать"></p>
     </form>
 </div></div>
-
 <hr/>
-<div> <div class="content"> <c:import url="/jsp/fragment/footer.jsp"/> </div></div>
+<div> <div class="content">
+    <a href="/controller?command=adminPage">Admin's page</a>
+    <br/>
+    <c:import url="/jsp/fragment/footer.jsp"/>
+</div> </div>
 </body>
 </html>
