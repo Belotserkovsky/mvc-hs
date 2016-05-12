@@ -30,6 +30,9 @@ public class BrigadeDAOService {
 
     private static BrigadeDAOService instance;
 
+    /**
+     * @return Singleton
+     */
     public static BrigadeDAOService getInstance() {
         if (instance == null) {
             instance = new BrigadeDAOService();
@@ -39,19 +42,6 @@ public class BrigadeDAOService {
 
     public BrigadeDAOService() {
         brigadeDAO = new BrigadeDAO();
-    }
-
-    /**
-     * @param brigade
-     */
-    public void createOrUpdate(Brigade brigade){
-        try{
-            if(brigade != null){
-                brigadeDAO.saveOrUpdate(brigade);
-            }
-        }catch(ExceptionDAO e){
-            log.error("DAO exception in service layer during createOrUpdate() brigade: " + e);
-        }
     }
 
     /**

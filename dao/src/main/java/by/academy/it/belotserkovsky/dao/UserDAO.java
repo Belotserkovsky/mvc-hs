@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Class inherits the properties of BaseDAO
  * Created by Kostya on 24.04.2016.
  */
 public class UserDAO extends BaseDAO<User>{

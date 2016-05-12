@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -33,52 +34,51 @@ public class BidDAOServiceTest {
     UserDAOService uds = null;
     BidDAOService bds = null;
     Bid bid = null;
+    Session session = null;
     Transaction transaction = null;
-//
-//    @Before
-//    public void before(){
-//        uds = UserDAOService.getInstance();
-//        bds = BidDAOService.getInstance();
-//        UserDTO userDTO = new UserDTO();
-//        userDTO.setFirstName("test");
-//        userDTO.setSecondName("test");
-//        userDTO.setLogin("login");
-//        userDTO.setPassword("password");
-//        userDTO.setEmail("email");
-//        userDTO.setAddress("address");
-//        userDTO.setPhone("phone");
-//
-//        uds.createOrUpdate(userDTO);
-//
-//    }
-//
+
     @Test
     public void createBid() throws Exception {
-        BidDTO bDTO = new BidDTO(Long.parseLong("1"),"ggggggg","rrrrrrr","ttttttt");
 
+        User user = UserDAOService.getInstance().getById(Long.parseLong("1"));
+        BidDTO bDTO = new BidDTO(Long.parseLong("1"), "ggggggg", "rrrrrrr", "ttttttt");
 
-//        Set<Bid> bids = new HashSet<Bid>();
-//        bids.add(bid);
-//        user.setBids(bids);
-
+        Set<Bid> bids = new HashSet<Bid>();
+        bids.add(bid);
+        user.setBids(bids);
         BidDAOService.getInstance().createBid(bDTO);
 
+        if(transaction != null){
+            transaction.commit();
+        }
+        HibernateUtil.closeSession();
     }
-////
-//////    @Test
-//////    public void getBid() throws Exception {
-//////
-//////    }
-//////
-//////    @Test
-//////    public void deleteBid() throws Exception {
-//////
-//////    }
-////
-//    @After
-//    public void after(){
-//        uds = null;
-//        bds = null;
-//        bid = null;
-//    }
+
+    @Test
+    public void getAll() {
+        List<BidDTO> list = BidDAOService.getInstance().getBidsList();
+        assertNotNull(list);
+
+        if(transaction != null){
+            transaction.commit();
+        }
+        HibernateUtil.closeSession();
+    }
+
+    @Test
+    public void createOrUpdate(){
+        session = HibernateUtil.getSession();
+        transaction = session.beginTransaction();
+
+        Bid bid = new Bid("род работ", "масштаб", "время выполнеиня");
+        User user = UserDAOService.getInstance().getById(Long.parseLong("1"));
+        bid.setUser(user);
+        BidDAOService.getInstance().createOrUpdate(bid);
+
+        if(transaction != null){
+            transaction.commit();
+        }
+        HibernateUtil.closeSession();
+    }
+
 }

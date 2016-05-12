@@ -10,14 +10,14 @@ import static org.junit.Assert.*;
  */
 public class BrigadeDAOServiceTest {
 
-    @Test
-    public void createBrigade() throws Exception {
-//        String[] selected = {"сантехник"};
+//    @Test
+//    public void createBrigade() throws Exception {
+//        String[] selected = {"электрик"};
 //        Long bidId = Long.parseLong("1");
 //
 //        BrigadeDAOService.getInstance().createBrigade(selected, bidId);
-
+//
 //        HibernateUtil.closeSession();
-
-    }
+//
+//    }
 }

@@ -66,6 +66,9 @@ public class WorkerDAOService {
         return worker;
     }
 
+    /**
+     * @return List<Worker>
+     */
     public List<Worker> getWorkersList () {
         List<Worker> all = null;
         try {

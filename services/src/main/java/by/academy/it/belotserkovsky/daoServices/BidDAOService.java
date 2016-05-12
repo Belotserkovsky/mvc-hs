@@ -23,6 +23,9 @@ public class BidDAOService {
 
     private static BidDAOService instance;
 
+    /**
+     * @return Singleton
+     */
     public synchronized static BidDAOService getInstance() {
         if (instance == null) {
             instance = new BidDAOService();

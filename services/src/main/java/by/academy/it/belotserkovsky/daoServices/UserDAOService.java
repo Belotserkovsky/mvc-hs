@@ -30,6 +30,9 @@ public class UserDAOService {
 
     private static UserDAOService instance;
 
+    /**
+     * @return Singleton
+     */
     public static synchronized UserDAOService getInstance() {
         if (instance == null) {
             instance = new UserDAOService();
@@ -88,8 +91,8 @@ public class UserDAOService {
         User user = null;
         UserDTO userDTO = null;
         try {
-            session = HibernateUtil.getSession();
-            transaction = session.beginTransaction();
+//            session = HibernateUtil.getSession();
+//            transaction = session.beginTransaction();
             user = userDAO.get(login, pass);
             if(user != null) {
                 userDTO = new UserDTO();
@@ -98,16 +101,17 @@ public class UserDAOService {
                 userDTO.setPassword(user.getPassword());
                 userDTO.setFirstName(user.getFirstName());
                 userDTO.setSecondName(user.getSecondName());
-                transaction.commit();
+//                transaction.commit();
             }
         }catch (ExceptionDAO e){
-            transaction.rollback();
+//            transaction.rollback();
+            HibernateUtil.closeSession();
             log.error("DAO exception in service layer during getUserByLoginPass(): " + e);
             HibernateUtil.closeSession();
         }
-        finally {
-            HibernateUtil.closeSession();
-        }
+//        finally {
+//            HibernateUtil.closeSession();
+//        }
         return userDTO;
     }
 
@@ -166,6 +170,9 @@ public class UserDAOService {
         return allUsers;
     }
 
+    /**
+     * @return Number of rows in user's table
+     */
     public int getRowsUsers(){
         result = userDAO.getFoundRows();
         return result;

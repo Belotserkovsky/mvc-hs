@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * Parent class DAO
  * Created by Kostya on 22.04.2016.
  * @param <T>
  */

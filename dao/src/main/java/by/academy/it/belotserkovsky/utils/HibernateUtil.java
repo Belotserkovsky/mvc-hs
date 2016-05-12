@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 /**
- *
+ * Class-helper to work with hibernate
  * Created by K.Belotserkovsky
  */
 public class HibernateUtil {

@@ -1,11 +1,9 @@
 package by.academy.it.belotserkovsky.dao;
 
 import by.academy.it.belotserkovsky.dto.BidDTO;
-import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.Bid;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
-import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
@@ -13,11 +11,16 @@ import org.hibernate.type.StandardBasicTypes;
 import java.util.List;
 
 /**
+ * Class inherits the properties of BaseDAO
  * Created by Kostya on 24.04.2016.
  */
 public class BidDAO extends BaseDAO<Bid> {
     private static Logger log = Logger.getLogger(BidDAO.class);
 
+    /**
+     * Get all bids with brigade info
+     * @return List<BidDTO>
+     */
     public List<BidDTO> getAll() {
         List<BidDTO> all = null;
         Session session = HibernateUtil.getSession();

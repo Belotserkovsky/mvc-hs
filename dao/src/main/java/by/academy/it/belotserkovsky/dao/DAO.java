@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * general interface DAO
+ * General interface DAO
  * Created by Kostya on 06.04.2016.
  */
 public interface DAO <T>{

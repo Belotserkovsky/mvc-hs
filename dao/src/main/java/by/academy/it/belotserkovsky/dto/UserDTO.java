@@ -1,7 +1,8 @@
 package by.academy.it.belotserkovsky.dto;
 
 /**
- * Created by Kostya on 30.04.2016.
+ * Date Transfer Object
+ * Created by K.Belotserkovsky
  */
 public class UserDTO {
 
