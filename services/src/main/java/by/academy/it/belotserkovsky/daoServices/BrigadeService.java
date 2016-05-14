@@ -1,9 +1,6 @@
 package by.academy.it.belotserkovsky.daoServices;
 
 import by.academy.it.belotserkovsky.dao.BrigadeDAO;
-import by.academy.it.belotserkovsky.dao.WorkerDAO;
-import by.academy.it.belotserkovsky.dto.BidDTO;
-import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.Bid;
 import by.academy.it.belotserkovsky.pojos.Brigade;
 import by.academy.it.belotserkovsky.pojos.Worker;
@@ -12,9 +9,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.sql.SQLException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,25 +17,25 @@ import java.util.Set;
  * Created by Kostya on 08.04.2016.
  */
 
-public class BrigadeDAOService {
-    private static Logger log = Logger.getLogger(BrigadeDAOService.class);
+public class BrigadeService {
+    private static Logger log = Logger.getLogger(BrigadeService.class);
     private BrigadeDAO brigadeDAO;
     private Transaction transaction = null;
     private Session session = null;
 
-    private static BrigadeDAOService instance;
+    private static BrigadeService instance;
 
     /**
      * @return Singleton
      */
-    public static BrigadeDAOService getInstance() {
+    public static BrigadeService getInstance() {
         if (instance == null) {
-            instance = new BrigadeDAOService();
+            instance = new BrigadeService();
         }
         return instance;
     }
 
-    public BrigadeDAOService() {
+    public BrigadeService() {
         brigadeDAO = new BrigadeDAO();
     }
 
@@ -63,20 +58,20 @@ public class BrigadeDAOService {
             for (int i = 0; i < selected.length; ++i) {
                 profession = selected[i];
                 title += (", " + profession.toLowerCase());
-                worker = WorkerDAOService.getInstance().getByProfession(profession);
+                worker = WorkerService.getInstance().getByProfession(profession);
                 workers.add(worker);
             }
 
             brigade = new Brigade(title.substring(2));
             for (Worker w : workers){
                 w.getBrigades().add(brigade);
-                WorkerDAOService.getInstance().createOrUpdate(w);
+                WorkerService.getInstance().createOrUpdate(w);
             }
 
-            bid = BidDAOService.getInstance().getBid(bidId);
+            bid = BidService.getInstance().getBid(bidId);
             bid.setBrigade(brigade);
             brigade.setBid(bid);
-            BidDAOService.getInstance().createOrUpdate(bid);
+            BidService.getInstance().createOrUpdate(bid);
             transaction.commit();
         }
     }

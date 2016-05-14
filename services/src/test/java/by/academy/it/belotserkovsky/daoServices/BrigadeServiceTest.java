@@ -8,14 +8,14 @@ import static org.junit.Assert.*;
 /**
  * Created by Kostya on 11.05.2016.
  */
-public class BrigadeDAOServiceTest {
+public class BrigadeServiceTest {
 
 //    @Test
 //    public void createBrigade() throws Exception {
 //        String[] selected = {"электрик"};
 //        Long bidId = Long.parseLong("1");
 //
-//        BrigadeDAOService.getInstance().createBrigade(selected, bidId);
+//        BrigadeService.getInstance().createBrigade(selected, bidId);
 //
 //        HibernateUtil.closeSession();
 //

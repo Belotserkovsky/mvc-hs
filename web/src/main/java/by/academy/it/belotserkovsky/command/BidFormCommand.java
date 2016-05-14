@@ -1,21 +1,12 @@
 package by.academy.it.belotserkovsky.command;
 
-import by.academy.it.belotserkovsky.daoServices.BidDAOService;
+import by.academy.it.belotserkovsky.daoServices.BidService;
 import by.academy.it.belotserkovsky.dto.BidDTO;
-import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
-import by.academy.it.belotserkovsky.managers.MessageManager;
-import by.academy.it.belotserkovsky.pojos.Brigade;
-import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.engine.spi.SessionImplementor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * add a bid
@@ -41,7 +32,7 @@ public class BidFormCommand implements ActionCommand {
 
         bidDTO = new BidDTO(uid, kindOfWorks, scope, desiredRuntime);
 
-        Long bidId = BidDAOService.getInstance().createBid(bidDTO);
+        Long bidId = BidService.getInstance().createBid(bidDTO);
 
         request.getSession().setAttribute(PARAM_NAME_BID_ID, bidId);
 

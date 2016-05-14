@@ -1,9 +1,8 @@
 package by.academy.it.belotserkovsky.command;
 
 import by.academy.it.belotserkovsky.command.constants.UserType;
-import by.academy.it.belotserkovsky.daoServices.UserDAOService;
+import by.academy.it.belotserkovsky.daoServices.UserService;
 import by.academy.it.belotserkovsky.dto.UserDTO;
-import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.logic.LoginLogic;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 import by.academy.it.belotserkovsky.managers.MessageManager;
@@ -35,7 +34,7 @@ public class LoginCommand implements ActionCommand {
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 
         HttpSession session = request.getSession();
-        UserDTO userDTO = UserDAOService.getInstance().getUserByLoginPass(login, pass);
+        UserDTO userDTO = UserService.getInstance().getUserByLoginPass(login, pass);
 
         if (LoginLogic.getInstance().checkAdminLogin(login, pass)) {
             session.setAttribute("userType", UserType.ADMIN);

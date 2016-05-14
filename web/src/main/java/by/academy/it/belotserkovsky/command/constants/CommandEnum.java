@@ -23,7 +23,7 @@ public enum CommandEnum {
             this.command = new RegCommand();
         }
     },
-    WORKERSLIST{
+    WORKERS_LIST{
         {
             this.command = new WorkersListCommand();
         }
@@ -33,7 +33,7 @@ public enum CommandEnum {
             this.command = new BidFormCommand();
         }
     },
-    BIDSLIST{
+    BID_SLIST{
         {
             this.command = new BidsListCommand();
         }

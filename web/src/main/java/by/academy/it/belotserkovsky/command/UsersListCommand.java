@@ -1,10 +1,8 @@
 package by.academy.it.belotserkovsky.command;
 
-import by.academy.it.belotserkovsky.dao.UserDAO;
-import by.academy.it.belotserkovsky.daoServices.UserDAOService;
+import by.academy.it.belotserkovsky.daoServices.UserService;
 import by.academy.it.belotserkovsky.dto.UserDTO;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
-import by.academy.it.belotserkovsky.managers.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,8 +20,8 @@ public class UsersListCommand implements ActionCommand {
         if(request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
-        int allRecords = UserDAOService.getInstance().getRowsUsers();
-        List<UserDTO> list = UserDAOService.getInstance().getAllUsers((page-1)*recordsPerPage, recordsPerPage);
+        int allRecords = UserService.getInstance().getRowsUsers();
+        List<UserDTO> list = UserService.getInstance().getAllUsers((page-1)*recordsPerPage, recordsPerPage);
         int numberOfPages = (int) Math.ceil((double)allRecords / recordsPerPage);
         request.setAttribute("usersList", list);
         request.setAttribute("numberOfPages", numberOfPages);

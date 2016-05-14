@@ -1,12 +1,11 @@
 package by.academy.it.belotserkovsky.command;
 
-import by.academy.it.belotserkovsky.daoServices.UserDAOService;
+import by.academy.it.belotserkovsky.daoServices.UserService;
 import by.academy.it.belotserkovsky.dto.UserDTO;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Created by Kostya on 01.05.2016.
@@ -22,7 +21,7 @@ public class EditContactCommand implements ActionCommand {
 
         Long uid = (Long)(request.getSession().getAttribute(UID));
 
-        userDTO = UserDAOService.getInstance().getUserWithContact(uid);
+        userDTO = UserService.getInstance().getUserWithContact(uid);
 
         request.setAttribute("firstName", userDTO.getFirstName());
         request.setAttribute("secondName", userDTO.getSecondName());

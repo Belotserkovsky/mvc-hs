@@ -15,7 +15,7 @@ import java.util.Set;
  */
 
 @Entity
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable{
     private Long uid;
     private String firstName;

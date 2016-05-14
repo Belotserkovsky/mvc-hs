@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,27 +19,27 @@ import java.util.Set;
  * Access to the class object UserDAO
  * Created by Kostya on 07.04.2016.
  */
-public class UserDAOService {
-    private static Logger log = Logger.getLogger(UserDAOService.class);
+public class UserService {
+    private static Logger log = Logger.getLogger(UserService.class);
     private Transaction transaction = null;
     private Session session = null;
     private int result;
 
     private UserDAO userDAO = null;
 
-    private static UserDAOService instance;
+    private static UserService instance;
 
     /**
      * @return Singleton
      */
-    public static synchronized UserDAOService getInstance() {
+    public static synchronized UserService getInstance() {
         if (instance == null) {
-            instance = new UserDAOService();
+            instance = new UserService();
         }
         return instance;
     }
 
-    public UserDAOService() {
+    public UserService() {
         userDAO = new UserDAO();
     }
 
@@ -91,8 +90,6 @@ public class UserDAOService {
         User user = null;
         UserDTO userDTO = null;
         try {
-//            session = HibernateUtil.getSession();
-//            transaction = session.beginTransaction();
             user = userDAO.get(login, pass);
             if(user != null) {
                 userDTO = new UserDTO();
@@ -101,17 +98,12 @@ public class UserDAOService {
                 userDTO.setPassword(user.getPassword());
                 userDTO.setFirstName(user.getFirstName());
                 userDTO.setSecondName(user.getSecondName());
-//                transaction.commit();
             }
         }catch (ExceptionDAO e){
-//            transaction.rollback();
-            HibernateUtil.closeSession();
+            HibernateUtil.getSession().getTransaction().rollback();
             log.error("DAO exception in service layer during getUserByLoginPass(): " + e);
             HibernateUtil.closeSession();
         }
-//        finally {
-//            HibernateUtil.closeSession();
-//        }
         return userDTO;
     }
 

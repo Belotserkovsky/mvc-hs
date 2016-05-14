@@ -1,6 +1,6 @@
 package by.academy.it.belotserkovsky.command;
 
-import by.academy.it.belotserkovsky.daoServices.BrigadeDAOService;
+import by.academy.it.belotserkovsky.daoServices.BrigadeService;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 import by.academy.it.belotserkovsky.managers.MessageManager;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +27,7 @@ public class SelectWorkersCommand implements ActionCommand {
         String[] selected = request.getParameterValues(PARAM_NAME_WORKERS);
         Long bidId = (Long)request.getSession().getAttribute(PARAM_NAME_BID_ID);
 
-        BrigadeDAOService.getInstance().createBrigade(selected, bidId);
+        BrigadeService.getInstance().createBrigade(selected, bidId);
 
         page = ConfigurationManager.PATH_PAGE_USER;
         request.setAttribute("success", MessageManager.MESSAGE_SUCCESS);

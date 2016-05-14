@@ -21,8 +21,6 @@
 </div></div>
 <hr/>
 <div> <div class="content">
-    <a href="/controller?command=adminPage">Admin's page</a>
-    <br/>
     <c:import url="/jsp/fragment/footer.jsp"/>
 </div> </div>
 </body>

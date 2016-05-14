@@ -1,15 +1,12 @@
 package by.academy.it.belotserkovsky.command;
 
 import by.academy.it.belotserkovsky.command.constants.UserType;
-import by.academy.it.belotserkovsky.daoServices.UserDAOService;
+import by.academy.it.belotserkovsky.daoServices.UserService;
 import by.academy.it.belotserkovsky.dto.UserDTO;
-import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.logic.LoginLogic;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 import by.academy.it.belotserkovsky.managers.MessageManager;
-import by.academy.it.belotserkovsky.pojos.UserContacts;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -57,8 +54,10 @@ public class RegCommand implements ActionCommand {
             page = ConfigurationManager.PATH_PAGE_REGISTRATION;
             return page;
         } else {
-            UserDAOService.getInstance().createOrUpdate(uDTO);
+            UserService.getInstance().createOrUpdate(uDTO);
         }
+
+        request.getSession().setAttribute("userType", UserType.GUEST);
         request.setAttribute("successfulReg", MessageManager.MESSAGE_SUCCESS_REGISTRATION);
         page = ConfigurationManager.PATH_PAGE_LOGIN;
         return page;

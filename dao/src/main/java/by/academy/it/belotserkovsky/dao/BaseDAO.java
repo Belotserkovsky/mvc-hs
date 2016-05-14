@@ -23,21 +23,12 @@ public class BaseDAO<T> implements DAO<T>{
     private static Logger log = Logger.getLogger(BaseDAO.class);
     private Session session = null;
 
-    /**
-     * @param t
-     * @throws ExceptionDAO
-     */
     public void saveOrUpdate(T t) throws ExceptionDAO{
         session = HibernateUtil.getSession();
         session.saveOrUpdate(t);
         log.info("saveOrUpdate(t):" + t);
     }
 
-    /**
-     * @param id
-     * @return
-     * @throws ExceptionDAO
-     */
     public T get(Serializable id) throws ExceptionDAO {
         log.info("Get class by id:" + id);
         T t = null;
@@ -52,11 +43,6 @@ public class BaseDAO<T> implements DAO<T>{
         return t;
     }
 
-    /**
-     * @param id
-     * @return
-     * @throws ExceptionDAO
-     */
     public T load(Serializable id) throws ExceptionDAO {
         log.info("Load class by id:" + id);
         T t = null;
@@ -72,10 +58,6 @@ public class BaseDAO<T> implements DAO<T>{
         return t;
     }
 
-    /**
-     * @param t
-     * @throws ExceptionDAO
-     */
     public void delete(T t) throws ExceptionDAO {
         try {
             session = HibernateUtil.getSession();
@@ -87,10 +69,6 @@ public class BaseDAO<T> implements DAO<T>{
         }
     }
 
-    /**
-     * @return Collection T
-     * @throws ExceptionDAO
-     */
     public Collection getAll()throws ExceptionDAO {
         List<T> allT = new ArrayList<T>();
         try{
@@ -103,9 +81,6 @@ public class BaseDAO<T> implements DAO<T>{
         return allT;
     }
 
-    /**
-     * @return
-     */
     private Class getPersistentClass() {
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }

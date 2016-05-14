@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache>
-
-    <diskStore path="java.io.tmpdir/ehcache"/>
-
     <defaultCache
         maxElementsInMemory="20000"
         eternal="false"
@@ -17,14 +14,4 @@
            maxElementsInMemory="10000"
            eternal="true"
            overflowToDisk="false"/>
-
-    <cache name="org.hibernate.cache.internal.StandardQueryCache"
-           maxEntriesLocalHeap="5" eternal="true" timeToLiveSeconds="120">
-        <persistence strategy="localTempSwap" />
-    </cache>
-
-    <cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
-           maxEntriesLocalHeap="5000" eternal="true">
-        <persistence strategy="localTempSwap" />
-    </cache>
 </ehcache>

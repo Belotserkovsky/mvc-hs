@@ -8,28 +8,27 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
  * Access to the class object WorkerDAO
  * Created by K.Belotserkovsky
  */
-public class WorkerDAOService {
-    private static Logger log = Logger.getLogger(UserDAOService.class);
+public class WorkerService {
+    private static Logger log = Logger.getLogger(UserService.class);
     private WorkerDAO workerDAO;
-    private static WorkerDAOService instance;
+    private static WorkerService instance;
     private Transaction transaction = null;
     private Session session = null;
 
-    public static synchronized WorkerDAOService getInstance() {
+    public static synchronized WorkerService getInstance() {
         if (instance == null) {
-            instance = new WorkerDAOService();
+            instance = new WorkerService();
         }
         return instance;
     }
 
-    public WorkerDAOService() {
+    public WorkerService() {
         workerDAO = new WorkerDAO();
     }
 

@@ -1,6 +1,6 @@
 package by.academy.it.belotserkovsky.logic;
 
-import by.academy.it.belotserkovsky.daoServices.UserDAOService;
+import by.academy.it.belotserkovsky.daoServices.UserService;
 
 /**
  * for user authentication logic
@@ -33,7 +33,7 @@ public class LoginLogic {
      */
     public boolean checkUserLogin (String login, String pass){
 
-        if(UserDAOService.getInstance().getUserByLoginPass(login, pass) != null)
+        if(UserService.getInstance().getUserByLoginPass(login, pass) != null)
         {
             return true;
         }

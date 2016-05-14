@@ -1,17 +1,10 @@
 package by.academy.it.belotserkovsky.logic;
 
-import by.academy.it.belotserkovsky.dao.UserDAO;
-import by.academy.it.belotserkovsky.daoServices.UserDAOService;
-import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-
-import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 

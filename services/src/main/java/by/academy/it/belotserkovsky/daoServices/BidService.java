@@ -15,25 +15,25 @@ import java.util.List;
  * Access to the class object BidDAO
  * Created by K.Belotserkovsky
  */
-public class BidDAOService {
-    private static Logger log = Logger.getLogger(BidDAOService.class);
+public class BidService {
+    private static Logger log = Logger.getLogger(BidService.class);
     private BidDAO bidDAO;
     private Transaction transaction = null;
     private Session session = null;
 
-    private static BidDAOService instance;
+    private static BidService instance;
 
     /**
      * @return Singleton
      */
-    public synchronized static BidDAOService getInstance() {
+    public synchronized static BidService getInstance() {
         if (instance == null) {
-            instance = new BidDAOService();
+            instance = new BidService();
         }
         return instance;
     }
 
-    public BidDAOService() {
+    public BidService() {
         bidDAO = new BidDAO();
     }
 
@@ -63,7 +63,7 @@ public class BidDAOService {
             session = HibernateUtil.getSession();
             transaction = session.beginTransaction();
             bid = new Bid(bidDTO.getKindOfWorks(), bidDTO.getScope(), bidDTO.getDesiredRuntime());
-            User user = UserDAOService.getInstance().getById(bidDTO.getUid());
+            User user = UserService.getInstance().getById(bidDTO.getUid());
             bid.setUser(user);
             try {
                 bidDAO.saveOrUpdate(bid);
