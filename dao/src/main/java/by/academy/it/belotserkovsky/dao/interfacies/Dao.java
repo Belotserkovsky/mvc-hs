@@ -1,13 +1,13 @@
-package by.academy.it.belotserkovsky.dao;
+package by.academy.it.belotserkovsky.dao.interfacies;
 
 import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import java.io.Serializable;
 
 /**
- * General interface DAO
+ * General interface Dao
  * Created by Kostya on 06.04.2016.
  */
-public interface DAO <T>{
+public interface Dao<T>{
 
     /**
      * @param t
@@ -21,13 +21,6 @@ public interface DAO <T>{
      * @throws ExceptionDAO
      */
     T get(Serializable id) throws ExceptionDAO;
-
-    /**
-     * @param id
-     * @return T
-     * @throws ExceptionDAO
-     */
-    T load(Serializable id) throws ExceptionDAO;
 
     /**
      * @param t

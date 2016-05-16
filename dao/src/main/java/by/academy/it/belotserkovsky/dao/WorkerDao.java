@@ -7,13 +7,12 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  * Created by Kostya on 24.04.2016.
  */
-public class WorkerDAO extends BaseDAO<Worker> {
-    private static Logger log = Logger.getLogger(WorkerDAO.class);
+public class WorkerDao extends BaseDao<Worker> {
+    private static Logger log = Logger.getLogger(WorkerDao.class);
 
     /**
      * @param profession
@@ -29,7 +28,7 @@ public class WorkerDAO extends BaseDAO<Worker> {
                 query.setParameter("profession", profession);
                 worker = (Worker)query.uniqueResult();
             }catch (HibernateException e){
-                log.error("Error get worker by profession in DAO: " + e);
+                log.error("Error get worker by profession in Dao: " + e);
                 throw new ExceptionDAO(e);
             }
         return worker;

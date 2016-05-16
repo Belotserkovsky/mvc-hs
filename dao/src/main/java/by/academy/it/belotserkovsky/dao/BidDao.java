@@ -11,11 +11,11 @@ import org.hibernate.type.StandardBasicTypes;
 import java.util.List;
 
 /**
- * Class inherits the properties of BaseDAO
+ * Class inherits the properties of BaseDao
  * Created by Kostya on 24.04.2016.
  */
-public class BidDAO extends BaseDAO<Bid> {
-    private static Logger log = Logger.getLogger(BidDAO.class);
+public class BidDao extends BaseDao<Bid> {
+    private static Logger log = Logger.getLogger(BidDao.class);
 
     /**
      * Get all bids with brigade info

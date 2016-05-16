@@ -5,8 +5,6 @@ import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -15,12 +13,12 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Parent class DAO
+ * Parent class Dao
  * Created by Kostya on 22.04.2016.
  * @param <T>
  */
-public class BaseDAO<T> implements DAO<T>{
-    private static Logger log = Logger.getLogger(BaseDAO.class);
+public class BaseDao<T> implements Dao<T> {
+    private static Logger log = Logger.getLogger(BaseDao.class);
     private Session session = null;
 
     public void saveOrUpdate(T t) throws ExceptionDAO{
@@ -38,21 +36,6 @@ public class BaseDAO<T> implements DAO<T>{
             log.info("get class:" + t);
         } catch (HibernateException e) {
             log.error("Error get " + getPersistentClass() + " in Dao" + e);
-            throw new ExceptionDAO(e);
-        }
-        return t;
-    }
-
-    public T load(Serializable id) throws ExceptionDAO {
-        log.info("Load class by id:" + id);
-        T t = null;
-        try {
-            session = HibernateUtil.getSession();
-            t = (T) session.load(getPersistentClass(), id);
-            log.info("load() clazz:" + t);
-            session.isDirty();
-        } catch (HibernateException e) {
-            log.error("Error load() " + getPersistentClass() + " in Dao" + e);
             throw new ExceptionDAO(e);
         }
         return t;

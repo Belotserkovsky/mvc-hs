@@ -13,9 +13,9 @@ import static org.junit.Assert.*;
 /**
  * Created by K.Belotserkovsky
  */
-public class WorkerDAOTest {
+public class WorkerDaoTest {
     private String PARAM_NAME_PROF = "электрик";
-    private WorkerDAO wd = new WorkerDAO();
+    private WorkerDao wd = new WorkerDao();
     Session session = null;
     Transaction transaction = null;
 

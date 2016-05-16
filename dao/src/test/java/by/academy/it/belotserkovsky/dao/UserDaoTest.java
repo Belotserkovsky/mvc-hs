@@ -16,10 +16,10 @@ import static org.junit.Assert.*;
 /**
  * Created by Kostya on 09.05.2016.
  */
-public class UserDAOTest {
+public class UserDaoTest {
     private String PARAM_NAME_LOGIN = "login";
     private String PARAM_NAME_PASS = "password";
-    private UserDAO userDAO = new UserDAO();
+    private UserDao userDAO = new UserDao();
     private Session session = null;
     private Transaction transaction = null;
 

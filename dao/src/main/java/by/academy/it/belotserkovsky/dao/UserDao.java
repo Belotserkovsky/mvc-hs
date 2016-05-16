@@ -3,7 +3,6 @@ package by.academy.it.belotserkovsky.dao;
 import by.academy.it.belotserkovsky.dto.UserDTO;
 import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
 import by.academy.it.belotserkovsky.pojos.User;
-import by.academy.it.belotserkovsky.pojos.UserContacts;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
@@ -15,11 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class inherits the properties of BaseDAO
+ * Class inherits the properties of BaseDao
  * Created by Kostya on 24.04.2016.
  */
-public class UserDAO extends BaseDAO<User>{
-    private static Logger log = Logger.getLogger(UserDAO.class);
+public class UserDao extends BaseDao<User> {
+    private static Logger log = Logger.getLogger(UserDao.class);
     Session session = null;
 
     /**
@@ -46,7 +45,7 @@ public class UserDAO extends BaseDAO<User>{
                 }
             }
         }catch (HibernateException e){
-            log.error("Error get user by login in DAO: " + e);
+            log.error("Error get user by login in Dao: " + e);
             throw new ExceptionDAO(e);
         }
         return user;

@@ -15,10 +15,10 @@ import static org.junit.Assert.*;
 /**
  * Created by K.Belotserkovsky
  */
-public class BidDAOTest {
+public class BidDaoTest {
     Session session = null;
     Transaction transaction = null;
-    private BidDAO bd = new BidDAO();
+    private BidDao bd = new BidDao();
 
     @Before
     public void before() {
