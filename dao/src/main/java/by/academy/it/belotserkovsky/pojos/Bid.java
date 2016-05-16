@@ -4,13 +4,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by Kostya on 08.04.2016.
+ *
+ * Created by K.Belotserkovsky
  */
 
 @Entity
 public class Bid implements Serializable{
 
-    private Long bId;
+    private Long id;
     private String kindOfWorks;
     private String scope;
     private String desiredRuntime;
@@ -35,8 +36,8 @@ public class Bid implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getBId() {
-        return bId;
+    public Long getId() {
+        return id;
     }
 
     @Column
@@ -65,8 +66,8 @@ public class Bid implements Serializable{
         return brigade;
     }
 
-    public void setBId(Long bId) {
-        this.bId = bId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setKindOfWorks(String kindOfWorks) {

@@ -1,8 +1,8 @@
 package by.academy.it.belotserkovsky.daoServices;
 
-import by.academy.it.belotserkovsky.dao.UserDAO;
-import by.academy.it.belotserkovsky.dto.UserDTO;
-import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
+import by.academy.it.belotserkovsky.dao.UserDao;
+import by.academy.it.belotserkovsky.dto.UserDto;
+import by.academy.it.belotserkovsky.exceptions.ExceptionDao;
 import by.academy.it.belotserkovsky.pojos.Bid;
 import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.pojos.UserContacts;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Access to the class object UserDAO
+ * Access to the class object UserDao
  * Created by Kostya on 07.04.2016.
  */
 public class UserService {
@@ -25,7 +25,7 @@ public class UserService {
     private Session session = null;
     private int result;
 
-    private UserDAO userDAO = null;
+    private UserDao userDAO = null;
 
     private static UserService instance;
 
@@ -40,13 +40,13 @@ public class UserService {
     }
 
     public UserService() {
-        userDAO = new UserDAO();
+        userDAO = new UserDao();
     }
 
     /**
      * @param
      */
-    public void createOrUpdate (UserDTO dtoUser) {
+    public void createOrUpdate (UserDto dtoUser) {
         Long uid = dtoUser.getUid();
         try {
             session = HibernateUtil.getSession();
@@ -72,11 +72,11 @@ public class UserService {
                 userDAO.saveOrUpdate(user);
             }
             transaction.commit();
-        }catch (ExceptionDAO e){
+        }catch (ExceptionDao e){
             if(transaction != null){
                 transaction.rollback();
             }
-            log.error("DAO exception in service layer during createOrUpdate() user: " + e);
+            log.error("Dao exception in service layer during createOrUpdate() user: " + e);
             HibernateUtil.closeSession();
         }
     }
@@ -86,57 +86,57 @@ public class UserService {
      * @param pass
      * @return
      */
-    public UserDTO getUserByLoginPass(String login, String pass) {
+    public UserDto getUserByLoginPass(String login, String pass) {
         User user = null;
-        UserDTO userDTO = null;
+        UserDto userDto = null;
         try {
             user = userDAO.get(login, pass);
             if(user != null) {
-                userDTO = new UserDTO();
-                userDTO.setUid(user.getUid());
-                userDTO.setLogin(user.getLogin());
-                userDTO.setPassword(user.getPassword());
-                userDTO.setFirstName(user.getFirstName());
-                userDTO.setSecondName(user.getSecondName());
+                userDto = new UserDto();
+                userDto.setUid(user.getUserId());
+                userDto.setLogin(user.getLogin());
+                userDto.setPassword(user.getPassword());
+                userDto.setFirstName(user.getFirstName());
+                userDto.setSecondName(user.getSecondName());
             }
-        }catch (ExceptionDAO e){
+        }catch (ExceptionDao e){
             HibernateUtil.getSession().getTransaction().rollback();
-            log.error("DAO exception in service layer during getUserByLoginPass(): " + e);
+            log.error("Dao exception in service layer during getUserByLoginPass(): " + e);
             HibernateUtil.closeSession();
         }
-        return userDTO;
+        return userDto;
     }
 
     /**
      * @param uid
      * @return
      */
-    public UserDTO getUserWithContact(Long uid){
-        UserDTO userDTO = null;
+    public UserDto getUserWithContact(Long uid){
+        UserDto userDto = null;
         try{
-            userDTO = userDAO.getDTO(uid);
-        }catch (ExceptionDAO e){
+            userDto = userDAO.getDto(uid);
+        }catch (ExceptionDao e){
             transaction = HibernateUtil.getSession().getTransaction();
             if(transaction != null){
              transaction.rollback();
             }
-            log.error("DAO exception in service layer during getUserWithContact(): " + e);
+            log.error("Dao exception in service layer during getUserWithContact(): " + e);
         }
-        return userDTO;
+        return userDto;
     }
 
     /**
-     * @param uid
+     * @param u_id
      * @return User
      */
-    public User getById (Long uid){
+    public User getById (Long u_id){
         User user = null;
-        if(uid != null) {
+        if(u_id != null) {
             try {
-                user = userDAO.get(uid);
-            } catch (ExceptionDAO e) {
+                user = userDAO.get(u_id);
+            } catch (ExceptionDao e) {
                 HibernateUtil.getSession().getTransaction().rollback();
-                log.error("DAO exception in service layer during getById(): " + e);
+                log.error("Dao exception in service layer during getById(): " + e);
                 HibernateUtil.closeSession();
             }
         }
@@ -148,16 +148,16 @@ public class UserService {
      * @param noOfRecords
      * @return List users for pagination
      */
-    public List<UserDTO> getAllUsers (int offset, int noOfRecords){
-        List<UserDTO> allUsers = null;
+    public List<UserDto> getAllUsers (int offset, int noOfRecords){
+        List<UserDto> allUsers = null;
         try{
             session = HibernateUtil.getSession();
             transaction = session.beginTransaction();
             allUsers = userDAO.getAll(offset, noOfRecords);
             transaction.commit();
-        }catch (ExceptionDAO e) {
+        }catch (ExceptionDao e) {
             transaction.rollback();
-            log.error("DAO exception in service layer during getAll(): " + e);
+            log.error("Dao exception in service layer during getAll(): " + e);
         }
         return allUsers;
     }

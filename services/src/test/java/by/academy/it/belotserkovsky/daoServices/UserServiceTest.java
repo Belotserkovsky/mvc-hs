@@ -1,6 +1,6 @@
 package by.academy.it.belotserkovsky.daoServices;
 
-import by.academy.it.belotserkovsky.dto.UserDTO;
+import by.academy.it.belotserkovsky.dto.UserDto;
 import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -22,7 +22,7 @@ public class UserServiceTest {
     public void getUserByLoginPass() throws Exception {
         session = HibernateUtil.getSession();
         transaction = session.beginTransaction();
-        UserDTO user = UserService.getInstance().getUserByLoginPass("login", "password");
+        UserDto user = UserService.getInstance().getUserByLoginPass("login", "password");
         assertNotNull(user);
         transaction.commit();
         HibernateUtil.closeSession();
@@ -31,14 +31,14 @@ public class UserServiceTest {
     @Test
     public void createOrUpdate(){
         Long uid = Long.parseLong("1");
-        UserDTO uDTO = new UserDTO(uid, "newname", "newname", "login", "password", "newaddress", "123456789", "newemail");
+        UserDto uDTO = new UserDto(uid, "newname", "newname", "login", "password", "newaddress", "123456789", "newemail");
         UserService.getInstance().createOrUpdate(uDTO);
         HibernateUtil.closeSession();
     }
 
     @Test
     public void getAllUsers(){
-        List<UserDTO> result = UserService.getInstance().getAllUsers(0, 1);
+        List<UserDto> result = UserService.getInstance().getAllUsers(0, 1);
         assertNotNull(result);
         HibernateUtil.closeSession();
     }
@@ -47,7 +47,7 @@ public class UserServiceTest {
     public void getUserWithContact(){
         session = HibernateUtil.getSession();
         transaction = session.beginTransaction();
-        UserDTO uDTO = UserService.getInstance().getUserWithContact(Long.parseLong("1"));
+        UserDto uDTO = UserService.getInstance().getUserWithContact(Long.parseLong("1"));
         assertNotNull(uDTO);
         transaction.commit();
         HibernateUtil.closeSession();

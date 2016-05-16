@@ -1,6 +1,6 @@
 package by.academy.it.belotserkovsky.daoServices;
 
-import by.academy.it.belotserkovsky.dao.BrigadeDAO;
+import by.academy.it.belotserkovsky.dao.BrigadeDao;
 import by.academy.it.belotserkovsky.pojos.Bid;
 import by.academy.it.belotserkovsky.pojos.Brigade;
 import by.academy.it.belotserkovsky.pojos.Worker;
@@ -13,13 +13,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Access to the class object BrigadeDAO
+ * Access to the class object BrigadeDao
  * Created by Kostya on 08.04.2016.
  */
 
 public class BrigadeService {
     private static Logger log = Logger.getLogger(BrigadeService.class);
-    private BrigadeDAO brigadeDAO;
+    private BrigadeDao brigadeDAO;
     private Transaction transaction = null;
     private Session session = null;
 
@@ -36,7 +36,7 @@ public class BrigadeService {
     }
 
     public BrigadeService() {
-        brigadeDAO = new BrigadeDAO();
+        brigadeDAO = new BrigadeDao();
     }
 
     /**

@@ -1,7 +1,7 @@
 package by.academy.it.belotserkovsky.command;
 
 import by.academy.it.belotserkovsky.daoServices.UserService;
-import by.academy.it.belotserkovsky.dto.UserDTO;
+import by.academy.it.belotserkovsky.dto.UserDto;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class EditContactCommand implements ActionCommand {
 
-    private UserDTO userDTO = null;
+    private UserDto userDto = null;
     private String page = null;
 
     private static final String UID = "u_id";
@@ -21,15 +21,15 @@ public class EditContactCommand implements ActionCommand {
 
         Long uid = (Long)(request.getSession().getAttribute(UID));
 
-        userDTO = UserService.getInstance().getUserWithContact(uid);
+        userDto = UserService.getInstance().getUserWithContact(uid);
 
-        request.setAttribute("firstName", userDTO.getFirstName());
-        request.setAttribute("secondName", userDTO.getSecondName());
-        request.setAttribute("address", userDTO.getAddress());
-        request.setAttribute("phone", userDTO.getPhone());
-        request.setAttribute("email", userDTO.getEmail());
-        request.setAttribute("login", userDTO.getLogin());
-        request.setAttribute("pass", userDTO.getPassword());
+        request.setAttribute("firstName", userDto.getFirstName());
+        request.setAttribute("secondName", userDto.getSecondName());
+        request.setAttribute("address", userDto.getAddress());
+        request.setAttribute("phone", userDto.getPhone());
+        request.setAttribute("email", userDto.getEmail());
+        request.setAttribute("login", userDto.getLogin());
+        request.setAttribute("pass", userDto.getPassword());
 
         return page = ConfigurationManager.PATH_PAGE_REGISTRATION;
     }

@@ -1,15 +1,15 @@
 package by.academy.it.belotserkovsky.exceptions;
 
 /**
- * Exception by DAO
+ * Exception by Dao
  * Created by Kostya on 22.04.2016.
  */
 
-public class ExceptionDAO extends Exception{
+public class ExceptionDao extends Exception{
 
     private Exception exception;
 
-    public ExceptionDAO (Exception exception) {
+    public ExceptionDao(Exception exception) {
         this.exception = exception;
     }
 

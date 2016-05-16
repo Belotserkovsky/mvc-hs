@@ -20,16 +20,16 @@
         <th>Email</th>
     </tr>
 
-    <c:forEach var="userDTO" items="${usersList}">
+    <c:forEach var="userDto" items="${usersList}">
         <tr>
-            <td>${userDTO.uid}</td>
-            <td>${userDTO.firstName}</td>
-            <td>${userDTO.secondName}</td>
-            <td>${userDTO.login}</td>
-            <td>${userDTO.password}</td>
-            <td>${userDTO.address}</td>
-            <td>${userDTO.phone}</td>
-            <td>${userDTO.email}</td>
+            <td>${userDto.uid}</td>
+            <td>${userDto.firstName}</td>
+            <td>${userDto.secondName}</td>
+            <td>${userDto.login}</td>
+            <td>${userDto.password}</td>
+            <td>${userDto.address}</td>
+            <td>${userDto.phone}</td>
+            <td>${userDto.email}</td>
         </tr>
     </c:forEach>
 </table>

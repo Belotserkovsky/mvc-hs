@@ -1,30 +1,30 @@
 package by.academy.it.belotserkovsky.dao.interfacies;
 
-import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
+import by.academy.it.belotserkovsky.exceptions.ExceptionDao;
 import java.io.Serializable;
 
 /**
  * General interface Dao
- * Created by Kostya on 06.04.2016.
+ * Created by K.Belotserkovsky
  */
 public interface Dao<T>{
 
     /**
      * @param t
-     * @throws ExceptionDAO
+     * @throws ExceptionDao
      */
-    void saveOrUpdate(T t) throws ExceptionDAO;
+    void saveOrUpdate(T t) throws ExceptionDao;
 
     /**
      * @param id
      * @return T
-     * @throws ExceptionDAO
+     * @throws ExceptionDao
      */
-    T get(Serializable id) throws ExceptionDAO;
+    T get(Serializable id) throws ExceptionDao;
 
     /**
      * @param t
-     * @throws ExceptionDAO
+     * @throws ExceptionDao
      */
-    void delete(T t) throws ExceptionDAO;
+    void delete(T t) throws ExceptionDao;
 }

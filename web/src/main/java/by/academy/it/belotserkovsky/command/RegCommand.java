@@ -2,7 +2,7 @@ package by.academy.it.belotserkovsky.command;
 
 import by.academy.it.belotserkovsky.command.constants.UserType;
 import by.academy.it.belotserkovsky.daoServices.UserService;
-import by.academy.it.belotserkovsky.dto.UserDTO;
+import by.academy.it.belotserkovsky.dto.UserDto;
 import by.academy.it.belotserkovsky.logic.LoginLogic;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 import by.academy.it.belotserkovsky.managers.MessageManager;
@@ -46,7 +46,7 @@ public class RegCommand implements ActionCommand {
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 
-        UserDTO uDTO = new UserDTO(uid, firstName, secondName, login, pass, address, phone, email);
+        UserDto uDTO = new UserDto(uid, firstName, secondName, login, pass, address, phone, email);
         UserType uType = (UserType) session.getAttribute("userType");
 
         if (uType == UserType.GUEST && LoginLogic.getInstance().checkUserLogin(login, pass)) {

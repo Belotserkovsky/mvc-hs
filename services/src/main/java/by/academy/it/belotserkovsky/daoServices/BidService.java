@@ -1,8 +1,8 @@
 package by.academy.it.belotserkovsky.daoServices;
 
-import by.academy.it.belotserkovsky.dao.BidDAO;
-import by.academy.it.belotserkovsky.dto.BidDTO;
-import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
+import by.academy.it.belotserkovsky.dao.BidDao;
+import by.academy.it.belotserkovsky.dto.BidDto;
+import by.academy.it.belotserkovsky.exceptions.ExceptionDao;
 import by.academy.it.belotserkovsky.pojos.Bid;
 import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
@@ -12,12 +12,12 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 /**
- * Access to the class object BidDAO
+ * Access to the class object BidDao
  * Created by K.Belotserkovsky
  */
 public class BidService {
     private static Logger log = Logger.getLogger(BidService.class);
-    private BidDAO bidDAO;
+    private BidDao bidDAO;
     private Transaction transaction = null;
     private Session session = null;
 
@@ -34,7 +34,7 @@ public class BidService {
     }
 
     public BidService() {
-        bidDAO = new BidDAO();
+        bidDAO = new BidDao();
     }
 
     /**
@@ -45,37 +45,37 @@ public class BidService {
             if(bid != null) {
                 bidDAO.saveOrUpdate(bid);
             }
-        } catch (ExceptionDAO e) {
+        } catch (ExceptionDao e) {
             HibernateUtil.getSession().getTransaction().rollback();
-            log.error("DAO exception in service layer during addBid(): " + e);
+            log.error("Dao exception in service layer during addBid(): " + e);
             HibernateUtil.closeSession();
         }
     }
 
     /**
-     * @param bidDTO
+     * @param bidDto
      * @return Long bidID
      */
-    public Long createBid (BidDTO bidDTO) {
+    public Long createBid (BidDto bidDto) {
         Bid bid = null;
         Long bidId = null;
-        if(bidDTO != null) {
+        if(bidDto != null) {
             session = HibernateUtil.getSession();
             transaction = session.beginTransaction();
-            bid = new Bid(bidDTO.getKindOfWorks(), bidDTO.getScope(), bidDTO.getDesiredRuntime());
-            User user = UserService.getInstance().getById(bidDTO.getUid());
+            bid = new Bid(bidDto.getKindOfWorks(), bidDto.getScope(), bidDto.getDesiredRuntime());
+            User user = UserService.getInstance().getById(bidDto.getUid());
             bid.setUser(user);
             try {
                 bidDAO.saveOrUpdate(bid);
-            } catch (ExceptionDAO e) {
+            } catch (ExceptionDao e) {
                 transaction.rollback();
-                log.error("DAO exception in service layer during saveOrUpdate() bid: " + e);
+                log.error("Dao exception in service layer during saveOrUpdate() bid: " + e);
                 HibernateUtil.closeSession();
             }
             transaction.commit();
         }
         session.evict(bid);
-        bidId = bid.getBId();
+        bidId = bid.getId();
         return bidId;
     }
 
@@ -87,9 +87,9 @@ public class BidService {
         Bid bid = null;
         try {
             bid = bidDAO.get(bId);
-        } catch (ExceptionDAO e) {
+        } catch (ExceptionDao e) {
             HibernateUtil.getSession().getTransaction().rollback();
-            log.error("DAO exception in service layer during getBid(): " + e);;
+            log.error("Dao exception in service layer during getBid(): " + e);;
             HibernateUtil.closeSession();
         }
         return bid;
@@ -98,8 +98,8 @@ public class BidService {
     /**
      * @return List of bids
      */
-    public List<BidDTO> getBidsList() {
-        List<BidDTO> allBids = null;
+    public List<BidDto> getBidsList() {
+        List<BidDto> allBids = null;
         session = HibernateUtil.getSession();
         transaction = session.beginTransaction();
         allBids = bidDAO.getAll();

@@ -5,7 +5,7 @@ import by.academy.it.belotserkovsky.pojos.Brigade;
 /**
  * Created by K.Belotserkovsky
  */
-public class BidDTO {
+public class BidDto {
 
     private Long uid;
     private Long bId;
@@ -14,17 +14,17 @@ public class BidDTO {
     private String desiredRuntime;
     private String brigadeTitle;
 
-    public BidDTO() {
+    public BidDto() {
     }
 
-    public BidDTO(String kindOfWorks, String scope, String desiredRuntime, String brigadeTitle) {
+    public BidDto(String kindOfWorks, String scope, String desiredRuntime, String brigadeTitle) {
         this.kindOfWorks = kindOfWorks;
         this.scope = scope;
         this.desiredRuntime = desiredRuntime;
         this.brigadeTitle = brigadeTitle;
     }
 
-    public BidDTO(Long uid, String kindOfWorks, String scope, String desiredRuntime) {
+    public BidDto(Long uid, String kindOfWorks, String scope, String desiredRuntime) {
         this.uid = uid;
         this.kindOfWorks = kindOfWorks;
         this.scope = scope;

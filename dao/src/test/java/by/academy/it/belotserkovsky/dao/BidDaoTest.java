@@ -1,6 +1,6 @@
 package by.academy.it.belotserkovsky.dao;
 
-import by.academy.it.belotserkovsky.dto.BidDTO;
+import by.academy.it.belotserkovsky.dto.BidDto;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -28,7 +28,7 @@ public class BidDaoTest {
 
     @Test
     public void getAll() throws Exception {
-        List<BidDTO> list = bd.getAll();
+        List<BidDto> list = bd.getAll();
         assertNotNull(list);
     }
 

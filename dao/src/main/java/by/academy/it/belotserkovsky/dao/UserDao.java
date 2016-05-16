@@ -1,7 +1,8 @@
 package by.academy.it.belotserkovsky.dao;
 
-import by.academy.it.belotserkovsky.dto.UserDTO;
-import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
+import by.academy.it.belotserkovsky.dao.interfacies.IUserDao;
+import by.academy.it.belotserkovsky.dto.UserDto;
+import by.academy.it.belotserkovsky.exceptions.ExceptionDao;
 import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
@@ -17,7 +18,7 @@ import java.util.List;
  * Class inherits the properties of BaseDao
  * Created by Kostya on 24.04.2016.
  */
-public class UserDao extends BaseDao<User> {
+public class UserDao extends BaseDao<User> implements IUserDao<User> {
     private static Logger log = Logger.getLogger(UserDao.class);
     Session session = null;
 
@@ -25,16 +26,15 @@ public class UserDao extends BaseDao<User> {
      * @param login
      * @param pass
      * @return
-     * @throws ExceptionDAO
+     * @throws ExceptionDao
      */
-    public User get(String login, String pass) throws ExceptionDAO {
+    public User getByLoginPass(String login, String pass) throws ExceptionDao {
         User user = null;
         log.info("Get user by login and pass:" + login +"-" + pass);
         try{
             session = HibernateUtil.getSession();
             String hql = "SELECT user FROM User user WHERE user.login=:login AND user.password=:pass";
             Query query = session.createQuery(hql);
-            query.setCacheable(true);
             query.setParameter("login", login);
             query.setParameter("pass", pass);
             List<User> results = query.list();
@@ -46,7 +46,7 @@ public class UserDao extends BaseDao<User> {
             }
         }catch (HibernateException e){
             log.error("Error get user by login in Dao: " + e);
-            throw new ExceptionDAO(e);
+            throw new ExceptionDao(e);
         }
         return user;
     }
@@ -54,13 +54,13 @@ public class UserDao extends BaseDao<User> {
     /**
      * @param uid
      * @return
-     * @throws ExceptionDAO
+     * @throws ExceptionDao
      */
-    public UserDTO getDTO(Long uid) throws ExceptionDAO {
-        UserDTO userDTO = null;
+    public UserDto getDto(Long uid) throws ExceptionDao {
+        UserDto userDto = null;
         try {
             session = HibernateUtil.getSession();
-            userDTO = (UserDTO) session.createSQLQuery("SELECT u.F_UID as uid, u.F_FIRSTNAME as firstName, " +
+            userDto = (UserDto) session.createSQLQuery("SELECT u.F_UID as uid, u.F_FIRSTNAME as firstName, " +
                     "u.F_SECONDNAME as secondName, u.F_LOGIN as login, " +
                     "u.F_PASSWORD as password, uc.F_ADDRESS as address, " +
                     "uc.F_PHONE as phone, uc.F_EMAIL as email " +
@@ -73,17 +73,17 @@ public class UserDao extends BaseDao<User> {
                     .addScalar("address", StandardBasicTypes.STRING)
                     .addScalar("phone", StandardBasicTypes.STRING)
                     .addScalar("email", StandardBasicTypes.STRING)
-                    .setResultTransformer(Transformers.aliasToBean(UserDTO.class)).uniqueResult();
+                    .setResultTransformer(Transformers.aliasToBean(UserDto.class)).uniqueResult();
         } catch (NonUniqueResultException e) {
             session.getTransaction().rollback();
             log.error(e.getMessage());
             HibernateUtil.closeSession();
         }
-        return userDTO;
+        return userDto;
     }
 
-    public List<UserDTO> getAll(int offset, int noOfRecords)throws ExceptionDAO{
-        List<UserDTO> all = new ArrayList<UserDTO>();
+    public List<UserDto> getAll(int offset, int noOfRecords)throws ExceptionDao {
+        List<UserDto> all = new ArrayList<UserDto>();
         session = HibernateUtil.getSession();
         all = session.createSQLQuery("SELECT u.F_UID as uid, u.F_FIRSTNAME as firstName, " +
                 "u.F_SECONDNAME as secondName, u.F_LOGIN as login, " +
@@ -98,7 +98,7 @@ public class UserDao extends BaseDao<User> {
                 .addScalar("address", StandardBasicTypes.STRING)
                 .addScalar("phone", StandardBasicTypes.STRING)
                 .addScalar("email", StandardBasicTypes.STRING)
-                .setResultTransformer(Transformers.aliasToBean(UserDTO.class)).list();
+                .setResultTransformer(Transformers.aliasToBean(UserDto.class)).list();
         return all;
     }
 

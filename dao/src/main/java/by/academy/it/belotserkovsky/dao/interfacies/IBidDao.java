@@ -1,7 +1,9 @@
 package by.academy.it.belotserkovsky.dao.interfacies;
 
+import java.util.List;
+
 /**
- * Created by Kostya on 16.05.2016.
+ * Created by K.Belotserkovsky
  */
-public interface IBidDao {
+public interface IBidDao<T> extends Dao<T> {
 }

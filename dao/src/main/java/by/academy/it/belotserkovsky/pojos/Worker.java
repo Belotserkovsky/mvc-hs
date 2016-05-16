@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 public class Worker implements Serializable{
 
-    private Long wid;
+    private Long workerId;
     private String fullName;
     private String profession;
     private Set<Brigade> brigades = new HashSet<Brigade>();
@@ -22,8 +22,8 @@ public class Worker implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getWid() {
-        return wid;
+    public Long getWorkerId() {
+        return workerId;
     }
 
     @Column
@@ -44,8 +44,8 @@ public class Worker implements Serializable{
         return brigades;
     }
 
-    public void setWid(Long wid) {
-        this.wid = wid;
+    public void setWorkerId(Long id) {
+        this.workerId = id;
     }
     public void setFullName(String fullName) {
         this.fullName = fullName;

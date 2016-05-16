@@ -1,6 +1,7 @@
 package by.academy.it.belotserkovsky.dao;
 
-import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
+import by.academy.it.belotserkovsky.dao.interfacies.IWorkerDao;
+import by.academy.it.belotserkovsky.exceptions.ExceptionDao;
 import by.academy.it.belotserkovsky.pojos.Worker;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
@@ -8,18 +9,20 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.List;
+
 /**
  * Created by Kostya on 24.04.2016.
  */
-public class WorkerDao extends BaseDao<Worker> {
+public class WorkerDao extends BaseDao<Worker> implements IWorkerDao<Worker> {
     private static Logger log = Logger.getLogger(WorkerDao.class);
 
     /**
      * @param profession
      * @return
-     * @throws ExceptionDAO
+     * @throws ExceptionDao
      */
-    public Worker get(String profession) throws ExceptionDAO{
+    public Worker get(String profession) throws ExceptionDao {
         Worker worker = null;
             try{
                 Session session = HibernateUtil.getSession();
@@ -29,8 +32,15 @@ public class WorkerDao extends BaseDao<Worker> {
                 worker = (Worker)query.uniqueResult();
             }catch (HibernateException e){
                 log.error("Error get worker by profession in Dao: " + e);
-                throw new ExceptionDAO(e);
+                throw new ExceptionDao(e);
             }
         return worker;
+    }
+
+    public List<Worker> getWorkers(){
+        Session session = HibernateUtil.getSession();
+        String hql = "from Worker";
+        Query query = session.createQuery(hql);
+        return query.list();
     }
 }

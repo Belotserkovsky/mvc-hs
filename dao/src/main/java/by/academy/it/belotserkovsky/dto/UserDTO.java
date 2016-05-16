@@ -4,7 +4,7 @@ package by.academy.it.belotserkovsky.dto;
  * Date Transfer Object
  * Created by K.Belotserkovsky
  */
-public class UserDTO {
+public class UserDto {
 
     private Long uid;
     private String firstName;
@@ -15,10 +15,10 @@ public class UserDTO {
     private String phone;
     private String email;
 
-    public UserDTO() {
+    public UserDto() {
     }
 
-    public UserDTO(Long uid, String firstName, String secondName, String login, String password, String address, String phone, String email) {
+    public UserDto(Long uid, String firstName, String secondName, String login, String password, String address, String phone, String email) {
         this.uid = uid;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -29,7 +29,7 @@ public class UserDTO {
         this.email = email;
     }
 
-    public UserDTO(String firstName, String secondName, String login, String password, String address, String phone, String email) {
+    public UserDto(String firstName, String secondName, String login, String password, String address, String phone, String email) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.login = login;
@@ -39,7 +39,7 @@ public class UserDTO {
         this.email = email;
     }
 
-    public UserDTO(String firstName, String secondName, String login, String password) {
+    public UserDto(String firstName, String secondName, String login, String password) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.login = login;

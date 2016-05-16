@@ -17,7 +17,7 @@ import java.util.Set;
 @Entity
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable{
-    private Long uid;
+    private Long userId;
     private String firstName;
     private String secondName;
     private String login;
@@ -34,8 +34,8 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public User(Long uid, String firstName, String secondName, String login, String password) {
-        this.uid = uid;
+    public User(Long u_id, String firstName, String secondName, String login, String password) {
+        this.userId = u_id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.login = login;
@@ -44,8 +44,8 @@ public class User implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getUid() {
-        return uid;
+    public Long getUserId() {
+        return userId;
     }
 
     @Column
@@ -68,7 +68,6 @@ public class User implements Serializable{
         return password;
     }
 
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     public UserContacts getUserContacts() {
         return userContacts;
@@ -80,8 +79,8 @@ public class User implements Serializable{
     }
 
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public void setFirstName(String firstName) {

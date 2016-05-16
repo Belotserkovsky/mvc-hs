@@ -2,7 +2,7 @@ package by.academy.it.belotserkovsky.command;
 
 import by.academy.it.belotserkovsky.command.constants.UserType;
 import by.academy.it.belotserkovsky.daoServices.UserService;
-import by.academy.it.belotserkovsky.dto.UserDTO;
+import by.academy.it.belotserkovsky.dto.UserDto;
 import by.academy.it.belotserkovsky.logic.LoginLogic;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 import by.academy.it.belotserkovsky.managers.MessageManager;
@@ -34,18 +34,18 @@ public class LoginCommand implements ActionCommand {
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 
         HttpSession session = request.getSession();
-        UserDTO userDTO = UserService.getInstance().getUserByLoginPass(login, pass);
+        UserDto userDto = UserService.getInstance().getUserByLoginPass(login, pass);
 
         if (LoginLogic.getInstance().checkAdminLogin(login, pass)) {
             session.setAttribute("userType", UserType.ADMIN);
             session.setAttribute("user", login);
             page = ConfigurationManager.PATH_PAGE_ADMIN;
             return page;
-        } else if (userDTO != null) {
-            session.setAttribute("user", userDTO.getFirstName());
-            session.setAttribute("u_id", userDTO.getUid());
+        } else if (userDto != null) {
+            session.setAttribute("user", userDto.getFirstName());
+            session.setAttribute("u_id", userDto.getUid());
             session.setAttribute("userType", UserType.USER);
-            Cookie c = new Cookie(UID, String.valueOf(userDTO.getUid()));
+            Cookie c = new Cookie(UID, String.valueOf(userDto.getUid()));
             c.setMaxAge(ONE_WEEK);
             response.addCookie(c);
             page = ConfigurationManager.PATH_PAGE_USER;

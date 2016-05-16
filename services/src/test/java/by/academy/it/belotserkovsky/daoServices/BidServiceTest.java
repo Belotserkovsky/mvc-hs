@@ -1,6 +1,6 @@
 package by.academy.it.belotserkovsky.daoServices;
 
-import by.academy.it.belotserkovsky.dto.BidDTO;
+import by.academy.it.belotserkovsky.dto.BidDto;
 import by.academy.it.belotserkovsky.pojos.Bid;
 import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
@@ -35,7 +35,7 @@ public class BidServiceTest {
     public void createBid() throws Exception {
 
         User user = UserService.getInstance().getById(Long.parseLong("1"));
-        BidDTO bDTO = new BidDTO(Long.parseLong("1"), "ggggggg", "rrrrrrr", "ttttttt");
+        BidDto bDTO = new BidDto(Long.parseLong("1"), "ggggggg", "rrrrrrr", "ttttttt");
 
         Set<Bid> bids = new HashSet<Bid>();
         bids.add(bid);
@@ -50,7 +50,7 @@ public class BidServiceTest {
 
     @Test
     public void getAll() {
-        List<BidDTO> list = BidService.getInstance().getBidsList();
+        List<BidDto> list = BidService.getInstance().getBidsList();
         assertNotNull(list);
 
         if(transaction != null){

@@ -3,6 +3,7 @@ package by.academy.it.belotserkovsky.pojos;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Table;
 import org.jboss.logging.annotations.Property;
 
 import javax.persistence.*;
@@ -10,14 +11,14 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**
- * Created by Kostya on 23.04.2016.
+ * Created by K.Belotserkovsky
  */
 
 @Entity
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserContacts implements Serializable {
 
-    private Long uid;
+    private Long userId;
     private String address;
     private String phone;
     private String email;
@@ -39,8 +40,8 @@ public class UserContacts implements Serializable {
             parameters = @Parameter(name = "property", value = "user")
     )
     @GeneratedValue(generator = "gen1")
-    public Long getUid() {
-        return uid;
+    public Long getUserId() {
+        return userId;
     }
 
     @Column
@@ -64,8 +65,8 @@ public class UserContacts implements Serializable {
         return user;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setUserId(Long u_id) {
+        this.userId = u_id;
     }
     public void setAddress(String address) {
         this.address = address;

@@ -16,7 +16,7 @@ import java.util.Set;
 @Entity
 public class Brigade implements Serializable{
 
-    private Long bId;
+    private Long id;
     private String title;
     private Bid bid;
     private Set<Worker> workers = new HashSet<Worker>();
@@ -33,8 +33,8 @@ public class Brigade implements Serializable{
             parameters = @Parameter(name = "property", value = "bid")
     )
     @GeneratedValue(generator = "gen2")
-    public Long getBId() {
-        return bId;
+    public Long getId() {
+        return id;
     }
 
     @Column
@@ -53,8 +53,8 @@ public class Brigade implements Serializable{
         return bid;
     }
 
-    public void setBId(Long bId) {
-        this.bId = bId;
+    public void setId(Long id) {
+        this.id = id;
     }
     public void setTitle(String title) {
         this.title = title;

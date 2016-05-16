@@ -1,7 +1,7 @@
 package by.academy.it.belotserkovsky.daoServices;
 
-import by.academy.it.belotserkovsky.dao.WorkerDAO;
-import by.academy.it.belotserkovsky.exceptions.ExceptionDAO;
+import by.academy.it.belotserkovsky.dao.WorkerDao;
+import by.academy.it.belotserkovsky.exceptions.ExceptionDao;
 import by.academy.it.belotserkovsky.pojos.Worker;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
@@ -11,12 +11,12 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 /**
- * Access to the class object WorkerDAO
+ * Access to the class object WorkerDao
  * Created by K.Belotserkovsky
  */
 public class WorkerService {
     private static Logger log = Logger.getLogger(UserService.class);
-    private WorkerDAO workerDAO;
+    private WorkerDao workerDAO;
     private static WorkerService instance;
     private Transaction transaction = null;
     private Session session = null;
@@ -29,7 +29,7 @@ public class WorkerService {
     }
 
     public WorkerService() {
-        workerDAO = new WorkerDAO();
+        workerDAO = new WorkerDao();
     }
 
     /**
@@ -40,9 +40,9 @@ public class WorkerService {
             if(worker != null) {
                 workerDAO.saveOrUpdate(worker);
             }
-        }catch (ExceptionDAO e){
+        }catch (ExceptionDao e){
             HibernateUtil.getSession().getTransaction().rollback();
-            log.error("DAO exception in service layer during createOrUpdate() worker: " + e);
+            log.error("Dao exception in service layer during createOrUpdate() worker: " + e);
             HibernateUtil.closeSession();
         }
     }
@@ -57,9 +57,9 @@ public class WorkerService {
             if(profession.length() > 0){
                 worker = workerDAO.get(profession.toLowerCase().trim());
             }
-        }catch (ExceptionDAO e){
+        }catch (ExceptionDao e){
             HibernateUtil.getSession().getTransaction().rollback();
-            log.error("DAO exception in service layer during getByProfession() worker: " + e);
+            log.error("Dao exception in service layer during getByProfession() worker: " + e);
             HibernateUtil.closeSession();
         }
         return worker;
@@ -69,18 +69,10 @@ public class WorkerService {
      * @return List<Worker>
      */
     public List<Worker> getWorkersList () {
-        List<Worker> all = null;
-        try {
-            session = HibernateUtil.getSession();
-            transaction = session.beginTransaction();
-            all = (List<Worker>)workerDAO.getAll();
-        } catch (ExceptionDAO e) {
-            if(transaction != null){
-                transaction.rollback();
-            }
-           log.error("DAO exception in service layer during getAll() workers: " + e);
-            HibernateUtil.closeSession();
-        }
+        session = HibernateUtil.getSession();
+        transaction = session.beginTransaction();
+        List<Worker> all = workerDAO.getWorkers();
+        transaction.commit();
         return all;
     }
 }

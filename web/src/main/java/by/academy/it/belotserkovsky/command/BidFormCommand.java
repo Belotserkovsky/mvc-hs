@@ -1,7 +1,7 @@
 package by.academy.it.belotserkovsky.command;
 
 import by.academy.it.belotserkovsky.daoServices.BidService;
-import by.academy.it.belotserkovsky.dto.BidDTO;
+import by.academy.it.belotserkovsky.dto.BidDto;
 import by.academy.it.belotserkovsky.managers.ConfigurationManager;
 import org.apache.log4j.Logger;
 
@@ -23,16 +23,16 @@ public class BidFormCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page = null;
-        BidDTO bidDTO = null;
+        BidDto bidDto = null;
 
         Long uid = (Long)request.getSession().getAttribute(PARAM_NAME_USER_ID);
         String kindOfWorks = request.getParameter(PARAM_NAME_USER_KIND_OF_WORKS);
         String scope = request.getParameter(PARAM_NAME_USER_SCOPE);
         String desiredRuntime = request.getParameter(PARAM_NAME_USER_DESIRED_RUNTIME);
 
-        bidDTO = new BidDTO(uid, kindOfWorks, scope, desiredRuntime);
+        bidDto = new BidDto(uid, kindOfWorks, scope, desiredRuntime);
 
-        Long bidId = BidService.getInstance().createBid(bidDTO);
+        Long bidId = BidService.getInstance().createBid(bidDto);
 
         request.getSession().setAttribute(PARAM_NAME_BID_ID, bidId);
 

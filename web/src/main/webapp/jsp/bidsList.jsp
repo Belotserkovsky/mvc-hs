@@ -18,14 +18,14 @@
         <th>Бригада</th>
         <th>ID пользователя</th>
     </tr>
-    <c:forEach var="bidDTO" items="${bidsList}" varStatus="status">
+    <c:forEach var="bidDto" items="${bidsList}" varStatus="status">
     <tr>
-        <td>${bidDTO.bId}</td>
-        <td>${bidDTO.kindOfWorks}</td>
-        <td>${bidDTO.scope}</td>
-        <td>${bidDTO.desiredRuntime}</td>
-        <td>${bidDTO.brigadeTitle}</td>
-        <td>${bidDTO.uid}</td>
+        <td>${bidDto.bId}</td>
+        <td>${bidDto.kindOfWorks}</td>
+        <td>${bidDto.scope}</td>
+        <td>${bidDto.desiredRuntime}</td>
+        <td>${bidDto.brigadeTitle}</td>
+        <td>${bidDto.uid}</td>
     </tr>
     </c:forEach>
 </table>

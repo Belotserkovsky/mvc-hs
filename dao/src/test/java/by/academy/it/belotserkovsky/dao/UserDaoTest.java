@@ -1,6 +1,6 @@
 package by.academy.it.belotserkovsky.dao;
 
-import by.academy.it.belotserkovsky.dto.UserDTO;
+import by.academy.it.belotserkovsky.dto.UserDto;
 import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -32,7 +32,7 @@ public class UserDaoTest {
 
     @Test
     public void getDTO() throws Exception {
-        UserDTO udto = userDAO.getDTO(Long.parseLong("1"));
+        UserDto udto = userDAO.getDTO(Long.parseLong("1"));
         assertNotNull(udto);
         HibernateUtil.closeSession();
 
@@ -46,7 +46,7 @@ public class UserDaoTest {
 
     @Test
     public void getAll() throws Exception{
-        List<UserDTO> list = userDAO.getAll(0,1);
+        List<UserDto> list = userDAO.getAll(0,1);
         assertNotNull(list);
     }
 
