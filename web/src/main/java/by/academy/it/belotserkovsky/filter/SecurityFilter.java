@@ -15,7 +15,7 @@ import java.io.IOException;
  * Created by Kostya on 09.04.2016.
  */
 
-@WebFilter(urlPatterns = { "/controller" }, servletNames = {"Controller"})
+//@WebFilter(urlPatterns = { "/controller" }, servletNames = {"Controller"})
 public class SecurityFilter implements Filter{
 
     public void destroy() {

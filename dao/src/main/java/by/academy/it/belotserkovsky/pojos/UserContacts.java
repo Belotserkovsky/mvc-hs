@@ -1,13 +1,11 @@
 package by.academy.it.belotserkovsky.pojos;
 
-import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
+
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Table;
-import org.jboss.logging.annotations.Property;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**
@@ -15,6 +13,7 @@ import java.io.Serializable;
  */
 
 @Entity
+@Table(name = "T_USER_CONTACTS")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserContacts implements Serializable {
 
@@ -44,17 +43,17 @@ public class UserContacts implements Serializable {
         return userId;
     }
 
-    @Column
+    @Column(name = "F_ADDRESS")
     public String getAddress() {
         return address;
     }
 
-    @Column
+    @Column(name = "F_PHONE")
     public String getPhone() {
         return phone;
     }
 
-    @Column
+    @Column(name = "F_EMAIL")
     public String getEmail() {
         return email;
     }

@@ -6,7 +6,7 @@ package by.academy.it.belotserkovsky.dto;
  */
 public class UserDto {
 
-    private Long uid;
+    private Long userId;
     private String firstName;
     private String secondName;
     private String login;
@@ -14,12 +14,13 @@ public class UserDto {
     private String address;
     private String phone;
     private String email;
+    private String userRole;
 
     public UserDto() {
     }
 
-    public UserDto(Long uid, String firstName, String secondName, String login, String password, String address, String phone, String email) {
-        this.uid = uid;
+    public UserDto(Long userId, String firstName, String secondName, String login, String password, String address, String phone, String email, String userRole) {
+        this.userId = userId;
         this.firstName = firstName;
         this.secondName = secondName;
         this.login = login;
@@ -27,6 +28,7 @@ public class UserDto {
         this.address = address;
         this.phone = phone;
         this.email = email;
+        this.userRole = userRole;
     }
 
     public UserDto(String firstName, String secondName, String login, String password, String address, String phone, String email) {
@@ -46,12 +48,12 @@ public class UserDto {
         this.password = password;
     }
 
-    public Long getUid() {
-        return uid;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -110,4 +112,11 @@ public class UserDto {
         this.phone = phone;
     }
 
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
 }

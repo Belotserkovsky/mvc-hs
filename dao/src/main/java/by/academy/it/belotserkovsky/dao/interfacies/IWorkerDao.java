@@ -1,13 +1,21 @@
 package by.academy.it.belotserkovsky.dao.interfacies;
 
-import by.academy.it.belotserkovsky.exceptions.ExceptionDao;
-
+import by.academy.it.belotserkovsky.pojos.Worker;
 import java.util.List;
 
 /**
  * Created by K.Belotserkovsky
  */
-public interface IWorkerDao<T> extends Dao<T> {
+public interface IWorkerDao extends Dao<Worker> {
 
-    List<T> getWorkers() throws ExceptionDao;
+    /**
+     * @param profession
+     * @return Worker
+     */
+    Worker getByProfession(String profession);
+
+    /**
+     * @return List<Worker>
+     */
+    List<Worker> getWorkers();
 }

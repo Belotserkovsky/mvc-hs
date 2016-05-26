@@ -17,15 +17,31 @@
         <th>Время выполнения</th>
         <th>Бригада</th>
         <th>ID пользователя</th>
+        <th>Дата создания</th>
+        <th>Статус</th>
     </tr>
     <c:forEach var="bidDto" items="${bidsList}" varStatus="status">
     <tr>
-        <td>${bidDto.bId}</td>
+        <td>${bidDto.bidId}</td>
         <td>${bidDto.kindOfWorks}</td>
         <td>${bidDto.scope}</td>
         <td>${bidDto.desiredRuntime}</td>
         <td>${bidDto.brigadeTitle}</td>
-        <td>${bidDto.uid}</td>
+        <td>${bidDto.userId}</td>
+        <td>${bidDto.creationDate}</td>
+        <td>
+        ${bidDto.status}<br>
+            <form method="POST" action="/controller">
+                <input type="hidden" name="command" value="updateBid"/>
+                <p><select size="3">
+                <option disabled>Обновить статус:</option>
+                 <c:forEach var="element" items="${statuses}" varStatus="">
+                    <option value="status">${ elem }</option>
+                 </c:forEach>
+                </select></p>
+                <input type="submit" value="Обновить"/>
+            </form>
+        </td>
     </tr>
     </c:forEach>
 </table>

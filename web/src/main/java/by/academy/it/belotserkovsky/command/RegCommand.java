@@ -37,7 +37,7 @@ public class RegCommand implements ActionCommand {
 
         HttpSession session = request.getSession();
 
-        Long uid = (Long) session.getAttribute(UID);
+        Long userId = (Long) session.getAttribute(UID);
         String firstName = request.getParameter(PARAM_NAME_FIRSTNAME);
         String secondName = request.getParameter(PARAM_NAME_SECONDNAME);
         String address = request.getParameter(PARAM_NAME_ADDRESS);
@@ -46,7 +46,7 @@ public class RegCommand implements ActionCommand {
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 
-        UserDto uDTO = new UserDto(uid, firstName, secondName, login, pass, address, phone, email);
+        UserDto userDto = new UserDto(userId, firstName, secondName, login, pass, address, phone, email);
         UserType uType = (UserType) session.getAttribute("userType");
 
         if (uType == UserType.GUEST && LoginLogic.getInstance().checkUserLogin(login, pass)) {
@@ -54,7 +54,7 @@ public class RegCommand implements ActionCommand {
             page = ConfigurationManager.PATH_PAGE_REGISTRATION;
             return page;
         } else {
-            UserService.getInstance().createOrUpdate(uDTO);
+            UserService.getInstance().createOrUpdate(userDto);
         }
 
         request.getSession().setAttribute("userType", UserType.GUEST);

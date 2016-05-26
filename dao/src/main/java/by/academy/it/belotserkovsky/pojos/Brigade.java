@@ -1,10 +1,9 @@
 package by.academy.it.belotserkovsky.pojos;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +13,7 @@ import java.util.Set;
  */
 
 @Entity
+@Table(name = "T_BRIGADE")
 public class Brigade implements Serializable{
 
     private Long id;
@@ -28,6 +28,7 @@ public class Brigade implements Serializable{
     }
 
     @Id
+    @Column(name = "F_BRIGADE_ID")
     @GenericGenerator(name = "gen2",
             strategy = "foreign",
             parameters = @Parameter(name = "property", value = "bid")
@@ -37,7 +38,7 @@ public class Brigade implements Serializable{
         return id;
     }
 
-    @Column
+    @Column(name = "F_TITLE")
     public String getTitle() {
         return title;
     }

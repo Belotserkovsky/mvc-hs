@@ -1,6 +1,9 @@
 package by.academy.it.belotserkovsky.daoServices;
 
 import by.academy.it.belotserkovsky.dao.BrigadeDao;
+import by.academy.it.belotserkovsky.dao.interfacies.IBidDao;
+import by.academy.it.belotserkovsky.dao.interfacies.IBrigadeDao;
+import by.academy.it.belotserkovsky.dao.interfacies.IWorkerDao;
 import by.academy.it.belotserkovsky.pojos.Bid;
 import by.academy.it.belotserkovsky.pojos.Brigade;
 import by.academy.it.belotserkovsky.pojos.Worker;
@@ -8,6 +11,10 @@ import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,33 +24,17 @@ import java.util.Set;
  * Created by Kostya on 08.04.2016.
  */
 
-public class BrigadeService {
+@Service
+@Transactional(propagation = Propagation.REQUIRED)
+public class BrigadeService implements IBrigadeService{
     private static Logger log = Logger.getLogger(BrigadeService.class);
-    private BrigadeDao brigadeDAO;
-    private Transaction transaction = null;
-    private Session session = null;
 
-    private static BrigadeService instance;
+    @Autowired
+    private IWorkerDao workerDao;
 
-    /**
-     * @return Singleton
-     */
-    public static BrigadeService getInstance() {
-        if (instance == null) {
-            instance = new BrigadeService();
-        }
-        return instance;
-    }
+    @Autowired
+    private IBidDao bidDao;
 
-    public BrigadeService() {
-        brigadeDAO = new BrigadeDao();
-    }
-
-    /**
-     * parse date input through checkbox
-     * @param selected
-     * @return
-     */
     public void createBrigade (String[] selected, Long bidId){
         if (selected.length > 0 && bidId != null) {
             Bid bid = null;
@@ -52,27 +43,24 @@ public class BrigadeService {
             Worker worker = null;
             Set<Worker> workers = new HashSet<Worker>();
             String profession = null;
-            session = HibernateUtil.getSession();
-            transaction = session.beginTransaction();
 
             for (int i = 0; i < selected.length; ++i) {
                 profession = selected[i];
                 title += (", " + profession.toLowerCase());
-                worker = WorkerService.getInstance().getByProfession(profession);
+                worker = workerDao.getByProfession(profession);
                 workers.add(worker);
             }
 
             brigade = new Brigade(title.substring(2));
             for (Worker w : workers){
                 w.getBrigades().add(brigade);
-                WorkerService.getInstance().createOrUpdate(w);
+                workerDao.saveOrUpdate(w);
             }
 
-            bid = BidService.getInstance().getBid(bidId);
+            bid = bidDao.get(bidId);
             bid.setBrigade(brigade);
             brigade.setBid(bid);
-            BidService.getInstance().createOrUpdate(bid);
-            transaction.commit();
+            bidDao.saveOrUpdate(bid);
         }
     }
 }

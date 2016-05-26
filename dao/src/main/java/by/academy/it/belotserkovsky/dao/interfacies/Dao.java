@@ -1,7 +1,9 @@
 package by.academy.it.belotserkovsky.dao.interfacies;
 
+import by.academy.it.belotserkovsky.dto.UserDto;
 import by.academy.it.belotserkovsky.exceptions.ExceptionDao;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * General interface Dao
@@ -27,4 +29,5 @@ public interface Dao<T>{
      * @throws ExceptionDao
      */
     void delete(T t) throws ExceptionDao;
+
 }

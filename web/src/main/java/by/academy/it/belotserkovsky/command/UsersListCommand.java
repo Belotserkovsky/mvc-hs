@@ -21,9 +21,9 @@ public class UsersListCommand implements ActionCommand {
             page = Integer.parseInt(request.getParameter("page"));
         }
         int allRecords = UserService.getInstance().getRowsUsers();
-        List<UserDto> list = UserService.getInstance().getAllUsers((page-1)*recordsPerPage, recordsPerPage);
+//        List<UserDto> list = UserService.getInstance().getAllUsers((page-1)*recordsPerPage, recordsPerPage);
         int numberOfPages = (int) Math.ceil((double)allRecords / recordsPerPage);
-        request.setAttribute("usersList", list);
+//        request.setAttribute("usersList", list);
         request.setAttribute("numberOfPages", numberOfPages);
         request.setAttribute("currentPage", page);
 

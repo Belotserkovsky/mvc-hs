@@ -19,9 +19,9 @@ public class EditContactCommand implements ActionCommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response){
 
-        Long uid = (Long)(request.getSession().getAttribute(UID));
+        Long userId = (Long)(request.getSession().getAttribute(UID));
 
-        userDto = UserService.getInstance().getUserWithContact(uid);
+        userDto = UserService.getInstance().getUserDto(userId);
 
         request.setAttribute("firstName", userDto.getFirstName());
         request.setAttribute("secondName", userDto.getSecondName());

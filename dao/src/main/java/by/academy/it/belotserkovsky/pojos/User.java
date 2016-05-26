@@ -1,11 +1,8 @@
 package by.academy.it.belotserkovsky.pojos;
 
-import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +12,7 @@ import java.util.Set;
  */
 
 @Entity
+@Table(name = "T_USER")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable{
     private Long userId;
@@ -22,16 +20,18 @@ public class User implements Serializable{
     private String secondName;
     private String login;
     private String password;
+    private String role;
     private UserContacts userContacts;
     private Set<Bid> bids = new HashSet<Bid>();
 
     public User() {}
 
-    public User(String firstName, String secondName, String login, String password) {
+    public User(String firstName, String secondName, String login, String password, String role) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.login = login;
         this.password = password;
+        this.role = role;
     }
 
     public User(Long u_id, String firstName, String secondName, String login, String password) {
@@ -43,29 +43,35 @@ public class User implements Serializable{
     }
 
     @Id
+    @Column(name = "F_USER_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getUserId() {
         return userId;
     }
 
-    @Column
+    @Column(name = "F_FIRST_NAME")
     public String getFirstName() {
         return firstName;
     }
 
-    @Column
+    @Column(name = "F_SECOND_NAME")
     public String getSecondName() {
         return secondName;
     }
 
-    @Column
+    @Column(name = "F_LOGIN")
     public String getLogin() {
         return login;
     }
 
-    @Column
+    @Column(name = "F_PASSWORD")
     public String getPassword() {
         return password;
+    }
+
+    @Column(name = "F_ROLE")
+    public String getRole() {
+        return role;
     }
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -97,6 +103,10 @@ public class User implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setUserContacts(UserContacts userContacts) {

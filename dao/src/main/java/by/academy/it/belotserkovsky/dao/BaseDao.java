@@ -1,53 +1,48 @@
 package by.academy.it.belotserkovsky.dao;
 
 import by.academy.it.belotserkovsky.dao.interfacies.Dao;
-import by.academy.it.belotserkovsky.exceptions.ExceptionDao;
-import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
 /**
  * Parent class Dao
- * Created by Kostya on 22.04.2016.
+ * Created by K.Belotserkovsky
  * @param <T>
  */
+
+@Repository
 public class BaseDao<T> implements Dao<T> {
     private static Logger log = Logger.getLogger(BaseDao.class);
-    private Session session = null;
+    private SessionFactory sessionFactory;
 
-    public void saveOrUpdate(T t) throws ExceptionDao {
-        session = HibernateUtil.getSession();
-        session.saveOrUpdate(t);
-        log.info("saveOrUpdate(t):" + t);
+    @Autowired
+    public BaseDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    public T get(Serializable id) throws ExceptionDao {
-        log.info("Get class by id:" + id);
-        T t = null;
-        try {
-            session = HibernateUtil.getSession();
-            t = (T) session.get(getPersistentClass(), id);
-            log.info("get class:" + t);
-        } catch (HibernateException e) {
-            log.error("Error get " + getPersistentClass() + " in Dao" + e);
-            throw new ExceptionDao(e);
-        }
-        return t;
+    public Session getSession(){
+        return sessionFactory.getCurrentSession();
     }
 
-    public void delete(T t) throws ExceptionDao {
-        try {
-            session = HibernateUtil.getSession();
-            session.delete(t);
-            log.info("Delete:" + t);
-        } catch (HibernateException e) {
-            log.error("Error delete in Dao" + e);
-            throw new ExceptionDao(e);
-        }
+    public void saveOrUpdate(T t){
+        getSession().saveOrUpdate(t);
+        log.info("Save or update:" + t);
+    }
+
+    public T get(Serializable id) {
+        log.info("Get:" + id);
+        return (T) getSession().get(getPersistentClass(), id);
+    }
+
+    public void delete(T t){
+        getSession().delete(t);
+        log.info("Delete:" + t);
     }
 
     private Class getPersistentClass() {

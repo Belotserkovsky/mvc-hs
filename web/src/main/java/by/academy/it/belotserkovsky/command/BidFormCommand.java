@@ -25,12 +25,12 @@ public class BidFormCommand implements ActionCommand {
         String page = null;
         BidDto bidDto = null;
 
-        Long uid = (Long)request.getSession().getAttribute(PARAM_NAME_USER_ID);
+        Long userId = (Long)request.getSession().getAttribute(PARAM_NAME_USER_ID);
         String kindOfWorks = request.getParameter(PARAM_NAME_USER_KIND_OF_WORKS);
         String scope = request.getParameter(PARAM_NAME_USER_SCOPE);
         String desiredRuntime = request.getParameter(PARAM_NAME_USER_DESIRED_RUNTIME);
 
-        bidDto = new BidDto(uid, kindOfWorks, scope, desiredRuntime);
+        bidDto = new BidDto(userId, kindOfWorks, scope, desiredRuntime);
 
         Long bidId = BidService.getInstance().createBid(bidDto);
 

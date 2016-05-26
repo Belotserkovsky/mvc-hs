@@ -1,8 +1,6 @@
 package by.academy.it.belotserkovsky.pojos;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +9,7 @@ import java.util.Set;
  * Created by K.Belotserkovsky
  */
 @Entity
+@Table(name = "T_WORKER")
 public class Worker implements Serializable{
 
     private Long workerId;
@@ -21,17 +20,18 @@ public class Worker implements Serializable{
     public Worker() {}
 
     @Id
+    @Column(name = "F_WORKER_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getWorkerId() {
         return workerId;
     }
 
-    @Column
+    @Column(name = "F_FULL_NAME")
     public String getFullName() {
         return fullName;
     }
 
-    @Column
+    @Column(name = "F_PROFESSION")
     public String getProfession() {
         return profession;
     }

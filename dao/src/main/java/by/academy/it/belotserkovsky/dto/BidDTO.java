@@ -1,50 +1,45 @@
 package by.academy.it.belotserkovsky.dto;
 
-import by.academy.it.belotserkovsky.pojos.Brigade;
+import java.sql.Date;
 
 /**
  * Created by K.Belotserkovsky
  */
 public class BidDto {
 
-    private Long uid;
-    private Long bId;
+    private Long userId;
+    private Long bidId;
     private String kindOfWorks;
     private String scope;
     private String desiredRuntime;
     private String brigadeTitle;
+    private Date creationDate;
+    private String status;
 
     public BidDto() {
     }
 
-    public BidDto(String kindOfWorks, String scope, String desiredRuntime, String brigadeTitle) {
-        this.kindOfWorks = kindOfWorks;
-        this.scope = scope;
-        this.desiredRuntime = desiredRuntime;
-        this.brigadeTitle = brigadeTitle;
-    }
-
-    public BidDto(Long uid, String kindOfWorks, String scope, String desiredRuntime) {
-        this.uid = uid;
+    public BidDto(Long userId, String kindOfWorks, String scope, String desiredRuntime) {
+        this.userId = userId;
         this.kindOfWorks = kindOfWorks;
         this.scope = scope;
         this.desiredRuntime = desiredRuntime;
     }
 
-    public Long getUid() {
-        return uid;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public Long getbId() {
-        return bId;
+    public Long getBidId() {
+        return bidId;
     }
 
-    public void setbId(Long bId) {
-        this.bId = bId;
+    public void setBidId(Long bidId) {
+        this.bidId = bidId;
     }
 
     public String getKindOfWorks() {
@@ -77,5 +72,21 @@ public class BidDto {
 
     public void setBrigadeTitle(String brigadeTitle) {
         this.brigadeTitle = brigadeTitle;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

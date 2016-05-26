@@ -13,42 +13,42 @@ import static org.junit.Assert.*;
  * Created by K.Belotserkovsky
  */
 public class LoginLogicTest {
-    private static Logger log = Logger.getLogger(LoginLogicTest.class);
-
-    private static final String login = "login";
-    private static final String pass = "password";
-    private static final String adminLogin = "admin";
-    private static final String adminPass = "admin";
-    Session session = null;
-    Transaction transaction = null;
-
-
-    @Test
-    public void checkUserLogin() throws Exception {
-        session = HibernateUtil.getSession();
-        transaction = session.beginTransaction();
-
-        boolean actual = LoginLogic.getInstance().checkUserLogin(login, pass);
-        assertTrue(actual);
-
-        if(transaction != null){
-            transaction.commit();
-        }
-        HibernateUtil.closeSession();
-    }
-
-    @Test
-    public void checkAdminLogin() throws Exception {
-
-        boolean actual = LoginLogic.getInstance().checkAdminLogin(adminLogin, adminPass);
-        assertTrue(actual);
-
-        actual = LoginLogic.getInstance().checkAdminLogin("fff", adminPass);
-        assertFalse(actual);
-
-        actual = LoginLogic.getInstance().checkAdminLogin("fff", "pass");
-        assertFalse(actual);
-    }
-
+//    private static Logger log = Logger.getLogger(LoginLogicTest.class);
+//
+//    private static final String login = "login";
+//    private static final String pass = "password";
+//    private static final String adminLogin = "admin";
+//    private static final String adminPass = "admin";
+//    Session session = null;
+//    Transaction transaction = null;
+//
+//
+//    @Test
+//    public void checkUserLogin() throws Exception {
+//        session = HibernateUtil.getSession();
+//        transaction = session.beginTransaction();
+//
+//        boolean actual = LoginLogic.getInstance().checkUserLogin(login, pass);
+//        assertTrue(actual);
+//
+//        if(transaction != null){
+//            transaction.commit();
+//        }
+//        HibernateUtil.closeSession();
+//    }
+//
+//    @Test
+//    public void checkAdminLogin() throws Exception {
+//
+//        boolean actual = LoginLogic.getInstance().checkAdminLogin(adminLogin, adminPass);
+//        assertTrue(actual);
+//
+//        actual = LoginLogic.getInstance().checkAdminLogin("fff", adminPass);
+//        assertFalse(actual);
+//
+//        actual = LoginLogic.getInstance().checkAdminLogin("fff", "pass");
+//        assertFalse(actual);
+//    }
+//
 
 }

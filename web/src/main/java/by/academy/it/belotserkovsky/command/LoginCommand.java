@@ -42,12 +42,12 @@ public class LoginCommand implements ActionCommand {
             page = ConfigurationManager.PATH_PAGE_ADMIN;
             return page;
         } else if (userDto != null) {
-            session.setAttribute("user", userDto.getFirstName());
-            session.setAttribute("u_id", userDto.getUid());
-            session.setAttribute("userType", UserType.USER);
-            Cookie c = new Cookie(UID, String.valueOf(userDto.getUid()));
-            c.setMaxAge(ONE_WEEK);
-            response.addCookie(c);
+//            session.setAttribute("user", userDto.getFirstName());
+//            session.setAttribute("u_id", userDto.getUid());
+//            session.setAttribute("userType", UserType.USER);
+//            Cookie c = new Cookie(UID, String.valueOf(userDto.getUid()));
+//            c.setMaxAge(ONE_WEEK);
+//            response.addCookie(c);
             page = ConfigurationManager.PATH_PAGE_USER;
             return page;
         }
