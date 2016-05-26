@@ -30,9 +30,10 @@ public class BaseDao<T> implements Dao<T> {
         return sessionFactory.getCurrentSession();
     }
 
-    public void saveOrUpdate(T t){
+    public T saveOrUpdate(T t){
         getSession().saveOrUpdate(t);
         log.info("Save or update:" + t);
+        return (T)t;
     }
 
     public T get(Serializable id) {

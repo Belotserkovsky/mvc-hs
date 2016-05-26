@@ -35,18 +35,16 @@ public class BidService implements IBidService{
      * @return Long bidID
      */
     public Long createBid (BidDto bidDto) {
-        Bid bid = null;
         Long bidId = null;
         if(bidDto != null) {
             Date currentDate = new Date(System.currentTimeMillis());
             String status = Status.OPEN.getType();
-            bid = new Bid(bidDto.getKindOfWorks(), bidDto.getScope(), bidDto.getDesiredRuntime(), currentDate, status);
+            Bid bid = new Bid(bidDto.getKindOfWorks(), bidDto.getScope(), bidDto.getDesiredRuntime(), currentDate, status);
             User user = userDao.get(bidDto.getUserId());
             bid.setUser(user);
-            bidDao.saveOrUpdate(bid);
+            bidId = bidDao.saveOrUpdate(bid).getId();
         }
-        session.evict(bid);
-        bidId = bid.getId();
+//        bidId = bid.getId();
         return bidId;
     }
 

@@ -1,7 +1,5 @@
 package by.academy.it.belotserkovsky.dao.interfacies;
 
-import by.academy.it.belotserkovsky.dto.UserDto;
-import by.academy.it.belotserkovsky.exceptions.ExceptionDao;
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,21 +11,18 @@ public interface Dao<T>{
 
     /**
      * @param t
-     * @throws ExceptionDao
      */
-    void saveOrUpdate(T t) throws ExceptionDao;
+    T saveOrUpdate(T t);
 
     /**
      * @param id
      * @return T
-     * @throws ExceptionDao
      */
-    T get(Serializable id) throws ExceptionDao;
+    T get(Serializable id);
 
     /**
      * @param t
-     * @throws ExceptionDao
      */
-    void delete(T t) throws ExceptionDao;
+    void delete(T t);
 
 }
