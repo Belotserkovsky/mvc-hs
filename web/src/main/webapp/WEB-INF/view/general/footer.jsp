@@ -4,8 +4,7 @@
     <title>Footer</title>
 </head>
 <body>
-Статус = ${userType}.
 <hr/>
-<a href="/controller?command=logout">Выйти</a>
+<a href="/j_spring_security_logout">Выйти</a>
 </body>
 </html>

@@ -23,20 +23,12 @@ public class UserDao extends BaseDao<User> implements IUserDao {
         super(sessionFactory);
     }
 
-    public User getByLoginPass(String login, String pass){
-        User user = null;
-        log.info("Get user by login and pass:" + login +"-" + pass);
-        String hql = "SELECT user FROM User user WHERE user.login=:login AND user.password=:pass";
+    public User getByUserName(String userName){
+        log.info("Get user by userName:" + userName);
+        String hql = "SELECT user FROM User user WHERE user.userName=:userName";
         Query query = getSession().createQuery(hql);
-        query.setParameter("login", login);
-        query.setParameter("pass", pass);
-        List<User> results = query.list();
-        if(!results.isEmpty()){
-            for(User result : results){
-                user = result;
-                log.info("Got user: " + user);
-            }
-        }
+        query.setParameter("userName", userName);
+        User user = (User)query.uniqueResult();
         return user;
     }
 

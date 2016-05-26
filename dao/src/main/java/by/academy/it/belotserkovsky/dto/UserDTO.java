@@ -9,7 +9,7 @@ public class UserDto {
     private Long userId;
     private String firstName;
     private String secondName;
-    private String login;
+    private String userName;
     private String password;
     private String address;
     private String phone;
@@ -19,11 +19,11 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Long userId, String firstName, String secondName, String login, String password, String address, String phone, String email, String userRole) {
+    public UserDto(Long userId, String firstName, String secondName, String userName, String password, String address, String phone, String email, String userRole) {
         this.userId = userId;
         this.firstName = firstName;
         this.secondName = secondName;
-        this.login = login;
+        this.userName = userName;
         this.password = password;
         this.address = address;
         this.phone = phone;
@@ -31,20 +31,20 @@ public class UserDto {
         this.userRole = userRole;
     }
 
-    public UserDto(String firstName, String secondName, String login, String password, String address, String phone, String email) {
+    public UserDto(String firstName, String secondName, String userName, String password, String address, String phone, String email) {
         this.firstName = firstName;
         this.secondName = secondName;
-        this.login = login;
+        this.userName = userName;
         this.password = password;
         this.address = address;
         this.phone = phone;
         this.email = email;
     }
 
-    public UserDto(String firstName, String secondName, String login, String password) {
+    public UserDto(String firstName, String secondName, String userName, String password) {
         this.firstName = firstName;
         this.secondName = secondName;
-        this.login = login;
+        this.userName = userName;
         this.password = password;
     }
 
@@ -72,12 +72,12 @@ public class UserDto {
         this.secondName = secondName;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {

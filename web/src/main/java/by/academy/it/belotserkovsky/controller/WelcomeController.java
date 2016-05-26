@@ -16,7 +16,7 @@ import java.util.Map;
 @Controller
 public class WelcomeController {
 
-    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String welcomePage(ModelMap model){
         model.put("greeting", "Hello!");
         return "welcome";

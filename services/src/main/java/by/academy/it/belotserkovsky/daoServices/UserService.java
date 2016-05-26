@@ -31,14 +31,14 @@ public class UserService implements IUserService{
     private IUserDao userDAO;
 
 
-    @Transactional(readOnly = false)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void createOrUpdateUser (UserDto userDto) {
         Long uid = userDto.getUserId();
         if(uid != null) {
             User user = userDAO.get(userDto.getUserId());
             user.setFirstName(userDto.getFirstName());
             user.setSecondName(userDto.getSecondName());
-            user.setLogin(userDto.getLogin());
+            user.setUserName(userDto.getUserName());
             user.setPassword(userDto.getPassword());
             UserContacts uContacts = user.getUserContacts();
             uContacts.setAddress(userDto.getAddress());
@@ -47,7 +47,7 @@ public class UserService implements IUserService{
             userDAO.saveOrUpdate(user);
         }else{
             User user = new User(userDto.getFirstName(), userDto.getSecondName(),
-                    userDto.getLogin(), userDto.getPassword(), Role.USER.getType());
+                    userDto.getUserName(), userDto.getPassword(), Role.USER.getType());
             UserContacts uContacts = new UserContacts(userDto.getAddress(), userDto.getPhone(),
                     userDto.getEmail());
             Set<Bid> bids = new HashSet<Bid>();
@@ -58,24 +58,15 @@ public class UserService implements IUserService{
         }
     }
 
-    public UserDto getUserDtoByLoginPass(String login, String pass) {
-        UserDto userDto = null;
-        User user = userDAO.getByLoginPass(login, pass);
-        if(user != null) {
-            userDto = new UserDto();
-            userDto.setUserId(user.getUserId());
-            userDto.setLogin(user.getLogin());
-            userDto.setPassword(user.getPassword());
-            userDto.setFirstName(user.getFirstName());
-            userDto.setSecondName(user.getSecondName());
-        }
-        return userDto;
+    public User getUserByUserName(String userName) {
+        User user = userDAO.getByUserName(userName);
+        return user;
     }
 
     public UserDto getUserDto(Long userId){
         User user = userDAO.get(userId);
         UserDto userDto = new UserDto(user.getUserId(), user.getFirstName(), user.getSecondName(),
-                user.getLogin(), user.getPassword(),user.getUserContacts().getAddress(),
+                user.getUserName(), user.getPassword(),user.getUserContacts().getAddress(),
                 user.getUserContacts().getPhone(), user.getUserContacts().getEmail(), user.getRole());
         return userDto;
     }

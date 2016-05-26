@@ -3,6 +3,6 @@
 <head><title>Header</title></head>
 <body>
 <hr/>
-Здравствуйте, ${user}!
+Здравствуйте!
 <hr/>
 </body></html>

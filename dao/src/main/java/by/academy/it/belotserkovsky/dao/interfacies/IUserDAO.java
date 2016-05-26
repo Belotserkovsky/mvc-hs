@@ -9,11 +9,10 @@ import java.util.List;
 public interface IUserDao extends Dao<User>{
 
     /**
-     * @param login
-     * @param password
+     * @param userName
      * @return
      */
-    User getByLoginPass(String login, String password);
+    User getByUserName(String userName);
 
     /**
      * This method use for pagination

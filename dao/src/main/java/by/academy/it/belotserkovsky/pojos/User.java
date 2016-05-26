@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Kostya on 08.04.2016.
+ * Created by K.Belotserkovsky
  */
 
 @Entity
@@ -18,7 +18,7 @@ public class User implements Serializable{
     private Long userId;
     private String firstName;
     private String secondName;
-    private String login;
+    private String userName;
     private String password;
     private String role;
     private UserContacts userContacts;
@@ -29,7 +29,7 @@ public class User implements Serializable{
     public User(String firstName, String secondName, String login, String password, String role) {
         this.firstName = firstName;
         this.secondName = secondName;
-        this.login = login;
+        this.userName = login;
         this.password = password;
         this.role = role;
     }
@@ -38,7 +38,7 @@ public class User implements Serializable{
         this.userId = u_id;
         this.firstName = firstName;
         this.secondName = secondName;
-        this.login = login;
+        this.userName = login;
         this.password = password;
     }
 
@@ -59,12 +59,12 @@ public class User implements Serializable{
         return secondName;
     }
 
-    @Column(name = "F_LOGIN")
-    public String getLogin() {
-        return login;
+    @Column(name = "F_USER_NAME", unique = true)
+    public String getUserName() {
+        return userName;
     }
 
-    @Column(name = "F_PASSWORD")
+    @Column(name = "F_PASSWORD", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -97,8 +97,8 @@ public class User implements Serializable{
         this.secondName = secondName;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setPassword(String password) {

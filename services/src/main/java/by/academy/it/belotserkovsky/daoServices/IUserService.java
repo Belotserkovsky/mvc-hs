@@ -16,11 +16,10 @@ public interface IUserService {
     void createOrUpdateUser(UserDto userDto);
 
     /**
-     * @param login
-     * @param password
-     * @return userDto
+     * @param userName
+     * @return user
      */
-    UserDto getUserDtoByLoginPass(String login, String password);
+    User getUserByUserName(String userName);
 
     /**
      * @param userId

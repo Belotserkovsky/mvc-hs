@@ -4,9 +4,9 @@ package by.academy.it.belotserkovsky.pojos.constants;
  * Created by K.Belotserkovsky
  */
 public enum Role {
-    USER("пользователь"),
-    ADMIN("администратор"),
-    ANONYMOUS("аноним");
+    USER("USER"),
+    ADMIN("ADMIN"),
+    ANONYMOUS("ANONYMOUS");
 
     private final String type;
 

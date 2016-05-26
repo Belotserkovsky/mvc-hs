@@ -10,7 +10,6 @@
         <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/home" access="permitAll"/>
         <intercept-url pattern="/admin**" access="hasRole('ADMIN')"/>
-        <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')"/>
         <form-login login-page="/login"
                     username-parameter="userName"
                     password-parameter="password"
@@ -22,6 +21,6 @@
         <authentication-provider user-service-ref="authService"/>
     </authentication-manager>
 
-    <beans:bean id="authService" class="by.it.auth.AuthenticationService"/>
+    <beans:bean id="authService" class="by.academy.it.belotserkovsky.auth.AuthenticationService"/>
 
 </beans:beans>
