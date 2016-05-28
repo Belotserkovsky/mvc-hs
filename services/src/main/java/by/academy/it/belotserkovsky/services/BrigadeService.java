@@ -1,16 +1,11 @@
-package by.academy.it.belotserkovsky.daoServices;
+package by.academy.it.belotserkovsky.services;
 
-import by.academy.it.belotserkovsky.dao.BrigadeDao;
 import by.academy.it.belotserkovsky.dao.interfacies.IBidDao;
-import by.academy.it.belotserkovsky.dao.interfacies.IBrigadeDao;
 import by.academy.it.belotserkovsky.dao.interfacies.IWorkerDao;
 import by.academy.it.belotserkovsky.pojos.Bid;
 import by.academy.it.belotserkovsky.pojos.Brigade;
 import by.academy.it.belotserkovsky.pojos.Worker;
-import by.academy.it.belotserkovsky.utils.HibernateUtil;
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

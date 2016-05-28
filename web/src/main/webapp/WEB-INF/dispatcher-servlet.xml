@@ -14,7 +14,7 @@
     <import resource="classpath*:beans-dao.xml"/>
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler />
-    <context:component-scan base-package="by.academy.it.belotserkovsky.controller"/>
+    <context:component-scan base-package="by.academy.it.belotserkovsky.controllers"/>
 
     <bean id="tilesConfigurer"
           class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">

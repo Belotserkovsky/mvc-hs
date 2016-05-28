@@ -44,7 +44,7 @@ public class User implements Serializable{
 
     @Id
     @Column(name = "F_USER_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getUserId() {
         return userId;
     }

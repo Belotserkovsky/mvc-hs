@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *in the event of an error or a direct appeal to the controller
+ *in the event of an error or a direct appeal to the controllers
  * redirecting to login page
  * Created by Kostya on 09.04.2016.
  */

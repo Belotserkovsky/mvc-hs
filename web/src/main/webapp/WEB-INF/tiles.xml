@@ -3,19 +3,20 @@
         "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-    <definition name="default" template="/WEB-INF/view/layouts/default.jspx">
+    <definition name="default" template="/WEB-INF/views/layouts/default.jspx">
         <put-attribute name="title" value=""/>
-        <put-attribute name="header" value="/WEB-INF/view/general/header.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/views/general/header.jsp"/>
         <put-attribute name="body" value=""/>
-        <put-attribute name="footer" value="/WEB-INF/view/general/footer.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/general/footer.jsp"/>
     </definition>
 
-    <!--<definition name="welcome" extends="default">-->
-        <!--<put-attribute name="title" value="Welcome user"/>-->
-        <!--<put-attribute name="body" value="/WEB-INF/view/welcome/login.jspx"/>-->
-    <!--</definition>-->
+    <definition name="login" extends="default">
+        <put-attribute name="title" value="Welcome page"/>
+        <put-attribute name="body" value="/WEB-INF/views/login.jsp"/>
+    </definition>
 
-    <definition name="welcome" extends="default">
-        <put-attribute name="body" value="/WEB-INF/view/welcome/welcome.jspx"/>
+    <definition name="user/registration" extends="default">
+        <put-attribute name="title" value="Registration page"/>
+        <put-attribute name="body" value="/WEB-INF/views/user/registration.jsp"/>
     </definition>
 </tiles-definitions>

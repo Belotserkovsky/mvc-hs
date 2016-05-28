@@ -1,9 +1,4 @@
-package by.academy.it.belotserkovsky.daoServices;
-
-import by.academy.it.belotserkovsky.utils.HibernateUtil;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+package by.academy.it.belotserkovsky.services;
 
 /**
  * Created by Kostya on 11.05.2016.

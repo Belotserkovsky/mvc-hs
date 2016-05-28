@@ -1,19 +1,4 @@
-package by.academy.it.belotserkovsky.daoServices;
-
-import by.academy.it.belotserkovsky.dto.BidDto;
-import by.academy.it.belotserkovsky.pojos.Bid;
-import by.academy.it.belotserkovsky.pojos.User;
-import by.academy.it.belotserkovsky.utils.HibernateUtil;
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.junit.Test;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static org.junit.Assert.*;
+package by.academy.it.belotserkovsky.services;
 
 /**
  * Created by Kostya on 27.04.2016.

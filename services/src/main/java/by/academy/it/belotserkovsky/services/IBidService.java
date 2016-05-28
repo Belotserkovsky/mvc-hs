@@ -1,4 +1,4 @@
-package by.academy.it.belotserkovsky.daoServices;
+package by.academy.it.belotserkovsky.services;
 
 import by.academy.it.belotserkovsky.dto.BidDto;
 import by.academy.it.belotserkovsky.pojos.Bid;

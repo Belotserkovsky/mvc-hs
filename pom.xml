@@ -15,6 +15,7 @@
     <hibernate.version>4.3.11.Final</hibernate.version>
     <spring.version>4.1.4.RELEASE</spring.version>
     <spring.security.version>4.0.3.RELEASE</spring.security.version>
+    <aspect.version>1.8.4</aspect.version>
     <tiles.version>3.0.5</tiles.version>
   </properties>
 
@@ -127,6 +128,13 @@
       <version>5.1.6</version>
     </dependency>
 
+    <!--Validation-->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>4.3.2.Final</version>
+    </dependency>
+
     <!--Spring-->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -173,6 +181,11 @@
       <artifactId>spring-expression</artifactId>
       <version>${spring.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${aspect.version}</version>
+    </dependency>
 
     <!-- Spring Security -->
     <dependency>
@@ -184,6 +197,13 @@
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
       <version>${spring.security.version}</version>
+    </dependency>
+
+    <!--Spring test-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
     </dependency>
 
     <!--tiles-->

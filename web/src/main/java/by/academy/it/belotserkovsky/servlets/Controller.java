@@ -20,7 +20,7 @@ import java.io.IOException;
  * Created by Kostya on 09.04.2016.
  */
 
-@WebServlet("/controller")
+//@WebServlet("/controllers")
 public class Controller extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

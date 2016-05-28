@@ -1,4 +1,4 @@
-package by.academy.it.belotserkovsky.daoServices;
+package by.academy.it.belotserkovsky.services;
 
 /**
  * Created by K.Belotserkovsky

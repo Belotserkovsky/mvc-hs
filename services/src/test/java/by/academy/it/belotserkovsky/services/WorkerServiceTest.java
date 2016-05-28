@@ -1,14 +1,4 @@
-package by.academy.it.belotserkovsky.daoServices;
-
-import by.academy.it.belotserkovsky.pojos.Worker;
-import by.academy.it.belotserkovsky.utils.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.junit.Test;
-
-import java.util.List;
-
-import static org.junit.Assert.*;
+package by.academy.it.belotserkovsky.services;
 
 /**
  *

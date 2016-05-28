@@ -1,7 +1,8 @@
 package by.academy.it.belotserkovsky.auth;
 
-import by.academy.it.belotserkovsky.daoServices.IUserService;
+import by.academy.it.belotserkovsky.services.IUserService;
 import by.academy.it.belotserkovsky.pojos.constants.Role;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,12 +17,12 @@ import java.util.List;
 
 import by.academy.it.belotserkovsky.pojos.User;
 
-
 /**
  * Created by K.Belotserkovsky
  */
 @Service("authService")
 public class AuthenticationService implements UserDetailsService {
+    private static Logger log = Logger.getLogger(AuthenticationService.class);
 
     @Autowired
     private IUserService userService;
@@ -32,7 +33,7 @@ public class AuthenticationService implements UserDetailsService {
         User user = userService.getUserByUserName(userName);
         System.out.println("User : " + user);
         if (user == null) {
-            System.out.println("User not found");
+            log.error("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),

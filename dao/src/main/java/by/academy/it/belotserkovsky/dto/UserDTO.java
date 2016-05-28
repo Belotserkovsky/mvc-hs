@@ -1,5 +1,6 @@
 package by.academy.it.belotserkovsky.dto;
 
+import javax.validation.constraints.Pattern;
 /**
  * Date Transfer Object
  * Created by K.Belotserkovsky
@@ -7,8 +8,14 @@ package by.academy.it.belotserkovsky.dto;
 public class UserDto {
 
     private Long userId;
+
+    @Pattern(regexp="^[A-Z]+[a-z]+$", message="Person Name must be alphanumeric with no spaces and first capital")
     private String firstName;
+
+    @Pattern(regexp="^[A-Z]+[a-z]+$", message="Person Name must be alphanumeric with no spaces and first capital")
     private String secondName;
+
+
     private String userName;
     private String password;
     private String address;
