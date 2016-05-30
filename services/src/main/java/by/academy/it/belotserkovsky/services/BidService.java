@@ -40,7 +40,7 @@ public class BidService implements IBidService{
             Date currentDate = new Date(System.currentTimeMillis());
             String status = Status.OPEN.getType();
             Bid bid = new Bid(bidDto.getKindOfWorks(), bidDto.getScope(), bidDto.getDesiredRuntime(), currentDate, status);
-            User user = userDao.get(bidDto.getUserId());
+            User user = userDao.getByUserName(bidDto.getUserName());
             bid.setUser(user);
             bidId = bidDao.saveOrUpdate(bid).getId();
         }
@@ -64,4 +64,6 @@ public class BidService implements IBidService{
         allBids = bidDao.getAll();
         return allBids;
     }
+
+
 }

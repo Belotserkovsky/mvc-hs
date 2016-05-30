@@ -36,7 +36,7 @@
                 <p><select size="3">
                 <option disabled>Обновить статус:</option>
                  <c:forEach var="element" items="${statuses}" varStatus="">
-                    <option value="status">${ elem }</option>
+                    <option value=">${element}">${element}</option>
                  </c:forEach>
                 </select></p>
                 <input type="submit" value="Обновить"/>

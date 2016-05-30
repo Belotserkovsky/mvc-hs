@@ -5,12 +5,16 @@ package by.academy.it.belotserkovsky.pojos.constants;
  */
 public enum DesiredRuntime {
     TODAY("сегодня"),
-    TOMOROW_AFTER_LUNCH("завтра, первая половина дня"),
-    TOMOROW_BEFORE_LUNCH("завтра, вторая половина дня");
+    TOMORROW_AFTER_LUNCH("завтра, первая половина дня"),
+    TOMORROW_BEFORE_LUNCH("завтра, вторая половина дня");
 
     private final String type;
 
     DesiredRuntime(String type){
         this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
 }

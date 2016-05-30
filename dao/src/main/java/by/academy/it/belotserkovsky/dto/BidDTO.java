@@ -8,6 +8,7 @@ import java.sql.Date;
 public class BidDto {
 
     private Long userId;
+    private String userName;
     private Long bidId;
     private String kindOfWorks;
     private String scope;
@@ -19,8 +20,8 @@ public class BidDto {
     public BidDto() {
     }
 
-    public BidDto(Long userId, String kindOfWorks, String scope, String desiredRuntime) {
-        this.userId = userId;
+    public BidDto(String userName, String kindOfWorks, String scope, String desiredRuntime) {
+        this.userName = userName;
         this.kindOfWorks = kindOfWorks;
         this.scope = scope;
         this.desiredRuntime = desiredRuntime;
@@ -32,6 +33,14 @@ public class BidDto {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Long getBidId() {

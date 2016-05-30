@@ -27,9 +27,10 @@ public class BidDao extends BaseDao<Bid> implements IBidDao{
 
     public List<BidDto> getAll() {
         List<BidDto> all = null;
-        all = (List<BidDto>) getSession().createSQLQuery("SELECT b.F_ID as bidId, b.F_DESIRED_RUNTIME as desiredRuntime, " +
+        all = (List<BidDto>) getSession().createSQLQuery("SELECT b.F_BID_ID as bidId, b.F_DESIRED_RUNTIME as desiredRuntime, " +
                 "b.F_KIND_OF_WORKS as kindOfWorks, b.F_SCOPE as scope, b.F_CREATION_DATE as creationDate" +
-                "b.F_STATUS as status, br.F_TITLE as brigadeTitle, b.F_USER_ID as userId from T_BID b JOIN T_BRIGADE br ON b.F_ID=br.F_ID")
+                "b.F_STATUS as status, br.F_TITLE as brigadeTitle, b.F_USER_ID as userId" +
+                "from T_BID b JOIN T_BRIGADE br ON b.F_BID_ID=br.F_BRIGADE_ID")
                 .addScalar("bidId", StandardBasicTypes.LONG)
                 .addScalar("desiredRuntime", StandardBasicTypes.STRING)
                 .addScalar("kindOfWorks", StandardBasicTypes.STRING)

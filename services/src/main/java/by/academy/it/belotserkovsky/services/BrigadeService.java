@@ -30,32 +30,39 @@ public class BrigadeService implements IBrigadeService{
     @Autowired
     private IBidDao bidDao;
 
-    public void createBrigade (String[] selected, Long bidId){
-        if (selected.length > 0 && bidId != null) {
-            Bid bid = null;
-            Brigade brigade = null;
-            String title = "";
-            Worker worker = null;
-            Set<Worker> workers = new HashSet<Worker>();
-            String profession = null;
+    public void createBrigade (String[] kindsOfWorks, Long bidId){
+        Bid bid = null;
+        Brigade brigade = null;
+        String brigadeTitle = "";
+        Worker worker = null;
+        Set<Worker> workers = new HashSet<Worker>();
 
-            for (int i = 0; i < selected.length; ++i) {
-                profession = selected[i];
-                title += (", " + profession.toLowerCase());
-                worker = workerDao.getByProfession(profession);
-                workers.add(worker);
-            }
+        for (String element : kindsOfWorks){
+            String profession = defineProfession(element);
+            brigadeTitle += (", " + profession);
+            worker = workerDao.getByProfession(profession);
+            workers.add(worker);
+        }
 
-            brigade = new Brigade(title.substring(2));
-            for (Worker w : workers){
-                w.getBrigades().add(brigade);
-                workerDao.saveOrUpdate(w);
-            }
+        brigade = new Brigade(brigadeTitle.substring(2));
+        for (Worker w : workers){
+            w.getBrigades().add(brigade);
+            workerDao.saveOrUpdate(w);
+        }
 
-            bid = bidDao.get(bidId);
-            bid.setBrigade(brigade);
-            brigade.setBid(bid);
-            bidDao.saveOrUpdate(bid);
+        bid = bidDao.get(bidId);
+        bid.setBrigade(brigade);
+        brigade.setBid(bid);
+        bidDao.saveOrUpdate(bid);
+    }
+
+    public String defineProfession(String kindOfWorks){
+        switch (kindOfWorks){
+            case("электротехнические"): return "электрик";
+            case("сантехнические"): return "сантехник";
+            case("сварочные"): return "сварщик";
+            case("отделочные"): return "моляр/штукатур";
+            default: return "Invalid kindOfWorks";
         }
     }
 }

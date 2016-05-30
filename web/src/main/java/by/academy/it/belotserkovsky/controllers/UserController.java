@@ -1,5 +1,7 @@
 package by.academy.it.belotserkovsky.controllers;
 
+import by.academy.it.belotserkovsky.pojos.constants.DesiredRuntime;
+import by.academy.it.belotserkovsky.pojos.constants.KindOfWork;
 import by.academy.it.belotserkovsky.services.IUserService;
 import by.academy.it.belotserkovsky.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +61,15 @@ public class UserController {
     @RequestMapping(value = "/bidForm", method = RequestMethod.POST)
     public String showBidForm(ModelMap model, @RequestParam (value = "userName") String param){
         model.put("userName", param);
+        model.put("kindsOfWorks", KindOfWork.values());
+        model.put("variantsRuntime", DesiredRuntime.values());
         return "user/bid";
     }
+
+    @RequestMapping(value = "/createBid", method = RequestMethod.POST)
+        public String createBid(){
+            return "user/main";
+        }
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
