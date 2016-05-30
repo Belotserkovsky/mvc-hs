@@ -3,12 +3,17 @@ package by.academy.it.belotserkovsky.controllers;
 import by.academy.it.belotserkovsky.services.IUserService;
 import by.academy.it.belotserkovsky.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -22,31 +27,29 @@ public class UserController {
     private IUserService userService;
 
     @RequestMapping(method = RequestMethod.GET, params = "new")
-    public String createUser(ModelMap modelMap){
+    public String createUser(ModelMap model){
         UserDto userDto = new UserDto();
-        modelMap.addAttribute("userDto", userDto);
+        model.addAttribute("userDto", userDto);
         return "user/registration";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String addPerson(ModelMap model, @Valid UserDto userDto, BindingResult br) {
-
+    @RequestMapping(method = RequestMethod.POST)
+    public String createUserFromForm(ModelMap model, @Valid UserDto userDto, BindingResult br) {
         if(br.hasErrors()){
             return "user/registration";
         }
         userService.createOrUpdateUser(userDto);
-        if(!br.hasErrors()) {
-            if (person != null) {
-                Person p = new Person();
-                p.setAge(person.getAge());
-                p.setId(p.getId());
-                p.setName(p.getName());
-                p.setSurname(p.getSurname());
-                p = personService.create(p);
-                model.put("person", p);
-            }
-        }
-        model.put("persons", personService.getPersons());
-        return "persons/main";
+        model.put("userName", userDto.getUserName());
+        return "user/main";
     }
+
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login?logout";
+    }
+
 }

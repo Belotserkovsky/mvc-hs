@@ -1,6 +1,8 @@
 package by.academy.it.belotserkovsky.dto;
 
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 /**
  * Date Transfer Object
  * Created by K.Belotserkovsky
@@ -9,18 +11,30 @@ public class UserDto {
 
     private Long userId;
 
-    @Pattern(regexp="^[A-Z]+[a-z]+$", message="Person Name must be alphanumeric with no spaces and first capital")
+    @Size(max = 30, message = "Maximum length 30 symbols")
     private String firstName;
 
-    @Pattern(regexp="^[A-Z]+[a-z]+$", message="Person Name must be alphanumeric with no spaces and first capital")
+    @Size(max = 30, message = "Maximum length 30 symbols")
     private String secondName;
 
-
+    @Size(min = 3, max = 20, message = "Username must be between 6 and 20 characters long.")
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username must be alphanumeric with no spaces")
     private String userName;
+
+    @Size(min = 3, max = 20, message = "Password must be between 6 and 20 characters long.")
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Password must be alphanumeric with no spaces")
     private String password;
+
+    @Size(max = 30, message = "Maximum length 30 symbols")
     private String address;
+
+    @Size(max = 20, message = "Maximum length 20 symbols")
+    @Pattern(regexp = "^[0-9+-]+()", message = "Incorrect phone number. You need to use numeric 0-9, symbols +-()")
     private String phone;
+
+    @Pattern(regexp = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}", message="Incorrect email address.")
     private String email;
+
     private String userRole;
 
     public UserDto() {

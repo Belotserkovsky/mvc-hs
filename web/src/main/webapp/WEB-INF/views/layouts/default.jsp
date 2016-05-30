@@ -5,16 +5,14 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <head>
-    <title>AccessDenied page</title>
+    <tiles:insertAttribute  name="title"/>
+    <c:if test="${not empty title}">
+        <title>${title}</title>
+    </c:if>
 </head>
 <body>
-You are not authorized to access this page!
-<c:url var="login" value="/home"/>
-<a href="${login}">Try again</a>
-<c:url var="registration" value="/hs/user?new"/>
-<a href="${registration}">Registration</a>
-</hr>
-<c:url var="logout" value="/j_spring_security_logout"/>
-<a href="${logout}">Logout</a>
+<tiles:insertAttribute name="header"/>
+<tiles:insertAttribute name="body"/>
+<tiles:insertAttribute name="footer"/>
 </body>
 </html>

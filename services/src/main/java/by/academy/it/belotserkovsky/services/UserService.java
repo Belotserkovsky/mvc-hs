@@ -30,9 +30,8 @@ public class UserService implements IUserService{
     @Autowired
     private IUserDao userDAO;
 
-
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void createOrUpdateUser (UserDto userDto) {
+    public Long createOrUpdateUser (UserDto userDto) {
         Long uid = userDto.getUserId();
         if(uid != null) {
             User user = userDAO.get(userDto.getUserId());
@@ -44,7 +43,7 @@ public class UserService implements IUserService{
             uContacts.setAddress(userDto.getAddress());
             uContacts.setPhone(userDto.getPhone());
             uContacts.setEmail(userDto.getEmail());
-            userDAO.saveOrUpdate(user);
+            return userDAO.saveOrUpdate(user).getUserId();
         }else{
             User user = new User(userDto.getFirstName(), userDto.getSecondName(),
                     userDto.getUserName(), userDto.getPassword(), Role.USER.getType());
@@ -54,7 +53,7 @@ public class UserService implements IUserService{
             user.setBids(bids);
             user.setUserContacts(uContacts);
             uContacts.setUser(user);
-            userDAO.saveOrUpdate(user);
+            return userDAO.saveOrUpdate(user).getUserId();
         }
     }
 

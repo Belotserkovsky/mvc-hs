@@ -13,7 +13,7 @@ public interface IUserService {
     /**
      * @param userDto
      */
-    void createOrUpdateUser(UserDto userDto);
+    Long createOrUpdateUser(UserDto userDto);
 
     /**
      * @param userName

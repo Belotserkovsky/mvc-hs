@@ -1,52 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<html xmlns:jsp="http://java.sun.com/JSP/Page"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:spring="http://www.springframework.org/tags"
-      xmlns:tiles="http://tiles.apache.org/tags-tiles">
-
-<head>
-    <tiles:insertAttribute  name="title"/>
-    <c:if test="${not empty title}">
-        <title>${title}</title>
-    </c:if>
-    <style>
-        text {
-            height: 16px;
-            width: 40px;
-            margin: 10px;
-        }
-    </style>
-</head>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<head></head>
 <body>
-<div> <div class="content"><h3>Housing ang communal services</h3></div> </div>
+<h3>Housing ang communal services</h3>
 </br>
-<spring:url var="authUrl" value="/j_spring_security_check" />
-<form method="post" class="login" action="${authUrl}">
-    <c:if test="${param.error != null}">
-        <div class="alert alert-danger">
-            <p>Invalid username and password.</p>
-        </div>
-    </c:if>
+<c:url value="/j_spring_security_check" var="loginUrl" />
+<form name="login" action="${loginUrl}" method="post">
     <c:if test="${param.logout != null}">
         <div class="alert alert-success">
             <p>You have been logged out successfully.</p>
         </div>
     </c:if>
     <fieldset>
-        <br>
-            <label for="username">User name</label>
-            <input id="username" name="userName" placeholder="Enter Username" required="required" type="text"/>
-
-            <label for="password">Password</label>
-            <input id="password" name="password" placeholder="Enter Password" required="required" type="password"/>
-
-            <input id="remember_me" name="_spring_security_remember_me" type="checkbox"/>
-            <label for="remember_me" class="inline">Remember me</label>
-            </br>
-            <input type="submit" value="Log in"/>
-        </div>
+        <table cellspacing="0">
+            <tr>
+                <th><label for="username">User name</label></th>
+                <td><input id="username" name="userName" placeholder="Enter Username" required="required" type="text"/></td>
+            </tr>
+            <tr>
+                <th><label for="password">Password</label></th>
+                <td><input id="password" name="password" placeholder="Enter Password" required="required" type="password"/></td>
+            </tr>
+            <tr>
+                <th><input id="remember_me" name="_spring_security_remember_me" type="checkbox"/>
+                    <label for="remember_me" class="inline">Remember me</label></th>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="Log in"/></td>
+            </tr>
+        </table>
     </fieldset>
-    <c:url var="registration" value="/user/registration"/>
+    <c:url var="registration" value="/user?new"/>
     <a href="${registration}">Registration</a>
 </form>
 </body>
