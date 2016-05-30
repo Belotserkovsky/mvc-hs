@@ -5,8 +5,6 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <head></head>
 <body>
-<h3>Housing ang communal services</h3>
-</br>
 <c:url value="/j_spring_security_check" var="loginUrl" />
 <form name="login" action="${loginUrl}" method="post">
     <c:if test="${param.logout != null}">

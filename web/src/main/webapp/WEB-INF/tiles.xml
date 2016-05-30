@@ -24,4 +24,9 @@
         <put-attribute name="title" value="User page"/>
         <put-attribute name="body" value="/WEB-INF/views/user/main.jsp"/>
     </definition>
+
+    <definition name="user/bid" extends="default">
+        <put-attribute name="title" value="Bid form"/>
+        <put-attribute name="body" value="/WEB-INF/views/user/bid.jsp"/>
+    </definition>
 </tiles-definitions>

@@ -5,7 +5,6 @@
     <title>Footer</title>
 </head>
 <body>
-<hr/>
 <c:url var="logout" value="/user/logout"/>
 <a href="${logout}">Logout</a>
 </body>

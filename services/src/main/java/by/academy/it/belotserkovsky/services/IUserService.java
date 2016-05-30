@@ -22,10 +22,10 @@ public interface IUserService {
     User getUserByUserName(String userName);
 
     /**
-     * @param userId
+     * @param userName
      * @return UserDto
      */
-    UserDto getUserDto(Long userId);
+    UserDto getUserDto(String userName);
 
     /**
      * @param userId

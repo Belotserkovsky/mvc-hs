@@ -62,8 +62,8 @@ public class UserService implements IUserService{
         return user;
     }
 
-    public UserDto getUserDto(Long userId){
-        User user = userDAO.get(userId);
+    public UserDto getUserDto(String userName){
+        User user = userDAO.getByUserName(userName);
         UserDto userDto = new UserDto(user.getUserId(), user.getFirstName(), user.getSecondName(),
                 user.getUserName(), user.getPassword(),user.getUserContacts().getAddress(),
                 user.getUserContacts().getPhone(), user.getUserContacts().getEmail(), user.getRole());

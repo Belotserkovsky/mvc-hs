@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +27,21 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public String successAuth(){
+        return "user/main";
+    }
+
     @RequestMapping(method = RequestMethod.GET, params = "new")
     public String createUser(ModelMap model){
         UserDto userDto = new UserDto();
+        model.addAttribute("userDto", userDto);
+        return "user/registration";
+    }
+
+    @RequestMapping(value = "updateUser", method = RequestMethod.POST)
+    public String updateUser(ModelMap model, @RequestParam (value = "userName") String param){
+        UserDto userDto = userService.getUserDto(param);
         model.addAttribute("userDto", userDto);
         return "user/registration";
     }
@@ -41,6 +54,12 @@ public class UserController {
         userService.createOrUpdateUser(userDto);
         model.put("userName", userDto.getUserName());
         return "user/main";
+    }
+
+    @RequestMapping(value = "/bidForm", method = RequestMethod.POST)
+    public String showBidForm(ModelMap model, @RequestParam (value = "userName") String param){
+        model.put("userName", param);
+        return "user/bid";
     }
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)

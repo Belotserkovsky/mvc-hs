@@ -15,16 +15,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 @Controller
-@RequestMapping("/home")
 public class WelcomeController {
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String welcomePage(){ return "login"; }
 
-//    @RequestMapping(value = "login", method = RequestMethod.GET)
-//    public String loginPage() {
-//        return "login";
-//    }
+    @RequestMapping(value = "/login", method = RequestMethod.GET, params = "logout")
+    public String loginPage() {
+        return "login";
+    }
 
     @RequestMapping(value = "/access_denied", method = RequestMethod.GET)
     public String accessDenied(){

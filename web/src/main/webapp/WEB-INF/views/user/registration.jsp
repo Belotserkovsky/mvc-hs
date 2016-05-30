@@ -13,14 +13,14 @@
         <tr>
         <th><label for="firstName">First name</label></th>
                 <td>
-                    <s:input id="firstName" type="text" value="" path="firstName" size="30" placeholder="First Name"/><br/>
+                    <s:input id="firstName" type="text" value="${userDto.firstName}" path="firstName" size="30" placeholder="First Name"/><br/>
                     <s:errors path="firstName" cssStyle="color: red"/>
                 </td>
         </tr>
         <tr>
             <th><label for="secondName">Second name</label></th>
             <td>
-                <s:input id="secondName" type="text" value="" path="secondName" size="30" placeholder="Second Name"/><br/>
+                <s:input id="secondName" type="text" value="${userDto.secondName}" path="secondName" size="30" placeholder="Second Name"/><br/>
                 <s:errors path="secondName" cssStyle="color: red"/>
             </td>
         </tr>
@@ -67,6 +67,7 @@
                 <input id="button" type="submit" value="Sing up"/>
             </td>
         </tr>
+        </table>
 </fieldset>
 </s:form>
 </body>
