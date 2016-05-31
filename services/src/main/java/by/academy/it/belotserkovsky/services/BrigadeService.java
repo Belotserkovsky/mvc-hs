@@ -30,14 +30,16 @@ public class BrigadeService implements IBrigadeService{
     @Autowired
     private IBidDao bidDao;
 
-    public void createBrigade (String[] kindsOfWorks, Long bidId){
+    public void createBrigade (String[] selectedWorks, Long bidId){
         Bid bid = null;
+        String kingOfWorks = "";
         Brigade brigade = null;
         String brigadeTitle = "";
         Worker worker = null;
         Set<Worker> workers = new HashSet<Worker>();
 
-        for (String element : kindsOfWorks){
+        for (String element : selectedWorks){
+            kingOfWorks += (", " + element);
             String profession = defineProfession(element);
             brigadeTitle += (", " + profession);
             worker = workerDao.getByProfession(profession);
@@ -52,6 +54,7 @@ public class BrigadeService implements IBrigadeService{
 
         bid = bidDao.get(bidId);
         bid.setBrigade(brigade);
+        bid.setKindOfWorks(kingOfWorks.substring(2));
         brigade.setBid(bid);
         bidDao.saveOrUpdate(bid);
     }

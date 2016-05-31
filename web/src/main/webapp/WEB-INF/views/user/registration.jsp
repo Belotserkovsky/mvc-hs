@@ -1,13 +1,14 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Registration page</title>
 </head>
 <body>
-<h3>Please fill in the fields below</h3>
-
-<s:form method="POST" modelAttribute="userDto">
+<p>Please fill in the fields below</p>
+<c:url value="/user/addUser" var="addUserUrl" />
+<s:form method="POST" modelAttribute="userDto" action="${addUserUrl}">
 <fieldset>
     <table cellspacing="0">
         <tr>

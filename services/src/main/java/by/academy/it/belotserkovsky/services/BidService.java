@@ -44,7 +44,6 @@ public class BidService implements IBidService{
             bid.setUser(user);
             bidId = bidDao.saveOrUpdate(bid).getId();
         }
-//        bidId = bid.getId();
         return bidId;
     }
 
@@ -54,11 +53,13 @@ public class BidService implements IBidService{
         bidDao.saveOrUpdate(bid);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public Bid getBidById(Long bidId) {
         Bid bid = bidDao.get(bidId);
         return bid;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<BidDto> getBids() {
         List<BidDto> allBids = null;
         allBids = bidDao.getAll();

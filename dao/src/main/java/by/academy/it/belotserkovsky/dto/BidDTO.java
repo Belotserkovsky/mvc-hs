@@ -20,9 +20,8 @@ public class BidDto {
     public BidDto() {
     }
 
-    public BidDto(String userName, String kindOfWorks, String scope, String desiredRuntime) {
+    public BidDto(String userName, String scope, String desiredRuntime) {
         this.userName = userName;
-        this.kindOfWorks = kindOfWorks;
         this.scope = scope;
         this.desiredRuntime = desiredRuntime;
     }

@@ -7,8 +7,15 @@ public interface IBrigadeService {
 
     /**
      * Parse date input through checkbox
-     * @param selected
+     * @param selectedWorks
      * @param bidId
      */
-    void createBrigade (String[] selected, Long bidId);
+    void createBrigade (String[] selectedWorks, Long bidId);
+
+    /**
+     * Define profession of worker, switch case
+     * @param kindOfWorks
+     * @return String profession
+     */
+    String defineProfession(String kindOfWorks);
 }

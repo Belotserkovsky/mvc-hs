@@ -21,7 +21,7 @@ public class WelcomeController {
     public String welcomePage(){ return "login"; }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET, params = "logout")
-    public String loginPage() {
+    public String logout() {
         return "login";
     }
 

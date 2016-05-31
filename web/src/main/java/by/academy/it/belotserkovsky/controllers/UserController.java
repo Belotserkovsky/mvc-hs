@@ -1,7 +1,12 @@
 package by.academy.it.belotserkovsky.controllers;
 
+import by.academy.it.belotserkovsky.dao.BidDao;
+import by.academy.it.belotserkovsky.dto.BidDto;
 import by.academy.it.belotserkovsky.pojos.constants.DesiredRuntime;
 import by.academy.it.belotserkovsky.pojos.constants.KindOfWork;
+import by.academy.it.belotserkovsky.services.BidService;
+import by.academy.it.belotserkovsky.services.IBidService;
+import by.academy.it.belotserkovsky.services.IBrigadeService;
 import by.academy.it.belotserkovsky.services.IUserService;
 import by.academy.it.belotserkovsky.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +34,19 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @Autowired
+    private IBidService bidService;
+
+    @Autowired
+    private IBrigadeService brigadeService;
+
+    @RequestMapping(value = "/main", method = RequestMethod.GET, params = "successAuth")
     public String successAuth(){
+        return "user/main";
+    }
+
+    @RequestMapping(value = "/main", method = RequestMethod.GET, params = "successAddBid")
+    public String successCreationBid(){
         return "user/main";
     }
 
@@ -42,20 +58,20 @@ public class UserController {
     }
 
     @RequestMapping(value = "updateUser", method = RequestMethod.POST)
-    public String updateUser(ModelMap model, @RequestParam (value = "userName") String param){
-        UserDto userDto = userService.getUserDto(param);
+    public String updateUser(ModelMap model, @RequestParam (value = "userName") String name){
+        UserDto userDto = userService.getUserDto(name);
         model.addAttribute("userDto", userDto);
         return "user/registration";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String createUserFromForm(ModelMap model, @Valid UserDto userDto, BindingResult br) {
+    @RequestMapping(value = "addUser", method = RequestMethod.POST)
+    public String createUserFromForm(@Valid UserDto userDto, BindingResult br) {
         if(br.hasErrors()){
             return "user/registration";
         }
         userService.createOrUpdateUser(userDto);
-        model.put("userName", userDto.getUserName());
-        return "user/main";
+//        model.put("userName", userDto.getUserName());
+        return "redirect: /j_spring_security_check";
     }
 
     @RequestMapping(value = "/bidForm", method = RequestMethod.POST)
@@ -67,8 +83,16 @@ public class UserController {
     }
 
     @RequestMapping(value = "/createBid", method = RequestMethod.POST)
-        public String createBid(){
-            return "user/main";
+        public String createBid(@RequestParam (value = "selected") String[] selectedWorks,
+                                @RequestParam (value = "desiredRuntime") String selectedRuntime,
+                                @RequestParam (value = "scope") String scope,
+                                @RequestParam (value = "userName") String name)
+        {
+            BidDto bidDto = new BidDto(name, scope, selectedRuntime);
+            Long bidId = bidService.createBid(bidDto);
+            brigadeService.createBrigade(selectedWorks, bidId);
+
+        return "redirect: /user/main?success";
         }
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)

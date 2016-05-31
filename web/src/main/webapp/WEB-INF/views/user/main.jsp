@@ -7,7 +7,7 @@
     <title></title>
 </head>
 <body>
-User Name:  <security:authentication property="principal.username"/>
+<p>User Name:  <security:authentication property="principal.username"/></p>
 <security:authentication property="principal.username" var="userName" scope="request"/>
 <br/>
 <c:url value="/user/bidForm" var="bidFormUrl" />
@@ -20,5 +20,17 @@ User Name:  <security:authentication property="principal.username"/>
     <input type="hidden" name="userName" value="${userName}"/>
     <input type="submit" value="Редактировать контактные данные"/>
 </form>
+
+<c:if test="${param.successAddBid != null}">
+    <div class="alert alert-success">
+        <p>The bid created successfully.</p>
+    </div>
+</c:if>
+
+<c:if test="${param.successAuth != null}">
+    <div class="alert alert-success">
+        <p>Authentication is successful</p>
+    </div>
+</c:if>
 </body>
 </html>

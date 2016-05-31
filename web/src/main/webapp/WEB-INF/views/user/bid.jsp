@@ -8,12 +8,12 @@
 <body>
 <h3>Заявка</h3>
 <br/>
-User Name:  <security:authentication property="principal.username"/>
+<p>User Name:  <security:authentication property="principal.username"/></p>
 <security:authentication property="principal.username" var="userName" scope="request"/>
-
 <c:url value="/user/createBid" var="createBidUrl" />
 <fieldset>
 <form name="createBid" method="POST" action="${createBidUrl}">
+    <input type="hidden" name="userName" value="${userName}">
     <p>Род работ:</p>
         <c:forEach var="element" items="${kindsOfWorks}" varStatus="status">
             <p><input type="CHECKBOX" name="selected" value="${element.type}">${element.type}<Br></p>
