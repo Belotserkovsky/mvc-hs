@@ -37,7 +37,19 @@
         <put-attribute name="footer" value="/WEB-INF/views/general/footer.jsp"/>
     </definition>
 
+    <definition name="admin/main" extends="adminTemplate">
+        <put-attribute name="body" value=""/>
+    </definition>
+
     <definition name="admin/users" extends="adminTemplate">
         <put-attribute name="body" value="/WEB-INF/views/admin/users.jsp"/>
+    </definition>
+
+    <definition name="admin/bids" extends="adminTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/admin/bids.jsp"/>
+    </definition>
+
+    <definition name="admin/workers" extends="adminTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/admin/workers.jsp"/>
     </definition>
 </tiles-definitions>

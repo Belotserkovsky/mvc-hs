@@ -47,9 +47,7 @@ public class BidService implements IBidService{
         return bidId;
     }
 
-    public void updateBid(BidDto bidDto){
-        Bid bid = bidDao.get(bidDto.getBidId());
-        bid.setStatus(bidDto.getStatus());
+    public void updateBid(Bid bid){
         bidDao.saveOrUpdate(bid);
     }
 

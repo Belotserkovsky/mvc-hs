@@ -12,16 +12,15 @@
 </head>
 <body>
 <tiles:insertAttribute name="header"/>
-
-<c:url var="getUsers" value="/admin/users"/>
-<c:url var="getBids" value="/admin/bids"/>
-<c:url var="getWorkers" value="/admin/workers"/>
+<c:url var="showUsers" value="/admin/users?page"/>
+<c:url var="showBids" value="/admin/bids"/>
+<c:url var="showWorkers" value="/admin/workers"/>
 <fieldset>
     <table cellspacing="0">
         <tr>
-            <th><a href="${getUsers}">Users</a></th>
-            <th><a href="${getBids}">Bids</a></th>
-            <th><a href="${getWorkers}">Workers</a></th>
+            <th><a href="${showUsers}">Users</a></th>
+            <th><a href="${showBids}">Bids</a></th>
+            <th><a href="${showWorkers}">Workers</a></th>
         </tr>
         </table>
     </fieldset>

@@ -17,9 +17,9 @@ public interface IBidService {
     Long createBid(BidDto bidDto);
 
     /**
-     * @param bidDto
+     * @param bid
      */
-    void updateBid(BidDto bidDto);
+    void updateBid(Bid bid);
 
     /**
      * @param bidId

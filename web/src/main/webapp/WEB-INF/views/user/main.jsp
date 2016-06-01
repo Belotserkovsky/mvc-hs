@@ -7,9 +7,16 @@
     <title></title>
 </head>
 <body>
+
+    <security:authorize access="isAuthenticated()">
+        <c:url var="adminMain" value="/admin/main"/>
+        <p><a href="${adminMain}" name="goToAdminPage">Go to admin page</a></p>
+    </security:authorize>
+
 <p>User Name:  <security:authentication property="principal.username"/></p>
 <security:authentication property="principal.username" var="userName" scope="request"/>
 <br/>
+
 <c:url value="/user/bidForm" var="bidFormUrl" />
 <form name="bidForm" method="POST" action="${bidFormUrl}">
     <input type="hidden" name="userName" value="${userName}"/>

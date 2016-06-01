@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
  * Created by Kostya on 09.05.2016.
  */
 public class UsersListCommand implements ActionCommand {
-    String page = null;
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 //        int page = 1;
