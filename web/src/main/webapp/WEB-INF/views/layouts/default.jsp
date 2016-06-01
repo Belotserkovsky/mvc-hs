@@ -7,7 +7,7 @@
 <head>
     <tiles:insertAttribute  name="title"/>
     <c:if test="${not empty title}">
-        <title>${title}</title>
+        <title><h3>${title}</h3></title>
     </c:if>
 </head>
 <body>

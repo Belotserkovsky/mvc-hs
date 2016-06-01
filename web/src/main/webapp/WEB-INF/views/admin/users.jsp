@@ -3,8 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; UTF-8">
-    <title>Users List</title>
+    <title></title>
 </head>
 <body>
 <table border="1" cellpadding="5" cellspacing="5">
@@ -12,31 +11,33 @@
     <tr>
         <th>ID</th>
         <th>Имя</th>
-        <th>Фамилич</th>
+        <th>Фамилия</th>
         <th>Имя пользователя</th>
         <th>Пароль</th>
         <th>Адрес</th>
         <th>Телефон</th>
         <th>Email</th>
+        <th>Роль</th>
     </tr>
 
-    <c:forEach var="userDto" items="${usersList}">
+    <c:forEach var="user" items="${usersList}">
         <tr>
-            <td>${userDto.userId}</td>
-            <td>${userDto.firstName}</td>
-            <td>${userDto.secondName}</td>
-            <td>${userDto.login}</td>
-            <td>${userDto.password}</td>
-            <td>${userDto.address}</td>
-            <td>${userDto.phone}</td>
-            <td>${userDto.email}</td>
+            <td>${user.userId}</td>
+            <td>${user.firstName}</td>
+            <td>${user.secondName}</td>
+            <td>${user.login}</td>
+            <td>${user.password}</td>
+            <td>${user.userContacts.address}</td>
+            <td>${user.userContacts.phone}</td>
+            <td>${user.userContacts.email}</td>
+            <td>${user.role}</td>
         </tr>
     </c:forEach>
 </table>
 
 <%--For displaying Previous link except for the 1st page --%>
 <c:if test="${currentPage != 1}">
-    <td><a href="/controller?command=usersList&page=${currentPage - 1}">Previous</a></td>
+    <td><a href="/admin/users?page=${currentPage - 1}">Previous</a></td>
 </c:if>
 
 <%--For displaying Page numbers.
@@ -49,7 +50,7 @@ The when condition does not display a link for the current page--%>
                     <td>${i}</td>
                 </c:when>
                 <c:otherwise>
-                    <td><a href="/controller?command=usersList&page=${i}">${i}</a></td>
+                    <td><a href="/admin/users?page=${i}">${i}</a></td>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
@@ -58,11 +59,9 @@ The when condition does not display a link for the current page--%>
 
 <%--For displaying Next link --%>
 <c:if test="${currentPage lt numberOfPages}">
-    <td><a href="/controller?command=usersList&page=${currentPage + 1}">Next</a></td>
+    <td><a href="/admin/users?page=${currentPage + 1}">Next</a></td>
 </c:if>
 <hr>
-<a href="/controller?command=adminPage">Admin's page</a>
-<br/>
-    <c:import url="/jsp/fragment/footer.jsp"/>
+<a href="/admin/main">Admin's page</a>
 </body>
 </html>

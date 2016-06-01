@@ -1,10 +1,8 @@
 package by.academy.it.belotserkovsky.controllers;
 
-import by.academy.it.belotserkovsky.dao.BidDao;
 import by.academy.it.belotserkovsky.dto.BidDto;
 import by.academy.it.belotserkovsky.pojos.constants.DesiredRuntime;
 import by.academy.it.belotserkovsky.pojos.constants.KindOfWork;
-import by.academy.it.belotserkovsky.services.BidService;
 import by.academy.it.belotserkovsky.services.IBidService;
 import by.academy.it.belotserkovsky.services.IBrigadeService;
 import by.academy.it.belotserkovsky.services.IUserService;
@@ -71,7 +69,7 @@ public class UserController {
         }
         userService.createOrUpdateUser(userDto);
 //        model.put("userName", userDto.getUserName());
-        return "redirect: /j_spring_security_check";
+        return "redirect:/login?login";
     }
 
     @RequestMapping(value = "/bidForm", method = RequestMethod.POST)
@@ -92,7 +90,7 @@ public class UserController {
             Long bidId = bidService.createBid(bidDto);
             brigadeService.createBrigade(selectedWorks, bidId);
 
-        return "redirect: /user/main?success";
+        return "redirect:/user/main?successAddBid";
         }
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)

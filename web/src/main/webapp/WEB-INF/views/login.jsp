@@ -5,11 +5,17 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <head></head>
 <body>
+
 <c:url value="/j_spring_security_check" var="loginUrl" />
 <form name="login" action="${loginUrl}" method="post">
     <c:if test="${param.logout != null}">
         <div class="alert alert-success">
             <p>You have been logged out successfully.</p>
+        </div>
+    </c:if>
+    <c:if test="${param.login != null}">
+        <div class="alert alert-success">
+            <p>Registration is successfully. Please log in...</p>
         </div>
     </c:if>
     <fieldset>

@@ -15,7 +15,7 @@
                     default-target-url="/user/main?successAuth"
                     username-parameter="userName"
                     password-parameter="password"
-                    authentication-failure-url="/home/access_denied"
+                    authentication-failure-url="/access_denied"
         />
         <csrf disabled="true"/>
     </http>

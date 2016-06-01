@@ -18,10 +18,17 @@ import javax.servlet.http.HttpServletResponse;
 public class WelcomeController {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String welcomePage(){ return "login"; }
+    public String welcomePage(){
+        return "login";
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET, params = "logout")
     public String logout() {
+        return "login";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET, params = "login")
+    public String loginAfterRegistr() {
         return "login";
     }
 

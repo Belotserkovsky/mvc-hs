@@ -1,6 +1,7 @@
 package by.academy.it.belotserkovsky.pojos;
 
 import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "T_USER")
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable{
     private Long userId;
     private String firstName;
