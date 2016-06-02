@@ -28,12 +28,6 @@ public interface IUserService {
     UserDto getUserDto(String userName);
 
     /**
-     * @param userId
-     * @return User
-     */
-    User getUserById(Long userId);
-
-    /**
      * @param offset
      * @param numberOfRecords
      * @return List users for pagination

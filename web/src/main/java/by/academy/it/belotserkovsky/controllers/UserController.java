@@ -93,7 +93,6 @@ public class UserController {
             return "user/registration";
         }
         userService.createOrUpdateUser(userDto);
-//        model.put("userName", userDto.getUserName());
         return "redirect:/login?login";
     }
 

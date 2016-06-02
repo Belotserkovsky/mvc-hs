@@ -70,14 +70,6 @@ public class UserService implements IUserService{
         return userDto;
     }
 
-    public User getUserById (Long userId){
-        User user = null;
-        if(userId != null) {
-            user = userDAO.get(userId);
-        }
-        return user;
-    }
-
     public List<User> getUsers (int offset, int numberOfRecords){
         List<User> allUsers = userDAO.getAll(offset, numberOfRecords);
         return allUsers;

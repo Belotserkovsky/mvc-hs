@@ -1,63 +1,75 @@
 package by.academy.it.belotserkovsky.services;
 
-/**
- * Created by Kostya on 27.04.2016.
- */
-public class BidServiceTest {
-//    private static Logger log = Logger.getLogger(BidServiceTest.class);
-//    private static String LOGIN = "login";
-//    private static String PASSWORD = "password";
-//    private static String KIND_OF_WORK = "kind of work";
-//    private static String SCOPE = "scope";
-//    private static String DESIRED_RUNTIME = "desired_runtime";
-//    UserService uds = null;
-//    BidService bds = null;
-//    Bid bid = null;
-//    Session session = null;
-//    Transaction transaction = null;
-//
-//    @Test
-//    public void createBid() throws Exception {
-//
-//        User user = UserService.getInstance().getById(Long.parseLong("1"));
-//        BidDto bDTO = new BidDto(Long.parseLong("1"), "ggggggg", "rrrrrrr", "ttttttt");
-//
-//        Set<Bid> bids = new HashSet<Bid>();
-//        bids.add(bid);
-//        user.setBids(bids);
-//        BidService.getInstance().createBid(bDTO);
-//
-//        if(transaction != null){
-//            transaction.commit();
-//        }
-//        HibernateUtil.closeSession();
-//    }
-//
-//    @Test
-//    public void getAll() {
-//        List<BidDto> list = BidService.getInstance().getBidsList();
-//        assertNotNull(list);
-//
-//        if(transaction != null){
-//            transaction.commit();
-//        }
-//        HibernateUtil.closeSession();
-//    }
-//
-//    @Test
-//    public void createOrUpdate(){
-//        session = HibernateUtil.getSession();
-//        transaction = session.beginTransaction();
-//
-//        Bid bid = new Bid("род работ", "масштаб", "время выполнеиня");
-//        User user = UserService.getInstance().getById(Long.parseLong("1"));
-//        bid.setUser(user);
-//        BidService.getInstance().createOrUpdate(bid);
-//
-//        if(transaction != null){
-//            transaction.commit();
-//        }
-//        HibernateUtil.closeSession();
-//    }
+import by.academy.it.belotserkovsky.dao.interfacies.IBidDao;
+import by.academy.it.belotserkovsky.dto.BidDto;
+import by.academy.it.belotserkovsky.pojos.Bid;
+import by.academy.it.belotserkovsky.pojos.constants.Status;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.util.List;
+
+import static junit.framework.TestCase.assertNotNull;
+
+/**
+ * Created by K.Belotserkovsky
+ */
+
+@ContextConfiguration("/testServices.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+@TransactionConfiguration(transactionManager = "txManager")
+@Transactional()
+public class BidServiceTest {
+    private static String KIND_OF_WORK = "kind of work";
+    private static String SCOPE = "scope";
+    private static String DESIRED_RUNTIME = "desired_runtime";
+    private Long bidId;
+
+    @Autowired
+    IBidService bidService;
+
+    @Autowired
+    IBidDao bidDao;
+
+    @Before
+    public void before(){
+        BidDto bidDto = new BidDto(KIND_OF_WORK, SCOPE, DESIRED_RUNTIME);
+        Date currentDate = new Date(System.currentTimeMillis());
+        String status = Status.OPEN.getType();
+        Bid bid = new Bid(bidDto.getKindOfWorks(), bidDto.getScope(), bidDto.getDesiredRuntime(), currentDate, status);
+        bidId = bidDao.saveOrUpdate(bid).getId();
+    }
+
+    @Test
+    public void createBid() throws Exception {
+
+        BidDto bidDto = new BidDto(KIND_OF_WORK, SCOPE, DESIRED_RUNTIME);
+        bidService.createBid(bidDto);
+    }
+
+    @Test
+    public void getAll() {
+        List<BidDto> list = bidService.getBids();
+        assertNotNull(list);
+    }
+
+    @Test
+    public void getById(){
+        Bid bid = bidService.getBidById(bidId);
+        assertNotNull(bid);
+    }
+
+    @Test
+    public void updateBid(){
+        Bid bid = bidService.getBidById(bidId);
+        bid.setStatus(Status.CLOSE.getType());
+        bidService.updateBid(bid);
+    }
 }

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -9,7 +9,6 @@
     <a href="/home?locale=ru" style="padding: 5px">RU</a> | <a href="/home?locale=en" style="padding: 5px">EN</a>
 </div>
 <br>
-блаблабла
 <c:url value="/j_spring_security_check" var="loginUrl" />
 <form name="login" action="${loginUrl}" method="post">
     <c:if test="${param.logout != null}">

@@ -36,22 +36,6 @@ public class UserDao extends BaseDao<User> implements IUserDao {
         String hql = "FROM User";
         List<User> all = getSession().createQuery(hql).setFirstResult(offset).setMaxResults(numberOfRecords).list();
         return all;
-
-
-//        all = session.createSQLQuery("SELECT u.F_UID as uid, u.F_FIRSTNAME as firstName, " +
-//                "u.F_SECONDNAME as secondName, u.F_LOGIN as login, " +
-//                "u.F_PASSWORD as password, uc.F_ADDRESS as address, " +
-//                "uc.F_PHONE as phone, uc.F_EMAIL as email " +
-//                "from t_user u JOIN t_usercontacts uc ON u.F_UID=uc.F_UID LIMIT " + offset + "," + noOfRecords)
-//                .addScalar("uid", StandardBasicTypes.LONG)
-//                .addScalar("firstName", StandardBasicTypes.STRING)
-//                .addScalar("secondName", StandardBasicTypes.STRING)
-//                .addScalar("login", StandardBasicTypes.STRING)
-//                .addScalar("password", StandardBasicTypes.STRING)
-//                .addScalar("address", StandardBasicTypes.STRING)
-//                .addScalar("phone", StandardBasicTypes.STRING)
-//                .addScalar("email", StandardBasicTypes.STRING)
-//                .setResultTransformer(Transformers.aliasToBean(UserDto.class)).list();
     }
 
     public int getFoundRows() {

@@ -1,64 +1,85 @@
 package by.academy.it.belotserkovsky.services;
 
+import by.academy.it.belotserkovsky.dto.UserDto;
+import by.academy.it.belotserkovsky.pojos.User;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
+
 /**
- * Created by Администратор on 26.04.2016.
+ * Created by K.Belotserkovsky
  */
+
+@ContextConfiguration("/testServices.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+@TransactionConfiguration(transactionManager = "txManager")
+@Transactional()
 public class UserServiceTest {
-//    Session session = null;
-//    Transaction transaction = null;
-//
-//    @Test
-//    public void getUserByLoginPass() throws Exception {
-//        session = HibernateUtil.getSession();
-//        transaction = session.beginTransaction();
-//        UserDto user = UserService.getInstance().getUserByLoginPass("login", "password");
-//        assertNotNull(user);
-//        transaction.commit();
-//        HibernateUtil.closeSession();
-//    }
-//
-//    @Test
-//    public void createOrUpdate(){
-//        Long uid = Long.parseLong("1");
-//        UserDto uDTO = new UserDto(uid, "newname", "newname", "login", "password", "newaddress", "123456789", "newemail");
-//        UserService.getInstance().createOrUpdate(uDTO);
-//        HibernateUtil.closeSession();
-//    }
-//
-//    @Test
-//    public void getUsers(){
-//        List<User> result = UserService.getInstance().getUsers(0, 1);
-//        assertNotNull(result);
-//        HibernateUtil.closeSession();
-//    }
-//
-//    @Test
-//    public void getUserWithContact(){
-//        session = HibernateUtil.getSession();
-//        transaction = session.beginTransaction();
-//        UserDto uDTO = UserService.getInstance().getUserDto(Long.parseLong("1"));
-//        assertNotNull(uDTO);
-//        transaction.commit();
-//        HibernateUtil.closeSession();
-//    }
-//
-//    @Test
-//    public void getById(){
-//        session = HibernateUtil.getSession();
-//        transaction = session.beginTransaction();
-//        User user = UserService.getInstance().getUserById(Long.parseLong("1"));
-//        assertNotNull(user);
-//        transaction.commit();
-//        HibernateUtil.closeSession();
-//    }
-//
-//    @Test
-//    public void getRowsUsers(){
-//        session = HibernateUtil.getSession();
-//        transaction = session.beginTransaction();
-//        int result = UserService.getInstance().getRowsUsers();
-//        assertEquals((result > 0), true);
-//        transaction.commit();
-//        HibernateUtil.closeSession();
-//    }
+    private static String PARAM_FIRST_NAME = "firstName";
+    private static String PARAM_SECOND_NAME = "secondName";
+    private static String PARAM_USER_NAME = "userName";
+    private static String PARAM_USER_NAME_2 = "userName2";
+    private static String PARAM_PASS = "password";
+    private static String PARAM_ADDRESS = "address";
+    private static String PARAM_PHONE = "phone";
+    private static String PARAM_EMAIL = "email";
+    private UserDto userDto = null;
+    private Long userId;
+
+    @Autowired
+    IUserService userService;
+
+    @Before
+    public void before(){
+        userDto = new UserDto();
+        userDto.setFirstName(PARAM_FIRST_NAME); userDto.setSecondName(PARAM_SECOND_NAME); userDto.setUserName(PARAM_USER_NAME);
+        userDto.setPassword(PARAM_PASS); userDto.setAddress(PARAM_ADDRESS); userDto.setPhone(PARAM_PHONE);
+        userDto.setEmail(PARAM_EMAIL);
+        userService.createOrUpdateUser(userDto);
+    }
+
+    @Test
+    public void getUserByUserName() throws Exception {
+        User user = userService.getUserByUserName(PARAM_USER_NAME);
+        assertNotNull(user);
+    }
+
+    @Test
+    public void createOrUpdate(){
+        UserDto userDto = new UserDto();
+        userDto.setFirstName(PARAM_FIRST_NAME); userDto.setSecondName(PARAM_SECOND_NAME); userDto.setUserName(PARAM_USER_NAME_2);
+        userDto.setPassword(PARAM_PASS); userDto.setAddress(PARAM_ADDRESS); userDto.setPhone(PARAM_PHONE);
+        userDto.setEmail(PARAM_EMAIL);
+        userId = userService.createOrUpdateUser(userDto);
+        assertNotNull(userId);
+    }
+
+    @Test
+    public void getUsers(){
+        List<User> list = userService.getUsers(0, 1);
+        assertNotNull(list);
+    }
+
+    @Test
+    public void getUserDto(){
+        UserDto userDto = userService.getUserDto(PARAM_USER_NAME);
+        assertNotNull(userDto);
+
+    }
+
+    @Test
+    public void getRowsUsers(){
+        int result = userService.getRowsUsers();
+        assertEquals((result > 0), true);
+    }
 }

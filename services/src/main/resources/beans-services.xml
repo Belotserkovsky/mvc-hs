@@ -14,7 +14,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <import resource="classpath*:beans-dao.xml"/>
 
-    <context:component-scan base-package="by.academy.it.belotserkovsky.daoServices"/>
+    <context:component-scan base-package="by.academy.it.belotserkovsky.services"/>
 
     <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
