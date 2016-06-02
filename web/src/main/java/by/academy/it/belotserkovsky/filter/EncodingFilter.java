@@ -14,6 +14,11 @@ import java.io.IOException;
 public class EncodingFilter implements Filter {
 
     private String code;
+
+    /**
+     * @param fConfig
+     * @throws ServletException
+     */
     public void init(FilterConfig fConfig) throws ServletException {
         code = fConfig.getInitParameter("encoding");
     }

@@ -27,6 +27,11 @@ public class AuthenticationService implements UserDetailsService {
     @Autowired
     private IUserService userService;
 
+    /**
+     * @param userName
+     * @return org.springframework.security.core.userdetails.User
+     * @throws UsernameNotFoundException
+     */
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public UserDetails loadUserByUsername(String userName)
             throws UsernameNotFoundException {
@@ -41,6 +46,10 @@ public class AuthenticationService implements UserDetailsService {
                 true, true, true, getGrantedAuthorities(user));
     }
 
+    /**
+     * @param user
+     * @return
+     */
     private List<GrantedAuthority> getGrantedAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));

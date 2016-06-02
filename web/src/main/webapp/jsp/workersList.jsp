@@ -10,7 +10,7 @@
 <body>
 <br/>
 <div> <div class="content">
-    <table border="1" cellpadding="5" cellspacing="5">
+    <table border="1" cellpadding="5" cellspacing="3">
         <caption>Список работников</caption>
         <tr>
             <th>ID</th>

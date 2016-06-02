@@ -6,6 +6,7 @@ import by.academy.it.belotserkovsky.pojos.User;
 import by.academy.it.belotserkovsky.pojos.constants.Status;
 import by.academy.it.belotserkovsky.services.IBidService;
 import by.academy.it.belotserkovsky.services.IUserService;
+import by.academy.it.belotserkovsky.services.IWorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,11 +30,24 @@ public class AdminController {
     @Autowired
     private IBidService bidService;
 
+    @Autowired
+    private IWorkerService workerService;
+
+    /**
+     * @return String page
+     * mapping "/admin/main"
+     */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String mainPage(){
         return "admin/main";
     }
 
+    /**
+     * @param model
+     * @param page
+     * @return String page
+     * mapping /admin/users?page"
+     */
     @RequestMapping(value = "/users", method = RequestMethod.GET, params = "page")
     public String showUsers(ModelMap model, @RequestParam(value = "page") String page){
         int currentPage = 1;
@@ -51,6 +65,11 @@ public class AdminController {
         return "admin/users";
     }
 
+    /**
+     * @param model
+     * @return String page
+     * mapping "/admin/bids"
+     */
     @RequestMapping(value = "/bids", method = RequestMethod.GET)
     public String showBids(ModelMap model){
         List<BidDto> list = bidService.getBids();
@@ -64,6 +83,12 @@ public class AdminController {
         return "admin/bids";
     }
 
+    /**
+     * @param newStatus
+     * @param id
+     * @return String page
+     * mapping "/admin/bids/update"
+     */
     @RequestMapping(value = "/bids/update", method = RequestMethod.POST)
     public String updateBid(@RequestParam(value = "status") String newStatus,
                             @RequestParam(value = "bidId") String id)
@@ -74,8 +99,14 @@ public class AdminController {
         return "redirect: /admin/bids";
     }
 
+    /**
+     * @param model
+     * @return String page
+     * mapping /admin/workers
+     */
     @RequestMapping(value = "/workers", method = RequestMethod.GET)
-    public String showWorkers(){
+    public String showWorkers(ModelMap model){
+        model.addAttribute("workersList", workerService.getWorkers());
         return "admin/workers";
     }
 }

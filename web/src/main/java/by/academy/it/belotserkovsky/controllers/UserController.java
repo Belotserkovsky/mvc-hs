@@ -38,16 +38,29 @@ public class UserController {
     @Autowired
     private IBrigadeService brigadeService;
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET, params = "successAuth")
-    public String successAuth(){
+    /**
+     * mapping "/user/main"
+     * @return String page
+     */
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public String userMainPage(){
         return "user/main";
     }
 
+    /**
+     * mapping "/user/main?successAddBid"
+     * @return String page
+     */
     @RequestMapping(value = "/main", method = RequestMethod.GET, params = "successAddBid")
     public String successCreationBid(){
         return "user/main";
     }
 
+    /**
+     * @param model
+     * mapping "/user?new"
+     * @return String page
+     */
     @RequestMapping(method = RequestMethod.GET, params = "new")
     public String createUser(ModelMap model){
         UserDto userDto = new UserDto();
@@ -55,6 +68,12 @@ public class UserController {
         return "user/registration";
     }
 
+    /**
+     * @param model
+     * @param name
+     * @return String page
+     * mapping "/user/updateUser"
+     */
     @RequestMapping(value = "updateUser", method = RequestMethod.POST)
     public String updateUser(ModelMap model, @RequestParam (value = "userName") String name){
         UserDto userDto = userService.getUserDto(name);
@@ -62,6 +81,12 @@ public class UserController {
         return "user/registration";
     }
 
+    /**
+     * @param userDto
+     * @param  br
+     * @return String page
+     * mapping "/user/addUser"
+     */
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
     public String createUserFromForm(@Valid UserDto userDto, BindingResult br) {
         if(br.hasErrors()){
@@ -72,6 +97,12 @@ public class UserController {
         return "redirect:/login?login";
     }
 
+    /**
+     * @param model
+     * @param param
+     * @return String page
+     * mapping "/user/bidForm"
+     */
     @RequestMapping(value = "/bidForm", method = RequestMethod.POST)
     public String showBidForm(ModelMap model, @RequestParam (value = "userName") String param){
         model.put("userName", param);
@@ -80,6 +111,14 @@ public class UserController {
         return "user/bid";
     }
 
+    /**
+     * @param selectedWorks
+     * @param selectedRuntime
+     * @param scope
+     * @param name
+     * @return String page
+     * mapping /user/createBid"
+     */
     @RequestMapping(value = "/createBid", method = RequestMethod.POST)
         public String createBid(@RequestParam (value = "selected") String[] selectedWorks,
                                 @RequestParam (value = "desiredRuntime") String selectedRuntime,
@@ -93,6 +132,12 @@ public class UserController {
         return "redirect:/user/main?successAddBid";
         }
 
+    /**
+     * @param request
+     * @param response
+     * @return String page
+     * mapping "/user/logout"
+     */
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

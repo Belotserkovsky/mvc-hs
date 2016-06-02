@@ -7,7 +7,8 @@
     <title></title>
 </head>
 <body>
-<table border="1" cellpadding="5" cellspacing="5">
+<br/>
+<table border="1" cellpadding="3" cellspacing="3">
     <caption>Заявки</caption>
     <tr>
         <th>ID</th>
