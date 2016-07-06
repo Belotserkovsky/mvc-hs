@@ -29,7 +29,7 @@ public class UserDto {
     private String address;
 
     @Size(max = 20, message = "Maximum length 20 symbols")
-    @Pattern(regexp = "^[0-9+-]", message = "Incorrect phone number. You need to use numeric 0-9, symbols +-")
+    @Pattern(regexp = "^[0-9]+$", message = "Incorrect phone number. You need to use numeric 0-9, symbols +-")
     private String phone;
 
     @Pattern(regexp = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}", message="Incorrect email address.")
@@ -50,23 +50,6 @@ public class UserDto {
         this.phone = phone;
         this.email = email;
         this.userRole = userRole;
-    }
-
-    public UserDto(String firstName, String secondName, String userName, String password, String address, String phone, String email) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.userName = userName;
-        this.password = password;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-    }
-
-    public UserDto(String firstName, String secondName, String userName, String password) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.userName = userName;
-        this.password = password;
     }
 
     public Long getUserId() {

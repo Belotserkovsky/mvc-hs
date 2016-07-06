@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "T_USER")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable{
     private Long userId;
     private String firstName;

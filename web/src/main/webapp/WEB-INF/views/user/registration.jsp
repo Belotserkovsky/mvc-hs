@@ -7,9 +7,14 @@
 <title></title>
 </head>
 <body>
+<div style="float: left;">
+    <a href="/user?new&locale=ru" style="padding: 5px">RU</a> | <a href="/user?new&locale=en" style="padding: 5px">EN</a>
+</div>
+<br>
 <p><spring:message code="please.fill.in.the.fields.below"/>:</p>
 <c:url value="/user/addUser" var="addUserUrl" />
 <s:form method="POST" modelAttribute="userDto" action="${addUserUrl}">
+    <input type="hidden"  name="userId" value="${userDto.userId}"/>
 <fieldset>
     <table cellspacing="0">
         <tr>

@@ -293,6 +293,13 @@
       <version>3.1</version>
     </dependency>
 
+    <!--Bootstrap-->
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>1.7.1</version>
+    </dependency>
+
   </dependencies>
 
   <modules>
