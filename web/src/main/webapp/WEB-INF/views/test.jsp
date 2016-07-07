@@ -1,45 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Bootstrap Form With Spring Mvc Example</title>
-    <link type="text/css" href="<%=request.getContextPath() %>/assests/css/bootstrap.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <title>Spring-MVC-Showcase</title>
+<link href="<c:url value="/assets/css/bootstrap.min.css"/>"
+      rel="stylesheet"  type="text/css" />
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <fieldset>
-                <legend>Bootstrap Form With Spring Mvc Example</legend>
-                <form class="form-horizontal" method="post" action='employee/add.htm' name="employeeForm" id="employeeForm">
-                    <div class="control-group">
-                        <label class="control-label">First Name</label>
-                        <div class="controls">
-                            <input type="text" name="firstName" id="firstName" title="First Name" value="">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">Last Name</label>
-                        <div class="controls">
-                            <input type="text" name="lastName" id="lastName" title="Last Name" value="">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">Email</label>
-                        <div class="controls">
-                            <input type="text" name="email" id="email" title="Email" value="">
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-success">Submit</button>
-                        <button type="button" class="btn">Cancel</button>
-                    </div>
-                </form>
-            </fieldset>
-        </div>
-    </div>
-</div>
+
+<form>
+    <fieldset class="form-group">
+        <label for="formGroupExampleInput">Example label</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="formGroupExampleInput2">Another label</label>
+        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+    </fieldset>
+</form>
+
 </body>
-</html>

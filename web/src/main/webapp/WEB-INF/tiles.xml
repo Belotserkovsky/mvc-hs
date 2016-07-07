@@ -10,6 +10,14 @@
         <put-attribute name="footer" value="/WEB-INF/views/general/footer.jsp"/>
     </definition>
 
+    <!--test bootstrap -->
+
+    <definition name="test" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/test.jsp"/>
+    </definition>
+
+    <!--test bootstrap -->
+
     <definition name="login" extends="default">
         <put-attribute name="title" value="Welcome page"/>
         <put-attribute name="body" value="/WEB-INF/views/login.jsp"/>

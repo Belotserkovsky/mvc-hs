@@ -16,9 +16,14 @@ public class WelcomeController {
      * @return String page
      * mapping "/home"
      */
+//    @RequestMapping(value = "/home", method = RequestMethod.GET)
+//    public String welcomePage(){
+//        return "login";
+//    }
+
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String welcomePage(){
-        return "login";
+        return "test";
     }
 
     /**

@@ -8,4 +8,3 @@
 <hr/>
 <spring:message code="page.header.title"/>
 <hr/>
-</body></html>
