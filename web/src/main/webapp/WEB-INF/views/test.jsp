@@ -1,16 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-
-<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Spring-MVC-Showcase</title>
-<link href="<c:url value="/assets/css/bootstrap.min.css"/>"
-      rel="stylesheet"  type="text/css" />
+    <title>Welcome page</title>
+    <link href="<c:url value="/assets/css/bootstrap.min.css"/>" rel="stylesheet"  type="text/css"/>
 </head>
 <body>
-
 <form>
     <fieldset class="form-group">
         <label for="formGroupExampleInput">Example label</label>

@@ -16,15 +16,15 @@ public class WelcomeController {
      * @return String page
      * mapping "/home"
      */
-//    @RequestMapping(value = "/home", method = RequestMethod.GET)
-//    public String welcomePage(){
-//        return "login";
-//    }
-
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String welcomePage(){
-        return "test";
+        return "login";
     }
+
+//    @RequestMapping(value = "/home", method = RequestMethod.GET)
+//    public String welcomePage(){
+//        return "test";
+//    }
 
     /**
      * @return String page
